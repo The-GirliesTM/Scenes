@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <meta charset="utf-8" />
+      
+      </head>
+      
+      <body>
+        <!-- create an Aframe scene with background color -->
+        <a-scene id="scene" background="color: #ec9192">
+            <!-- set up inital position of the camera -->
+             <a-camera position="0 1 0"> </a-camera>
+             <!-- light sources -->
+             <a-light type="ambient" color="#A8A8A8" light=""></a-light>
+             <a-light type="directional" color="#FFF" intensity="0.45" position="4 2 1" light=""></a-light>
+             <!-- AFrame circles -->
+             <a-circle position="0 0 -4" rotation="-90 0 0" radius="15" color="#b5bd89" shadow></a-circle>
+        </a-scene>
 
-  </head>
-  <body>
-    <main>
-    </main>
-    <script src="sketch.js"></script>
-  </body>
+        <script src="sketch.js"></script>
+
+      </body>
 </html>
