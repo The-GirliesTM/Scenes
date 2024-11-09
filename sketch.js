@@ -1,44 +1,108 @@
-function setup() {
-    // don't setup a canva because we're using AFrame
-    noCanvas();
+let x = 0;
+let y = -50;
+let z = 0;
+let angleX = 0;
+let angleY = 0;
 
-    print('AFrame version');
+let cameraIsRotating = false;
+let previousMouseX, previousMouseY;
 
-    // create aframe entity with attributes
-    const bubbles = createElement('a-entity').parent('scene').attribute('position', '0 5 0');
-    
-    //create a ton of this bubbles
-    for (let i = 0; i < 50; i++) {
-      const x = 15;
-      const y = 4;
-      createElement('a-sphere').parent(bubbles)
-        .attribute('position', `${Math.random() * x - x / 2} ${Math.random() * y - y / 2} ${Math.random() * x - x / 2}`)
-        .attribute('radius', Math.random() * 1 + .1)
-        .attribute('color', '#dfbe99')
-        .attribute('opacity', 0.5);
-    }
-  
-    
-    //make an array of the array
-    const cones = createElement('a-entity').parent('scene').attribute('position', '0 0 0');
-    
-    //add cones to the cones array
-    for (let i = 0; i < 6; i++) {
-      const X = 10;
-      const x = Math.random() * X - X / 2;
-      const z = Math.random() * X - X / 2;
-  
-      // create one object for the bigger cones array and attatch it to the array
-      const mycone = createElement('a-entity').parent(cones)
-        .attribute('position', `${x} 0 ${z}`);
-  
-      createElement('a-cone').parent(mycone)
-        .attribute('position', '0 0 0')
-        .attribute('radius-bottom', .85)
-        .attribute('radius-top', .1)
-        .attribute('height', 2)
-        .attribute('color', '#db5375')
-        .attribute('shadow');
-  
+function preload(){
+    //load skybox image --> will be used later as a texture
+    skyboxImage = loadImage('assets/sky-citiscape.png')
+}
+
+function setup(){
+    createCanvas(windowWidth, windowHeight, WEBGL)
+}
+
+function draw()
+{
+    //background(255)
+
+    // Draw the skybox
+    push();
+    noStroke();
+    texture(skyboxImage); //make texture out of skyboxImage
+    sphere(1000, 24, 16); // Using a large sphere to create the skybox effect
+    pop();
+
+     // Update camera position based on angle
+     let camX = x + cos(angleY) * cos(angleX) * 200;
+     let camZ = z + sin(angleY) * cos(angleX) * 200;
+     let camY = y + sin(angleX) * 200;
+     
+     // Set the camera with updated angles and position
+     camera(camX, camY, camZ, x, y, z, 0, 1, 0);
+     
+     // Draw a simple 3D grid environment
+     for (let i = -500; i <= 500; i += 200) {
+        for (let j = -500; j <= 500; j += 200) {
+            push();
+            translate(i, 0, j);
+            box(50);
+            pop();
     }
   }
+
+  // move the camera along the x-z position
+  cameraMove();
+  // rotate camera
+  cameraRotate();
+}
+
+
+function cameraMove() {
+    let speed = 3;
+    print(y);
+  
+    // WASD controls for movement
+    if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { // W key for forward
+      x += cos(angleY) * cos(angleX) * speed;
+      z += sin(angleY) * cos(angleX) * speed;
+      // y += sin(angleX) * speed;
+    }
+    if (keyIsDown(87) || keyIsDown(UP_ARROW)) { // S key for backward
+      x -= cos(angleY) * cos(angleX) * speed;
+      z -= sin(angleY) * cos(angleX) * speed;
+      // y -= sin(angleX) * speed;
+    }
+    if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { // A key for left
+      x += cos(angleY + HALF_PI) * speed;
+      z += sin(angleY + HALF_PI) * speed;
+    }
+    if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { // D key for right
+      x += cos(angleY - HALF_PI) * speed;
+      z += sin(angleY - HALF_PI) * speed;
+    }
+  }
+  
+  function cameraRotate() {
+    // Rotate the camera when the mouse is dragged
+    if (cameraIsRotating) {
+      let deltaX = mouseX - previousMouseX;
+      let deltaY = mouseY - previousMouseY;
+      
+      angleY -= deltaX * 0.005;
+      angleX -= deltaY * 0.005;
+  
+      // Clamp the vertical angle to prevent flipping
+      angleX = constrain(angleX, -HALF_PI, HALF_PI);
+  
+      previousMouseX = mouseX;
+      previousMouseY = mouseY;
+    }
+  }
+  
+  // Start dragging when mouse is pressed
+  function mousePressed() {
+    cameraIsRotating = true;
+    previousMouseX = mouseX;
+    previousMouseY = mouseY;
+  }
+  
+  // Stop dragging when mouse is released
+  function mouseReleased() {
+    cameraIsRotating = false;
+  }
+  
