@@ -4,6 +4,8 @@ let scenes = [];
 let currentSceneIndex = 0;
 let scene1;
 
+let sceneManager;
+
 function preload(){
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/sky-citiscape.png')
@@ -18,6 +20,9 @@ function setup(){
     // Create scene objects with skybox images, object functions, and ground properties
     scenes.push(new Scene(skybox1, color(120, 180, 120), 2000, 26, 0));
     scenes.push(new Scene(skybox2, color(200, 200, 220), 2000, 50, 1));
+
+     // Initialize the SceneManager
+     //sceneManager = new SceneManager();
 }
 
 function draw()
@@ -27,6 +32,18 @@ function draw()
     //check position of camera and update it
     cameraUpdate();
 
-    scenes[1].display();
+    //scenes[1].display();
+    scenes[currentSceneIndex].display();
     
 }
+
+// TODO: Scene Manager
+// Scene manager to handle scene switching
+// Key pressed function to switch scenes
+function keyPressed() {
+    if (key === '1') {
+      currentSceneIndex = 0; // Switch to Scene 0 when '1' is pressed
+    } else if (key === '2') {
+      currentSceneIndex = 1; // Switch to Scene 1 when '2' is pressed
+    }
+  }
