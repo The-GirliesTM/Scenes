@@ -1,8 +1,32 @@
 
+let x = 0;
+let y = -50;
+let z = 0;
+let angleX = 0;
+let angleY = 0;
+
+let cameraIsRotating = false;
+let previousMouseX, previousMouseY;
+
+//update location of the camera
+function cameraUpdate(){
+    // Update camera position based on angle
+    let camX = x + cos(angleY) * cos(angleX) * 200;
+    let camZ = z + sin(angleY) * cos(angleX) * 200;
+    let camY = y + sin(angleX) * 200;
+    
+    // Set the camera with updated angles and position
+    camera(camX, camY, camZ, x, y, z, 0, 1, 0);
+
+    // move the camera along the x-z position
+    cameraMove();
+    // rotate camera
+    cameraRotate();
+}
+
 // move camera along the x-z axis
 function cameraMove() {
     let speed = 3;
-    print(y);
   
     // WASD controls for movement
     if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { // W key for forward

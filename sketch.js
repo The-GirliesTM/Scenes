@@ -1,52 +1,49 @@
-let x = 0;
-let y = -50;
-let z = 0;
-let angleX = 0;
-let angleY = 0;
+let skybox1, skybox2;
 
-let cameraIsRotating = false;
-let previousMouseX, previousMouseY;
+let scenes = [];
+let currentSceneIndex = 0;
+let scene1;
+
+let sceneManager;
 
 function preload(){
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/sky-citiscape.png')
+    skybox2 = loadImage('assets/desert.jpg')
 }
 
 function setup(){
     createCanvas(windowWidth, windowHeight, WEBGL)
+    let myColor = color(120, 180, 120);
+    //scene1 = new Scene(skybox1, myColor, 2000, 2)
+
+    // Create scene objects with skybox images, object functions, and ground properties
+    scenes.push(new Scene(skybox1, color(120, 180, 120), 2000, 26, 0));
+    scenes.push(new Scene(skybox2, color(200, 200, 220), 2000, 50, 1));
+
+     // Initialize the SceneManager
+     //sceneManager = new SceneManager();
 }
 
 function draw()
 {
-    //background(255)
+    //background(0)
+    
+    //check position of camera and update it
+    cameraUpdate();
 
-    // Draw the skybox
-    push();
-    noStroke();
-    texture(skybox1); //make texture out of skyboxImage
-    sphere(1000, 24, 16); // Using a large sphere to create the skybox effect
-    pop();
+    //scenes[1].display();
+    scenes[currentSceneIndex].display();
+    
+}
 
-     // Update camera position based on angle
-     let camX = x + cos(angleY) * cos(angleX) * 200;
-     let camZ = z + sin(angleY) * cos(angleX) * 200;
-     let camY = y + sin(angleX) * 200;
-     
-     // Set the camera with updated angles and position
-     camera(camX, camY, camZ, x, y, z, 0, 1, 0);
-     
-     // Draw a simple 3D grid environment
-     for (let i = -500; i <= 500; i += 200) {
-        for (let j = -500; j <= 500; j += 200) {
-            push();
-            translate(i, 0, j);
-            box(50);
-            pop();
+// TODO: Scene Manager
+// Scene manager to handle scene switching
+// Key pressed function to switch scenes
+function keyPressed() {
+    if (key === '1') {
+      currentSceneIndex = 0; // Switch to Scene 0 when '1' is pressed
+    } else if (key === '2') {
+      currentSceneIndex = 1; // Switch to Scene 1 when '2' is pressed
     }
   }
-
-  // move the camera along the x-z position
-  cameraMove();
-  // rotate camera
-  cameraRotate();
-}
