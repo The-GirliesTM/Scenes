@@ -19,21 +19,16 @@ function setup(){
 function draw()
 {
     //background(255)
+    drawSkybox();
+    cameraUpdate();
 
-    // Draw the skybox
     push();
+    fill(color(10,200,100))
     noStroke();
-    texture(skybox1); //make texture out of skyboxImage
-    sphere(1000, 24, 16); // Using a large sphere to create the skybox effect
+    translate(0, 26, 0);
+    rotateX(HALF_PI);          // Rotate the plane to be horizontal
+    plane(1100);     // Draw the ground plane with the specified size
     pop();
-
-     // Update camera position based on angle
-     let camX = x + cos(angleY) * cos(angleX) * 200;
-     let camZ = z + sin(angleY) * cos(angleX) * 200;
-     let camY = y + sin(angleX) * 200;
-     
-     // Set the camera with updated angles and position
-     camera(camX, camY, camZ, x, y, z, 0, 1, 0);
      
      // Draw a simple 3D grid environment
      for (let i = -500; i <= 500; i += 200) {
@@ -49,4 +44,13 @@ function draw()
   cameraMove();
   // rotate camera
   cameraRotate();
+}
+
+function drawSkybox(){
+    // Draw the skybox
+    push();
+    noStroke();
+    texture(skybox1); //make texture out of skyboxImage
+    sphere(1000, 24, 16); // Using a large sphere to create the skybox effect
+    pop();
 }
