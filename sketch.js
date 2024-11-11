@@ -1,44 +1,49 @@
-function setup() {
-    // don't setup a canva because we're using AFrame
-    noCanvas();
+let skybox1, skybox2;
 
-    print('AFrame version');
+let scenes = [];
+let currentSceneIndex = 0;
+let scene1;
 
-    // create aframe entity with attributes
-    const bubbles = createElement('a-entity').parent('scene').attribute('position', '0 5 0');
+let sceneManager;
+
+function preload(){
+    //load skybox image --> will be used later as a texture
+    skybox1 = loadImage('assets/sky-citiscape.png')
+    skybox2 = loadImage('assets/desert.jpg')
+}
+
+function setup(){
+    createCanvas(windowWidth, windowHeight, WEBGL)
+    let myColor = color(120, 180, 120);
+    //scene1 = new Scene(skybox1, myColor, 2000, 2)
+
+    // Create scene objects with skybox images, object functions, and ground properties
+    scenes.push(new Scene(skybox1, color(120, 180, 120), 2000, 26, 0));
+    scenes.push(new Scene(skybox2, color(200, 200, 220), 2000, 50, 1));
+
+     // Initialize the SceneManager
+     //sceneManager = new SceneManager();
+}
+
+function draw()
+{
+    //background(0)
     
-    //create a ton of this bubbles
-    for (let i = 0; i < 50; i++) {
-      const x = 15;
-      const y = 4;
-      createElement('a-sphere').parent(bubbles)
-        .attribute('position', `${Math.random() * x - x / 2} ${Math.random() * y - y / 2} ${Math.random() * x - x / 2}`)
-        .attribute('radius', Math.random() * 1 + .1)
-        .attribute('color', '#dfbe99')
-        .attribute('opacity', 0.5);
-    }
-  
+    //check position of camera and update it
+    cameraUpdate();
+
+    //scenes[1].display();
+    scenes[currentSceneIndex].display();
     
-    //make an array of the array
-    const cones = createElement('a-entity').parent('scene').attribute('position', '0 0 0');
-    
-    //add cones to the cones array
-    for (let i = 0; i < 6; i++) {
-      const X = 10;
-      const x = Math.random() * X - X / 2;
-      const z = Math.random() * X - X / 2;
-  
-      // create one object for the bigger cones array and attatch it to the array
-      const mycone = createElement('a-entity').parent(cones)
-        .attribute('position', `${x} 0 ${z}`);
-  
-      createElement('a-cone').parent(mycone)
-        .attribute('position', '0 0 0')
-        .attribute('radius-bottom', .85)
-        .attribute('radius-top', .1)
-        .attribute('height', 2)
-        .attribute('color', '#db5375')
-        .attribute('shadow');
-  
+}
+
+// TODO: Scene Manager
+// Scene manager to handle scene switching
+// Key pressed function to switch scenes
+function keyPressed() {
+    if (key === '1') {
+      currentSceneIndex = 0; // Switch to Scene 0 when '1' is pressed
+    } else if (key === '2') {
+      currentSceneIndex = 1; // Switch to Scene 1 when '2' is pressed
     }
   }
