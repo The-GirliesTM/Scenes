@@ -20,6 +20,7 @@ function setup(){
     // Create scene objects with skybox images, object functions, and ground properties
     scenes.push(new Scene(skybox1, color(120, 180, 120), 2000, 26, 0));
     scenes.push(new Scene(skybox2, color(200, 200, 220), 2000, 50, 1));
+    scenes.push(new Scene(skybox2, color(100, 200, 220), 2000, 50, 1));
 
      // Initialize the SceneManager
      //sceneManager = new SceneManager();
@@ -45,5 +46,7 @@ function keyPressed() {
       currentSceneIndex = 0; // Switch to Scene 0 when '1' is pressed
     } else if (key === '2') {
       currentSceneIndex = 1; // Switch to Scene 1 when '2' is pressed
+    } else if (key === '3') {
+      currentSceneIndex = 2; // Switch to Scene 2 when '3' is pressed
     }
   }
