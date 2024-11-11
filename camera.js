@@ -58,10 +58,10 @@ function cameraRotate()
       let deltaY = mouseY - previousMouseY;
       
       angleY -= deltaX * 0.005;
-      angleX -= deltaY * 0.005;
+      //angleX -= deltaY * 0.005;
   
       // Clamp the vertical angle to prevent flipping
-      angleX = constrain(angleX, -HALF_PI, HALF_PI);
+      //angleX = constrain(angleX, -HALF_PI, HALF_PI);
   
       previousMouseX = mouseX;
       previousMouseY = mouseY;
