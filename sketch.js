@@ -3,6 +3,7 @@ let skybox1, skybox2;
 let scenes = [];
 let currentSceneIndex = 0;
 let scene1;
+let pathoses = [];
 
 let sceneManager;
 
@@ -10,6 +11,7 @@ function preload(){
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/sky-citiscape.png')
     skybox2 = loadImage('assets/desert.jpg')
+    pathoses.push(new Pathos(loadModel("assets/pathos/hi.obj", true)), 0, 0, 0)
 }
 
 function setup(){
@@ -32,6 +34,7 @@ function draw()
     
     //check position of camera and update it
     cameraUpdate();
+
 
     //scenes[1].display();
     scenes[currentSceneIndex].display();
