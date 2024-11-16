@@ -13,7 +13,7 @@ const rotationSpeed = 0.0025;
 
 
 //update location of the camera
-function cameraUpdate(){
+function cameraUpdate(cam){
   // Define the camera position
   let camX = x;
   let camY = y;
@@ -25,7 +25,10 @@ function cameraUpdate(){
   let lookZ = camZ + sin(angleY) * cos(angleX);
 
   // Set the camera to look from (camX, camY, camZ) towards (lookX, lookY, lookZ)
-  camera(camX, camY, camZ, lookX, lookY, lookZ, 0, 1, 0);
+  cam.setPosition(camX, camY, camZ)
+  cam.lookAt(lookX, lookY, lookZ)
+
+  //camera(camX, camY, camZ, lookX, lookY, lookZ, 0, 1, 0); //Old Camera renderer
 
   // Move and rotate the camera
   cameraMove();
