@@ -1,5 +1,4 @@
 let skybox1, skybox2;
-
 let scenes = [];
 let currentSceneIndex = 0;
 let scene1;
@@ -7,6 +6,10 @@ let pathoses = [];
 let p;
 
 let sceneManager;
+
+let cam;
+let cursorSize = 2;
+
 
 function preload(){
     //load skybox image --> will be used later as a texture
@@ -17,23 +20,26 @@ function preload(){
 
 function setup(){
     createCanvas(windowWidth, windowHeight, WEBGL)
-    let myColor = color(120, 180, 120);
-    //scene1 = new Scene(skybox1, myColor, 2000, 2)
 
     // Create scene objects with skybox images, object functions, and ground properties
     scenes.push(new Scene(skybox1, color(120, 180, 120), 2000, 26, 0));
     scenes.push(new Scene(skybox2, color(200, 200, 220), 2000, 50, 1));
     scenes.push(new Scene(skybox2, color(100, 200, 220), 2000, 50, 1));
 
-     // Initialize the SceneManager
-     //sceneManager = new SceneManager();
+     //Camera Setup
+     cam = createCamera();
+     cam.setPosition(0, -50, 0);
+     setCamera(cam);
+
+    //TODO: Initialize the SceneManager
+    //sceneManager = new SceneManager();
 }
 
 function draw() {
     //background(0)
     
-    //check position of camera and update it
-    cameraUpdate();
+    //Updating Camera Behaviors and Position
+    cameraUpdate(cam);
 
     //updating the pathos objects
     if (pathoses.length > 0) {
@@ -48,7 +54,7 @@ function draw() {
     }
 
 
-    //scenes[1].display();
+    //Display Scene using Scene Array
     scenes[currentSceneIndex].display();
     
 }
