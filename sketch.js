@@ -4,6 +4,7 @@ let scenes = [];
 let currentSceneIndex = 0;
 let scene1;
 let pathoses = [];
+let p;
 
 let sceneManager;
 
@@ -11,7 +12,7 @@ function preload(){
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/sky-citiscape.png')
     skybox2 = loadImage('assets/desert.jpg')
-    pathoses.push(new Pathos(loadModel("assets/pathos/hi.obj", true)), 0, 0, 0)
+    pathoses.push(new Pathos(loadModel("assets/pathos/hi.obj", true), 0, 0, 0))
 }
 
 function setup(){
@@ -28,18 +29,31 @@ function setup(){
      //sceneManager = new SceneManager();
 }
 
-function draw()
-{
+function draw() {
     //background(0)
     
     //check position of camera and update it
     cameraUpdate();
+
+    //updating the pathos objects
+    if (pathoses.length > 0) {
+      for (let i = 0; i < pathoses.length; i++) {
+        push()
+        pathoses[i].update();
+        pathoses[i].display();
+        pop();
+      }
+    } else {
+      console.log("huh")
+    }
 
 
     //scenes[1].display();
     scenes[currentSceneIndex].display();
     
 }
+
+
 
 // TODO: Scene Manager
 // Scene manager to handle scene switching
@@ -51,5 +65,10 @@ function keyPressed() {
       currentSceneIndex = 1; // Switch to Scene 1 when '2' is pressed
     } else if (key === '3') {
       currentSceneIndex = 2; // Switch to Scene 2 when '3' is pressed
+    }
+
+    if(key ==='e') {
+      pathoses[0].inspecting = !pathoses[0].inspecting;
+      console.log("inspecting?"+ pathoses[0].inspecting)
     }
   }

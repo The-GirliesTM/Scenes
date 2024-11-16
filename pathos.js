@@ -7,7 +7,7 @@ class Pathos {
         this.x = ox;
         this.y = oy;
         this.z = oz;
-        this.color
+        this.color = "blue"
         this.ambientLight = 80;
         this.inspecting = false;
         this.radius;
@@ -26,7 +26,14 @@ class Pathos {
             this.y = this.oy;
             this.z = this.oz;
         }
-      }
+    }
+    display() {
+        push();
+        translate(this.x, this.y, this.z);
+        fill(this.color);
+        model(this.model);
+        pop()
+    }
 
 
 }
