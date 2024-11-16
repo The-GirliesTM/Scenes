@@ -32,7 +32,9 @@ function cameraUpdate(cam){
 
   // Move and rotate the camera
   cameraMove();
-  cameraRotate();
+  if (!pathoses[0].inspecting) {
+    cameraRotate();
+  }
 }
 
 // move camera along the x-z axis
