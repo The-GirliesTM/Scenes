@@ -31,8 +31,8 @@ function cameraUpdate(cam){
   //camera(camX, camY, camZ, lookX, lookY, lookZ, 0, 1, 0); //Old Camera renderer
 
   // Move and rotate the camera
-  cameraMove();
   if (!pathoses[0].inspecting) {
+    cameraMove();
     cameraRotate();
   }
 }

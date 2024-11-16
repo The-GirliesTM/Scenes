@@ -3,7 +3,7 @@ let scenes = [];
 let currentSceneIndex = 0;
 let scene1;
 let pathoses = [];
-let p;
+let p, nx, ny;
 
 let sceneManager;
 
@@ -30,6 +30,8 @@ function setup(){
      cam = createCamera();
      cam.setPosition(0, -50, 0);
      setCamera(cam);
+     nx = 0;
+     ny = 0;
 
     //TODO: Initialize the SceneManager
     //sceneManager = new SceneManager();
