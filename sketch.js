@@ -1,5 +1,6 @@
 let skybox1, skybox2;
 let scenes = [];
+let game;
 let currentSceneIndex = 0;
 let scene1;
 let pathoses = [];
@@ -19,7 +20,8 @@ function preload(){
 }
 
 function setup(){
-    createCanvas(windowWidth, windowHeight, WEBGL)
+    game = createCanvas(windowWidth, windowHeight, WEBGL)
+    game.parent("#game");
 
     // Create scene objects with skybox images, object functions, and ground properties
     scenes.push(new Scene(skybox1, color(120, 180, 120), 2000, 26, 0));
@@ -76,7 +78,14 @@ function keyPressed() {
     }
 
     if(key ==='e') {
+      let obj_pos = [pathoses[0].x, pathoses[0].y, pathoses[0].z]
+      let hit = raycast(50, obj_pos, pathoses[0].radius);
+      if (hit) {
+        console.log("hit")
+      } else {
+        console.log("nothing");
+      }
       pathoses[0].inspecting = !pathoses[0].inspecting;
-      console.log("inspecting?"+ pathoses[0].inspecting)
+      // console.log("inspecting?"+ pathoses[0].inspecting)
     }
   }

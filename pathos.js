@@ -10,7 +10,7 @@ class Pathos {
         this.color = "blue"
         this.ambientLight = 80;
         this.inspecting = false;
-        this.radius;
+        this.radius = 30;
     }
     update() {
         if (this.inspecting) {
@@ -42,6 +42,10 @@ class Pathos {
         model(this.model);
         pop()
     }
-
+    isLookedAt() {
+        //if vector collides then true
+        //else false
+        this.inspecting = true;
+    }
 
 }
