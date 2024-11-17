@@ -1,7 +1,91 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 html, body {
   margin: 0;
   padding: 0;
+  font-family: Michroma;
+  font-size: 10pt;
+}
+
+p {
+  color: #FFF;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+footer {
+  position: absolute;
+  text-align: center;
+  color: white;
+  bottom: 5%;
+  width: 100%;
+}
+
+.background {
+  background-color: #141414;
 }
 canvas {
   display: block;
+}
+
+input[type=text] {
+  width: 20%;
+  background: none;
+  padding: 1% 2%;
+  border-radius: 5px;
+  color: white;
+  border: solid;
+  border-width: 2px;
+}
+
+input[type=password] {
+  width: 20%;
+  background: none;
+  padding: 1% 2%;
+  border-radius: 5px;
+  color: white;
+  border: solid;
+  border-width: 2px;
+}
+
+input[type=submit] {
+  width: 20%;
+  padding: 1%;
+  color: white;
+  border-radius: 5px;
+  background: radial-gradient(200% 230% at -15.06% -25%, #7BE6C4 0%, #3B7CCB 48.88%, #AD3DB5 100%);
+  border: none;
+}
+
+#login {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: auto;
+  gap: 15px;
+  margin-top: 100px;
+}
+
+.ui {
+  position: absolute;
+}
+
+.hi {
+  top: 30%;
+  left: 20%;
+}
+
+.there {
+  top: 60%;
+  left: 70%;
+}
+
+.cursor {
+  top: 50%;
+  left: 50%;
 }

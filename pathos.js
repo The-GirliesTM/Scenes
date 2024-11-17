@@ -1,0 +1,51 @@
+class Pathos {
+    constructor(model, ox, oy, oz) {
+        this.model = model;
+        this.ox = ox;
+        this.oy = oy;
+        this.oz = oz;
+        this.x = ox;
+        this.y = oy;
+        this.z = oz;
+        this.color = "blue"
+        this.ambientLight = 80;
+        this.inspecting = false;
+        this.radius = 30;
+    }
+    update() {
+        if (this.inspecting) {
+            this.x = 0;
+            this.y = 0;
+            this.z = 0;
+            nx +=movedX* 0.2;
+            let angleX = nx/width*PI*2;
+            rotate(angleX, [0, 1, 0])
+
+            if (keyIsDown(87) || keyIsDown(UP_ARROW)) { // W key for forward
+                ny ++;
+              }
+              if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { // S key for backward
+                ny--;
+              }
+            let angleY = ny/height*PI*2;
+            rotate(angleY, [1, 0, 0])
+        } else {
+            this.x = this.ox;
+            this.y = this.oy;
+            this.z = this.oz;
+        }
+    }
+    display() {
+        push();
+        translate(this.x, this.y, this.z);
+        fill(this.color);
+        model(this.model);
+        pop()
+    }
+    isLookedAt() {
+        //if vector collides then true
+        //else false
+        this.inspecting = true;
+    }
+
+}

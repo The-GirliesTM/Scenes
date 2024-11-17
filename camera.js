@@ -5,6 +5,7 @@ let y = -50;
 let z = 0;
 let angleX = 0;
 let angleY = 0;
+let raycastDistance = 50;
 let isMouseLocked = false; // Flag to check if the mouse is locked. Used for camera behavior
 
 //Constants. Do not change during runtime.
@@ -31,8 +32,10 @@ function cameraUpdate(cam){
   //camera(camX, camY, camZ, lookX, lookY, lookZ, 0, 1, 0); //Old Camera renderer
 
   // Move and rotate the camera
-  cameraMove();
-  cameraRotate();
+  if (!pathoses[0].inspecting) {
+    cameraMove();
+    cameraRotate();
+  }
 }
 
 // move camera along the x-z axis
@@ -76,6 +79,11 @@ function cameraRotate() {
     camX = cos(angleY) * cos(angleX)
     camY = sin(angleX)
     camZ = sin(angleY) * cos(angleX)
+}
+
+function raycast() {
+  //get camera anglex n angley 
+  //calculate 
 }
 
 // Automatically request pointer lock the first time mouse moves
