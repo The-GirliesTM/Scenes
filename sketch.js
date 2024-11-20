@@ -16,7 +16,7 @@ function preload(){
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/sky-citiscape.png')
     skybox2 = loadImage('assets/desert.jpg')
-    pathoses.push(new Pathos(loadModel("assets/pathos/hi.obj", true), 0, 0, 0))
+    pathoses.push(new Pathos(loadModel("assets/pathos/hi.obj", true), 0, -50, 100))
 }
 
 function setup(){
@@ -54,7 +54,7 @@ function draw() {
         pop();
       }
     } else {
-      console.log("huh")
+      console.log("no pathos here")
     }
 
 
@@ -79,13 +79,20 @@ function keyPressed() {
 
     if(key ==='e') {
       let obj_pos = [pathoses[0].x, pathoses[0].y, pathoses[0].z]
-      let hit = raycast(50, obj_pos, pathoses[0].radius);
-      if (hit) {
-        console.log("hit")
+      // raycast();
+      if (getDist(pathoses[0]) < 200) {
+        console.log("pick up");
+        pathoses[0].inspecting = !pathoses[0].inspecting;
       } else {
-        console.log("nothing");
+        console.log("too far");
       }
-      pathoses[0].inspecting = !pathoses[0].inspecting;
+
+      // if (hit) {
+      //   console.log("hit")
+      // } else {
+      //   console.log("nothing");
+      // }
+      
       // console.log("inspecting?"+ pathoses[0].inspecting)
     }
   }
