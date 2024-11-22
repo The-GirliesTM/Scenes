@@ -103,7 +103,7 @@ function hsla(h, s, l, a) {
 function setup() {
   canvasWidth = windowWidth;
   canvasHeight = windowHeight;
-  canvas = createCanvas(canvasWidth, canvasHeight);
+  canvas = createCanvas(windowWidth, windowHeight);
   canvas.parent("#home");
   
   colorMode(HSL, 100);
