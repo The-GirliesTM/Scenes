@@ -9,6 +9,25 @@ html, body {
   font-size: 10pt;
 }
 
+header {
+  display: flex;
+  padding: 10px 50px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  background-color: #141414;
+  color: white;
+}
+
+.search {
+  border: white solid 1px;
+  border-radius: 20px;
+  width: 30%;
+  padding: 10px 20px;
+  opacity: 0.5;
+  font-family: sans-serif;
+}
+
 p {
   color: #FFF;
   font-family: Roboto;
@@ -46,7 +65,7 @@ footer {
   display: flex;
   align-items: center;
   margin: 10px;
-  padding: 20px;
+  padding: 10px;
   border: solid rgba(255, 255, 255, 0.484) 2px;
   background-color: rgba(0, 0, 0, 0.109);
   width: 100%;
@@ -54,7 +73,9 @@ footer {
   border-radius: 10px;
   backdrop-filter: blur(50px);
 
-  .icon {
+}
+
+.icon {
     background-color: #141414;
     width: 50px;
     height: 50px;
@@ -64,7 +85,6 @@ footer {
     display: flex;
     vertical-align: center;
   }
-}
 
 .sticky-note {
   background-color: #FFFF99;
