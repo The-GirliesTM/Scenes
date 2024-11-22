@@ -25,12 +25,21 @@ footer {
   width: 100%;
 }
 
-#pop-up {
+.pop {
   z-index: 100px;
   display: flex;
   margin: auto;
   justify-content: center;
   width: 80%;
+
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: all 0.3s ease-out;
 }
 
 #pop-up .content {
@@ -59,7 +68,8 @@ footer {
 
 .sticky-note {
   background-color: #FFFF99;
-  margin-left: 30%;
+  margin-left: 60%;
+  margin-top: 5%;
   padding: 50px;
   width: fit-content;
 }

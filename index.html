@@ -13,22 +13,28 @@
       <body>
          <div id="home" class="canvas"></div>
          <div>
-          <div id="pop-up">
+          <div id="pop-up" class="pop">
+            <a href="login.html">
             <div class="content">
               <div class="icon">
                 <img src="/assets/logo.svg" alt="Logo" width="50">
               </div>
               
-              <a href="login.html">The person you followed has uploaded a new scene!</a>
+              The person you followed has uploaded a new scene!
             </div>
+          </a>
            </div>
-           
          </div>
          <div class="sticky-note">
           <h2>Reminder</h2>
           <p>Username: ala_rasi</p>
           <p>Password: loqueyonose</p>
          </div>
-
+         <script>
+          // Add a CSS class to the div after a 2-second delay
+          setTimeout(() => {
+            document.getElementById('pop-up').classList.add('fade-in');
+          }, 2000);
+        </script>
       </body>
 </html>
