@@ -98,9 +98,10 @@ footer {
   }
 
 .sticky-note {
+  position: absolute;
   background-color: #FFFF99;
-  margin-left: 60%;
-  margin-top: 5%;
+  left: 75%;
+  top: 30%;
   padding: 50px;
   width: fit-content;
 }
@@ -236,4 +237,12 @@ input[type=submit] {
 .cursor {
   top: 50%;
   left: 50%;
+}
+
+.hud-display {
+  margin: 2.5%;
+  border: solid blue 2px;
+  border-radius: 10px;
+  width: 95%;
+  height: 90%;
 }
