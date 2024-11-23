@@ -8,6 +8,29 @@ html, body {
   font-family: Michroma;
   font-size: 10pt;
 }
+header {
+  display: flex;
+  padding: 10px 50px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  background-color: #141414;
+  color: white;
+}
+
+.search {
+  border: white solid 1px;
+  border-radius: 20px;
+  width: 30%;
+  padding: 10px 20px;
+  opacity: 0.5;
+  font-family: sans-serif;
+}
+
+section {
+  margin: 3% 5%;
+  color: #FFF;
+}
 
 p {
   color: #FFF;
@@ -25,12 +48,137 @@ footer {
   width: 100%;
 }
 
+.pop {
+  z-index: 100px;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  width: 80%;
+
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: all 0.3s ease-out;
+}
+
+#pop-up .content {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  border: solid rgba(255, 255, 255, 0.484) 2px;
+  background-color: rgba(0, 0, 0, 0.109);
+  width: 100%;
+  gap: 30px;
+  border-radius: 10px;
+  backdrop-filter: blur(50px);
+
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.icon {
+    background-color: #141414;
+    width: 50px;
+    height: 50px;
+    border-radius: 30%;
+    padding: 5px;
+    align-items: center;
+    display: flex;
+    vertical-align: center;
+  }
+
+.sticky-note {
+  background-color: #FFFF99;
+  margin-left: 60%;
+  margin-top: 5%;
+  padding: 50px;
+  width: fit-content;
+}
+.sticky-note p {
+  font-family: 'Courier New', Courier, monospace;
+  color: black;
+}
+
+.sticky-note h2 {
+  font-family: 'Courier New', Courier, monospace;
+  color: black;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .background {
   background-color: #141414;
 }
-canvas {
+.canvas {
+  position: absolute;
   display: block;
+  z-index: -100;
+  margin: 0;
 }
+
+.scene-container {
+  display: flex;
+  margin-top: 30px;
+  flex-direction: row;
+  gap: 20px;
+  /* flex-wrap: wrap; */
+  width: 100%;
+}
+
+.scene {
+  padding-bottom: 20px;
+  /* background-color: #2b2b2b; */
+  border-radius: 10px;
+  width: 300px;
+}
+
+.disabled {
+  -webkit-filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+.scene .thumbnail {
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  /* background-color: #3B7CCB; */
+}
+
+.scene .description {
+  padding: 5px 20px;
+}
+
+#subs {
+  width: 60%;
+}
+
+#instructions {
+  background-color: #2b2b2b;
+  max-width: 20%;
+  margin-top: 30px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.gird {
+  display: flex;
+}
+
 
 input[type=text] {
   width: 20%;
