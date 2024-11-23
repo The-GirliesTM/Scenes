@@ -114,6 +114,10 @@ function keyPressed() {
 
     if(key ==='e') {
       let obj_pos = [pathosArray[0].x, pathosArray[0].y, pathosArray[0].z]
+
+      print("Camera Position:" + cam.centerX + ", " + cam.centerY);
+      print("Object Position:" + pathosArray[0].x + ", " + pathosArray[0].y);
+
       // raycast();
       if (getDist(pathosArray[0]) < 200) {
         console.log("pick up");

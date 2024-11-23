@@ -65,7 +65,7 @@ class Pathos {
             
             rotateY(-pan)
             rotateZ(tilt + PI)
-            translate(100, this.y, cam.eyeZ)
+            translate(100, 0, 0)
 
             rotateY(-PI/2);
             rotateZ(PI);

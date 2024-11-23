@@ -66,7 +66,7 @@ function cameraMove() {
   }
 
   //Looking where the player is
-  //print("drawn!" + x + " " + y);
+  //print("Camera Position:" + x + ", " + y);
 }
   
 function cameraRotate() {
@@ -87,15 +87,6 @@ function cameraRotate() {
     camY = sin(angleX)
     camZ = sin(angleY) * cos(angleX)
     // console.log("look: "+ lookX + " : "+lookY+" : "+ lookZ)
-}
-
-function raycast() {
-  //get camera anglex n angley 
-  //calculate 
-  // console.log(angleX);
-  // console.log(angleY);
-  console.log(lookX + " : "+lookY+" : "+ lookZ); //this is the direction angle max 1, -50, 1
-  console.log("cam center: "+ cam.centerX + " : "+cam.centerY+" : "+ cam.centerZ)
 }
 
 function getDist(pathos) {
