@@ -100,7 +100,8 @@ footer {
 .sticky-note {
   position: absolute;
   background-color: #FFFF99;
-  left: 75%;
+  left: 70%;
+  box-shadow: 2.3px 4.6px 4.6px hsl(0deg 0% 0% / 0.43);
   top: 30%;
   padding: 50px;
   width: fit-content;
