@@ -36,7 +36,7 @@ function cameraUpdate(cam){
   //camera(camX, camY, camZ, lookX, lookY, lookZ, 0, 1, 0); //Old Camera renderer
 
   // Move and rotate the camera
-  if (!pathoses[0].inspecting) {
+  if (!pathosArray[0].inspecting) {
     cameraMove();
     cameraRotate();
   }
@@ -64,6 +64,9 @@ function cameraMove() {
     x += cos(angleY + HALF_PI) * speed;
     z += sin(angleY + HALF_PI) * speed;
   }
+
+  //Looking where the player is
+  //print("Camera Position:" + x + ", " + y);
 }
   
 function cameraRotate() {
@@ -84,15 +87,6 @@ function cameraRotate() {
     camY = sin(angleX)
     camZ = sin(angleY) * cos(angleX)
     // console.log("look: "+ lookX + " : "+lookY+" : "+ lookZ)
-}
-
-function raycast() {
-  //get camera anglex n angley 
-  //calculate 
-  // console.log(angleX);
-  // console.log(angleY);
-  console.log(lookX + " : "+lookY+" : "+ lookZ); //this is the direction angle max 1, -50, 1
-  console.log("cam center: "+ cam.centerX + " : "+cam.centerY+" : "+ cam.centerZ)
 }
 
 function getDist(pathos) {
