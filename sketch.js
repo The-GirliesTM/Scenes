@@ -1,22 +1,38 @@
+
+let game;
+
+//Pathos Variables 
+let pathosArray = [];
+let interactableRotationKeys, interctableRotation; //Tracking Rotation of Selected Object
+
+//Scene Variables 
+let sceneManager;
 let skybox1, skybox2;
 let scenes = [];
-let game;
 let currentSceneIndex = 0;
-let scene1;
-let pathoses = [];
-let p, nx, ny;
 
-let sceneManager;
-
+//Camera Varibles
 let cam;
-let cursorSize = 2;
 
+//Interactables 
+let interactables = []; // Array to store interactable objects
+let testModel;
+let testModel2;
 
 function preload(){
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/sky-citiscape.png')
     skybox2 = loadImage('assets/desert.jpg')
-    pathoses.push(new Pathos(loadModel("assets/pathos/hi.obj", true), 0, -50, 100))
+
+
+    //Creating the pathosArray 
+    pathosArray.push(new Pathos(loadModel("assets/pathos/hi.obj", true), "test object", 0, -200, 500));
+
+   
+    testModel = loadModel("assets/pathos/fish.obj");
+    testModel2 = loadModel("assets/pathos/chicken.obj");
+
+
 }
 
 function setup(){
@@ -32,10 +48,18 @@ function setup(){
      cam = createCamera();
      cam.setPosition(0, -50, 0);
      setCamera(cam);
-     nx = 0;
-     ny = 0;
 
-    //TODO: Initialize the SceneManager
+
+     //Interctable Objects
+     interactables.push(new Interactable( 500, -30, -100, 'red', testModel));
+     interactables.push(new Interactable( 500, -30, 100, 'red', testModel2));
+    
+
+
+     interactableRotationKeys = 0;
+     interctableRotation = 0;
+
+    //TODO: Initialize the SceneManagersssssssdw
     //sceneManager = new SceneManager();
 }
 
@@ -46,16 +70,27 @@ function draw() {
     cameraUpdate(cam);
 
     //updating the pathos objects
-    if (pathoses.length > 0) {
-      for (let i = 0; i < pathoses.length; i++) {
+    if (pathosArray.length > 0) {
+      for (let i = 0; i < pathosArray.length; i++) {
         push()
-        pathoses[i].update();
-        pathoses[i].display();
+        pathosArray[i].update();
+        pathosArray[i].display();
         pop();
       }
     } else {
       console.log("no pathos here")
     }
+
+    for (let obj of interactables) {
+      obj.draw(cam);
+      if(obj.checkIfLookingAt(cam)) {
+        print("Looking at object!");  
+        obj.activate();
+      } else {
+        obj.deactivate();
+      }
+  }
+
 
 
     //Display Scene using Scene Array
@@ -78,21 +113,28 @@ function keyPressed() {
     }
 
     if(key ==='e') {
-      let obj_pos = [pathoses[0].x, pathoses[0].y, pathoses[0].z]
+      let obj_pos = [pathosArray[0].x, pathosArray[0].y, pathosArray[0].z]
       // raycast();
-      if (getDist(pathoses[0]) < 200) {
+      if (getDist(pathosArray[0]) < 200) {
         console.log("pick up");
-        pathoses[0].inspecting = !pathoses[0].inspecting;
+        pathosArray[0].inspecting = !pathosArray[0].inspecting;
       } else {
         console.log("too far");
       }
-
       // if (hit) {
       //   console.log("hit")
       // } else {
       //   console.log("nothing");
       // }
       
-      // console.log("inspecting?"+ pathoses[0].inspecting)
+      // console.log("inspecting?"+ pathosArray[0].inspecting)
+    }
+
+    if(key === 'i') {
+      for (let obj of interactables) {
+        if(obj.checkIfLookingAt(cam)) {
+          print("Looking at object! 1");  
+        }
+      }
     }
   }

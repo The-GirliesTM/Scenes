@@ -36,7 +36,7 @@ function cameraUpdate(cam){
   //camera(camX, camY, camZ, lookX, lookY, lookZ, 0, 1, 0); //Old Camera renderer
 
   // Move and rotate the camera
-  if (!pathoses[0].inspecting) {
+  if (!pathosArray[0].inspecting) {
     cameraMove();
     cameraRotate();
   }
@@ -64,6 +64,9 @@ function cameraMove() {
     x += cos(angleY + HALF_PI) * speed;
     z += sin(angleY + HALF_PI) * speed;
   }
+
+  //Looking where the player is
+  //print("drawn!" + x + " " + y);
 }
   
 function cameraRotate() {
