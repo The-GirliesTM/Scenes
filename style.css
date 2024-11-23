@@ -79,6 +79,13 @@ footer {
 
 }
 
+.avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .icon {
     background-color: #141414;
     width: 50px;
@@ -136,6 +143,11 @@ a {
   /* background-color: #2b2b2b; */
   border-radius: 10px;
   width: 300px;
+}
+
+.disabled {
+  -webkit-filter: grayscale(1);
+  cursor: not-allowed;
 }
 
 .scene .thumbnail {
