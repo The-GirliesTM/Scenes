@@ -14,17 +14,48 @@
       </head>
       
       <body class="background">
-        <div id="login">
+        <form id="login">
+            <!--Logo-->
             <img src="/assets/logo.svg" alt="Logo" width="150">
+            <!-- Login Form-->
             <input type="text" id="username" name="username" placeholder="Username"/>
             <input type="password" id="pass" name="pass" minlength="8" placeholder="Password"/>
             <input type="submit" value="Log in"/>
             <hr style="width: 15%; text-align: center; color: white; height: 2px;"/>
-            <p style="text-align: center; color: white;">Don't have an account?
+            <p style="text-align: center; color: white;">Don't remember your account?
                 <br/>
-                Sign up
+                <a href="index.html">Go back</a>
             </p>
-        </div>
+          </form>
         <footer>Created by The Girlies™️</footer>
+
+        <script>
+          // Simulated user data (in a real scenario, this would come from the server)
+const userData = {
+  "ala_rasi": "loqueyonose"
+};
+
+function checkLogin(username, password) {
+  return userData[username] === password;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const loginForm = document.getElementById('login');
+  loginForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent form from submitting
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('pass').value;
+
+    if (checkLogin(username, password)) {
+      window.location.href = 'menu.html';
+      // alert('Login successful!');
+      // Here you can redirect the user or perform other actions
+    } else {
+      alert('Invalid login credentials.');
+    }
+  });
+});
+        </script>
       </body>
 </html>
