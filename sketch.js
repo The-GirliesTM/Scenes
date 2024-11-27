@@ -66,8 +66,14 @@ function setup(){
 function draw() {
     //background(0)
     
-    //Updating Camera Behaviors and Position
-    cameraUpdate(cam);
+    
+
+    if (paused) {
+      pause();
+    } else {
+      //Updating Camera Behaviors and Position
+      cameraUpdate(cam);
+    }
 
     //updating the pathos objects
     if (pathosArray.length > 0) {
@@ -132,6 +138,19 @@ function keyPressed() {
       // }
       
       // console.log("inspecting?"+ pathosArray[0].inspecting)
+    }
+
+    if(key === 'Escape') {
+      paused = !paused;
+      
+      if (!paused) {
+        pauseDiv.removeClass("show-pause")
+        overlay = $("#overlay").removeClass("overlay")
+      } else {
+        pauseDiv = $("#pause-menu")
+        .addClass("show-pause")
+        overlay = $("#overlay").addClass("overlay")
+      }
     }
 
     if(key === 'i') {
