@@ -3,8 +3,9 @@ let paused = false;
 function pause() {
     resume = $("#resume");
     exit = $("#exit");
-    pauseDiv = $("#pause-menu");
-    pauseDiv.classList.add("show-pause");
+    // pauseDiv = $("#pause-menu")
+    // .addClass("show-pause")
+    // overlay = $("#overlay").addClass("overlay")
 
     //if paused is truee then
     //turn off camera movement
@@ -14,7 +15,8 @@ function pause() {
 
     resume.on('click', function() {
         console.log('resume')
-        pauseDiv.classList.remove("show-pause")
+        pauseDiv.removeClass("show-pause")
+        overlay = $("#overlay").removeClass("overlay")
         paused = false;
     })
 }
