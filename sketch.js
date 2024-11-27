@@ -18,6 +18,8 @@ let cam;
 let interactables = []; // Array to store interactable objects
 let testModel;
 let testModel2;
+let isInteracting = false;
+let isLooking = false;
 
 function preload(){
     //load skybox image --> will be used later as a texture
@@ -92,8 +94,10 @@ function draw() {
       if(obj.checkIfLookingAt(cam)) {
         print("Looking at object!");  
         obj.activate();
+        showHint();
       } else {
         obj.deactivate();
+        hideHint();
       }
   }
 
@@ -101,9 +105,32 @@ function draw() {
 
     //Display Scene using Scene Array
     scenes[currentSceneIndex].display();
+
+    // loadDialogue();
     
 }
 
+function loadDialogue(d) {
+  dialog = $("#dialog").text();
+  console.log(dialog);
+  $("#dialog").text(d);
+}
+
+function showDialogue() {
+  dialog = $("#dialog").addClass("show-dialogue");
+}
+
+function hideDialogue() {
+  dialog = $("#dialog").removeClass("show-dialogue");
+}
+
+function showHint() {
+  hint = $("#hint").addClass("show-hint");
+}
+
+function hideHint() {
+  hint = $("#hint").removeClass("show-hint");
+}
 
 
 // TODO: Scene Manager
@@ -118,27 +145,27 @@ function keyPressed() {
       currentSceneIndex = 2; // Switch to Scene 2 when '3' is pressed
     }
 
-    if(key ==='e') {
-      let obj_pos = [pathosArray[0].x, pathosArray[0].y, pathosArray[0].z]
+    // if(key ==='e') {
+    //   let obj_pos = [pathosArray[0].x, pathosArray[0].y, pathosArray[0].z]
 
-      print("Camera Position:" + cam.centerX + ", " + cam.centerY);
-      print("Object Position:" + pathosArray[0].x + ", " + pathosArray[0].y);
+    //   print("Camera Position:" + cam.centerX + ", " + cam.centerY);
+    //   print("Object Position:" + pathosArray[0].x + ", " + pathosArray[0].y);
 
-      // raycast();
-      if (getDist(pathosArray[0]) < 200) {
-        console.log("pick up");
-        pathosArray[0].inspecting = !pathosArray[0].inspecting;
-      } else {
-        console.log("too far");
-      }
-      // if (hit) {
-      //   console.log("hit")
-      // } else {
-      //   console.log("nothing");
-      // }
+    //   // raycast();
+    //   if (getDist(pathosArray[0]) < 200) {
+    //     console.log("pick up");
+    //     pathosArray[0].inspecting = !pathosArray[0].inspecting;
+    //   } else {
+    //     console.log("too far");
+    //   }
+    //   // if (hit) {
+    //   //   console.log("hit")
+    //   // } else {
+    //   //   console.log("nothing");
+    //   // }
       
-      // console.log("inspecting?"+ pathosArray[0].inspecting)
-    }
+    //   // console.log("inspecting?"+ pathosArray[0].inspecting)
+    // }
 
     if(key === 'Escape') {
       paused = !paused;
@@ -153,11 +180,22 @@ function keyPressed() {
       }
     }
 
-    if(key === 'i') {
-      for (let obj of interactables) {
-        if(obj.checkIfLookingAt(cam)) {
-          print("Looking at object! 1");  
+    if(key === 'e') {
+      if(isInteracting) {
+        hideDialogue();
+        isInteracting = false;
+      } else {
+        for (let obj of interactables) {
+          if(obj.checkIfLookingAt(cam)) {
+            print("Looking at object! 1"); 
+            isInteracting = true;
+          }
+        }
+        if (isInteracting) {
+          loadDialogue("this is a chicken");
+          showDialogue();
         }
       }
+
     }
   }
