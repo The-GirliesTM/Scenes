@@ -99,7 +99,7 @@ function getDist(pathos) {
 
 // Automatically request pointer lock the first time mouse moves
 function mouseMoved() {
-  if (!isMouseLocked) {
+  if (!isMouseLocked & !paused) { //If the mouse isn't already locked and the game isn't paused 
     // Request pointer lock on the canvas the first time the mouse moves
     requestPointerLock();
   }
@@ -107,5 +107,5 @@ function mouseMoved() {
 
 // Listen for pointer lock changes to track the lock status
 document.addEventListener('pointerlockchange', () => {
-  isMouseLocked = document.pointerLockElement === canvas.elt;
+  isMouseLocked = document.pointerLockElement === canvas.elt; 
 });
