@@ -1,7 +1,7 @@
 
 //Starting Variables - Change During Usage
 let x = 0;
-let y = -50;
+let y = -70;
 let z = 0;
 let angleX = 0;
 let angleY = 0;

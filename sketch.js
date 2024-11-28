@@ -46,7 +46,6 @@ function setup(){
 
      //Camera Setup
      cam = createCamera();
-     cam.setPosition(0, -50, 0);
      setCamera(cam);
 
 
