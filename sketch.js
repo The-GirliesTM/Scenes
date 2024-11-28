@@ -74,9 +74,10 @@ function setup(){
 function draw() {
     //background(0)
     
-    ambientLight(255);
-    let c = color(255, 0, 0);
-  directionalLight(c, 0, 1, 0);
+    ambientLight(170);
+    let c = color(150, 100, 0);
+    let lightDir = createVector(2, 3, 1);
+    directionalLight(c,lightDir);
 
   //Pausing / Unpausing the Camera
     if (paused) {
