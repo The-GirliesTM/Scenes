@@ -111,7 +111,7 @@ function draw() {
           print("Looking at Pathos! Cannot Interact.")
           obj.deactivate();
         }
-      } else {;  
+      } else {  
         obj.deactivate();
         hideHint();
       }
@@ -140,6 +140,7 @@ function hideDialogue() {
 
 function showHint() {
   hint = $("#hint").addClass("show-hint");
+  console.log("hint")
 }
 
 function hideHint() {
