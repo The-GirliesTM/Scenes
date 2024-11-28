@@ -16,6 +16,9 @@ let pathosArray = []; // Array to store interactable objects
 let pathos1Model;
 let pathos2Model;
 let pathos3Model;
+let isInteracting = false;
+let isLooking = false;
+let dBoxOpen = false;
 
 //Pathos Dialogue Arrays 
 let pathos1Dialgoue = []; 
@@ -82,6 +85,13 @@ function setup(){
 }
 
 function draw() {
+    //background(0)
+    
+    ambientLight(170);
+    let c = color(150, 100, 0);
+    let lightDir = createVector(2, 3, 1);
+    directionalLight(c,lightDir);
+
   //Pausing / Unpausing the Camera
     if (paused) {
       pause();
@@ -97,19 +107,55 @@ function draw() {
         if(obj.activateOnLoop <= player.currentLoop) {
           print("Loop Match: Currently Interactable");  
           obj.activate();
+          if (!isInteracting) {
+            showHint();
+          }
         } else {
+          //on the vase, the obj activates at loop = 2 and player is on loop 1;
+          //this causes them to not work in certain loops
           print("Looking at Pathos! Cannot Interact.")
           obj.deactivate();
         }
-      } else {;  
+        isLooking = true;
+      } else {  
         obj.deactivate();
+        // isLooking = false;
       }
   }
 
-    //Display Scene using Scene Array
-    scenes[currentSceneIndex].display();
+  if(!isLooking) {
+    hideHint()
+  }
+
+  //Display Scene using Scene Array
+  scenes[currentSceneIndex].display();
     
 }
+
+function loadDialogue(d) {
+  dialog = $("#dialog").text();
+  console.log(dialog);
+  $("#dialog").text(d);
+}
+
+function showDialogue() {
+  dialog = $("#dialog").addClass("show-dialogue");
+  dBoxOpen = true;
+}
+
+function hideDialogue() {
+  dialog = $("#dialog").removeClass("show-dialogue");
+  dBoxOpen = false;
+}
+
+function showHint() {
+  hint = $("#hint").addClass("show-hint");
+}
+
+function hideHint() {
+  hint = $("#hint").removeClass("show-hint");
+}
+
 
 // TODO: Scene Manager
 // Scene manager to handle scene switching
@@ -122,22 +168,32 @@ function keyPressed() {
       currentSceneIndex = 1; // Switch to Scene 1 when '2' is pressed
     } 
 
-    //Pausing the Game: Use Tab. Escape is a Backup
-    if(key === 'Tab' || key === 'Escape') {
+    if(key === 'Escape' || key === 'Tab') {
       pauseGame();
     }
 
-    //Interacting with Objects
     if(key === 'e') {
-      for (let obj of pathosArray) {
-        if(obj.checkIfLookingAt(cam) & obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
-          if (obj.activateOnLoop <= player.currentLoop) { 
-            obj.interact(cam, player.currentLoop);
-            
-          } else {
-            print("Incorrect loop. Unable to Interact.");  
+      if (!isInteracting && !dBoxOpen) {
+        for (let obj of pathosArray) {
+          if(obj.checkIfLookingAt(cam) & obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
+            if (obj.activateOnLoop <= player.currentLoop) { 
+              obj.interact(cam, player.currentLoop);
+              loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
+              showDialogue();
+              hideHint();
+              isInteracting = true;
+            } else {
+              print("Incorrect loop. Unable to Interact.");  
+            }
+          } else if (obj.checkIfLookingAt(cam)) {
+            loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
+            showDialogue();
+            hideHint();
           }
         }
+      } else if (dBoxOpen) { //this is for when you want to turn off the 
+        hideDialogue();
+        isInteracting = false;
       }
     }
 
