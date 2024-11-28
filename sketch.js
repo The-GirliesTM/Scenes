@@ -18,6 +18,9 @@ let cam;
 let interactables = []; // Array to store interactable objects
 let testModel;
 let testModel2;
+let testModel3;
+
+let texture1;
 
 function preload(){
     //load skybox image --> will be used later as a texture
@@ -26,13 +29,15 @@ function preload(){
 
 
     //Creating the pathosArray 
-    pathosArray.push(new Pathos(loadModel("assets/pathos/hi.obj", true), "test object", 0, -200, 500));
+    //pathosArray.push(new Pathos(loadModel("assets/testModels/hi.obj", true), "test object", 0, -200, 500));
 
-   
-    testModel = loadModel("assets/pathos/fish.obj");
-    testModel2 = loadModel("assets/pathos/chicken.obj");
+    //Loading Textures
+    texture1 = loadImage("assets/pathos/textures/interactable1_Texture.png");
 
-
+    //Loading Models
+    testModel = loadModel("assets/pathos/interactable1.obj");
+    testModel2 = loadModel("assets/pathos/interactable2.obj");
+    testModel3 = loadModel("assets/pathos/interactable3.obj");
 }
 
 function setup(){
@@ -48,13 +53,15 @@ function setup(){
      cam = createCamera();
      setCamera(cam);
 
-
      //Interctable Objects
-     interactables.push(new Interactable( 500, -30, -100, 'red', testModel));
-     interactables.push(new Interactable( 500, -30, 100, 'red', testModel2));
-    
+     interactables.push(new Interactable( 500, -30, -100, 'red', testModel, texture1));
+     interactables.push(new Interactable( 500, -30, 100, 'red', testModel2, texture1));
+     interactables.push(new Interactable( 500, -30, 300, 'red', testModel3, texture1));
 
+     //Removes Strokes from 3D Models
+     noStroke();   // Disable filling the geometry
 
+     //Deprecated: Will be Removed
      interactableRotationKeys = 0;
      interctableRotation = 0;
 
@@ -63,27 +70,12 @@ function setup(){
 }
 
 function draw() {
-    //background(0)
-    
-    
-
+  //Pausing / Unpausing the Camera
     if (paused) {
       pause();
     } else {
       //Updating Camera Behaviors and Position
       cameraUpdate(cam);
-    }
-
-    //updating the pathos objects
-    if (pathosArray.length > 0) {
-      for (let i = 0; i < pathosArray.length; i++) {
-        push()
-        pathosArray[i].update();
-        pathosArray[i].display();
-        pop();
-      }
-    } else {
-      console.log("no pathos here")
     }
 
     for (let obj of interactables) {
@@ -96,17 +88,14 @@ function draw() {
       }
   }
 
-
-
     //Display Scene using Scene Array
     scenes[currentSceneIndex].display();
     
 }
 
-
-
 // TODO: Scene Manager
 // Scene manager to handle scene switching
+
 // Key pressed function to switch scenes
 function keyPressed() {
     if (key === '1') {
@@ -117,41 +106,22 @@ function keyPressed() {
       currentSceneIndex = 2; // Switch to Scene 2 when '3' is pressed
     }
 
-    if(key ==='e') {
-      let obj_pos = [pathosArray[0].x, pathosArray[0].y, pathosArray[0].z]
-
-      print("Camera Position:" + cam.centerX + ", " + cam.centerY);
-      print("Object Position:" + pathosArray[0].x + ", " + pathosArray[0].y);
-
-      // raycast();
-      if (getDist(pathosArray[0]) < 200) {
-        console.log("pick up");
-        pathosArray[0].inspecting = !pathosArray[0].inspecting;
-      } else {
-        console.log("too far");
-      }
-      // if (hit) {
-      //   console.log("hit")
-      // } else {
-      //   console.log("nothing");
-      // }
-      
-      // console.log("inspecting?"+ pathosArray[0].inspecting)
-    }
-
-    if(key === 'Escape' || key === 'Tab') {
+    //Pausing the Game: Use Tab. Escape is a Backup
+    if(key === 'Tab' || key === 'Escape') {
       pauseGame();
     }
 
-    if(key === 'i') {
+    //Interacting with Objects
+    if(key === 'e') {
       for (let obj of interactables) {
-        if(obj.checkIfLookingAt(cam)) {
-          print("Looking at object! 1");  
+        if(obj.checkIfLookingAt(cam)) { //Detect if the Player is looking at intertacbles Objects
+          print("Interacting with Object!");  
         }
       }
     }
   }
 
+  //Function for Pausing the Game
   function pauseGame() {
     paused = !paused;
 
