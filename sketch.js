@@ -48,7 +48,6 @@ function setup(){
 
      //Camera Setup
      cam = createCamera();
-     cam.setPosition(0, -50, 0);
      setCamera(cam);
 
 
@@ -167,17 +166,8 @@ function keyPressed() {
     //   // console.log("inspecting?"+ pathosArray[0].inspecting)
     // }
 
-    if(key === 'Escape') {
-      paused = !paused;
-      
-      if (!paused) {
-        pauseDiv.removeClass("show-pause")
-        overlay = $("#overlay").removeClass("overlay")
-      } else {
-        pauseDiv = $("#pause-menu")
-        .addClass("show-pause")
-        overlay = $("#overlay").addClass("overlay")
-      }
+    if(key === 'Escape' || key === 'Tab') {
+      pauseGame();
     }
 
     if(key === 'e') {
@@ -197,5 +187,20 @@ function keyPressed() {
         }
       }
 
+    }
+  }
+
+  function pauseGame() {
+    paused = !paused;
+
+    if (!paused) {
+      pauseDiv.removeClass("show-pause")
+      overlay = $("#overlay").removeClass("overlay")
+    } else {
+      document.exitPointerLock();
+
+      pauseDiv = $("#pause-menu")
+      .addClass("show-pause")
+      overlay = $("#overlay").addClass("overlay")
     }
   }
