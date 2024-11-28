@@ -76,7 +76,9 @@ class Interactable {
 
     //Visually Activates the object. 
     activate(){
-        this.color = this.activeColor;
+        let from = color(0, 255, 0);
+        let to = color(255, 0, 0);
+        this.color = lerpColor(from, to, 0.5);
         this.isSeen = true;
     }
 
@@ -103,11 +105,12 @@ class Interactable {
         }
 
         //Object Specific Shading
-        pointLight(255, 255, 255, movedX - width / 2, movedY - height / 2, 200); // Point light at mouse position
-        ambientLight(100);           // Low ambient light (dim)
+        pointLight(120, 120, 120, movedX - width / 2, movedY - height / 2, 200); // Point light at mouse position
+        // ambientLight(100); // Low ambient light (dim)
+    
+        // Set material properties for all interactable objects
         specularMaterial(255);       // Specular (shiny) material for highlights
-        shininess(50);               // Shiny appearance
-
+        shininess(30);               // Shiny appearance
         //Color: This is the original Color Variable! 
         fill(this.color);
 
