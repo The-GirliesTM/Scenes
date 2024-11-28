@@ -20,6 +20,9 @@ let testModel;
 let testModel2;
 let isInteracting = false;
 let isLooking = false;
+let testModel3;
+
+let texture1;
 
 function preload(){
     //load skybox image --> will be used later as a texture
@@ -28,13 +31,15 @@ function preload(){
 
 
     //Creating the pathosArray 
-    pathosArray.push(new Pathos(loadModel("assets/pathos/hi.obj", true), "test object", 0, -200, 500));
+    //pathosArray.push(new Pathos(loadModel("assets/testModels/hi.obj", true), "test object", 0, -200, 500));
 
-   
-    testModel = loadModel("assets/pathos/fish.obj");
-    testModel2 = loadModel("assets/pathos/chicken.obj");
+    //Loading Textures
+    texture1 = loadImage("assets/pathos/textures/interactable1_Texture.png");
 
-
+    //Loading Models
+    testModel = loadModel("assets/pathos/interactable1.obj");
+    testModel2 = loadModel("assets/pathos/interactable2.obj");
+    testModel3 = loadModel("assets/pathos/interactable3.obj");
 }
 
 function setup(){
@@ -50,13 +55,15 @@ function setup(){
      cam = createCamera();
      setCamera(cam);
 
-
      //Interctable Objects
-     interactables.push(new Interactable( 500, -30, -100, 'red', testModel));
-     interactables.push(new Interactable( 500, -30, 100, 'red', testModel2));
-    
+     interactables.push(new Interactable( 500, -30, -100, 'red', testModel, texture1));
+     interactables.push(new Interactable( 500, -30, 100, 'red', testModel2, texture1));
+     interactables.push(new Interactable( 500, -30, 300, 'red', testModel3, texture1));
 
+     //Removes Strokes from 3D Models
+     noStroke();   // Disable filling the geometry
 
+     //Deprecated: Will be Removed
      interactableRotationKeys = 0;
      interctableRotation = 0;
 
@@ -71,23 +78,12 @@ function draw() {
     let c = color(255, 0, 0);
   directionalLight(c, 0, 1, 0);
 
+  //Pausing / Unpausing the Camera
     if (paused) {
       pause();
     } else {
       //Updating Camera Behaviors and Position
       cameraUpdate(cam);
-    }
-
-    //updating the pathos objects
-    if (pathosArray.length > 0) {
-      for (let i = 0; i < pathosArray.length; i++) {
-        push()
-        pathosArray[i].update();
-        pathosArray[i].display();
-        pop();
-      }
-    } else {
-      console.log("no pathos here")
     }
 
     for (let obj of interactables) {
@@ -101,8 +97,6 @@ function draw() {
         hideHint();
       }
   }
-
-
 
     //Display Scene using Scene Array
     scenes[currentSceneIndex].display();
@@ -136,6 +130,7 @@ function hideHint() {
 
 // TODO: Scene Manager
 // Scene manager to handle scene switching
+
 // Key pressed function to switch scenes
 function keyPressed() {
     if (key === '1') {
@@ -192,6 +187,7 @@ function keyPressed() {
     }
   }
 
+  //Function for Pausing the Game
   function pauseGame() {
     paused = !paused;
 

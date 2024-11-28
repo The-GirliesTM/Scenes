@@ -1,10 +1,11 @@
 class Interactable {
-    constructor(x, y, z, color, model) {
+    constructor(x, y, z, color, model, texture) {
         this.x = x; // Position
         this.y = y;
         this.z = z;
         this.color = color; // Color
         this.model = model; // 3D Model
+        this.texture = texture;
         
         this.activeColor = "green";
         this.inactiveColor = this.color;
@@ -82,8 +83,22 @@ class Interactable {
             translate(this.x, this.y, this.z);
         }
 
-        fill(this.color);
-        rotateX(PI); // TODO: Flips the model upright (Because the whole world is upside down for some reason)
+        //Object Specific Shading
+        pointLight(255, 255, 255, movedX - width / 2, movedY - height / 2, 200); // Point light at mouse position
+        ambientLight(100); // Low ambient light (dim)
+    
+        // Set material properties for all interactable objects
+        specularMaterial(255);       // Specular (shiny) material for highlights
+        shininess(50);               // Shiny appearance
+
+        //Color: This is the original Color Variable! 
+        //fill(this.color);
+
+        //Texture: Applies Texture  (Bug: Object doesn't change color when you look at it once textures are applied)
+        texture(this.texture); 
+
+        //Default Setup of Model
+        rotateX(PI); //Flips model upright because everything is upside down.
         model(this.model); // Render the 3D model
         pop();
     }
