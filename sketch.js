@@ -18,6 +18,7 @@ let pathos2Model;
 let pathos3Model;
 let isInteracting = false;
 let isLooking = false;
+let dBoxOpen = false;
 
 //Pathos Dialogue Arrays 
 let pathos1Dialgoue = []; 
@@ -106,21 +107,28 @@ function draw() {
         if(obj.activateOnLoop <= player.currentLoop) {
           print("Loop Match: Currently Interactable");  
           obj.activate();
-          showHint();
+          if (!isInteracting) {
+            showHint();
+          }
         } else {
+          //on the vase, the obj activates at loop = 2 and player is on loop 1;
+          //this causes them to not work in certain loops
           print("Looking at Pathos! Cannot Interact.")
           obj.deactivate();
         }
+        isLooking = true;
       } else {  
         obj.deactivate();
-        hideHint();
+        // isLooking = false;
       }
   }
 
-    //Display Scene using Scene Array
-    scenes[currentSceneIndex].display();
+  if(!isLooking) {
+    hideHint()
+  }
 
-    // loadDialogue();
+  //Display Scene using Scene Array
+  scenes[currentSceneIndex].display();
     
 }
 
@@ -132,15 +140,16 @@ function loadDialogue(d) {
 
 function showDialogue() {
   dialog = $("#dialog").addClass("show-dialogue");
+  dBoxOpen = true;
 }
 
 function hideDialogue() {
   dialog = $("#dialog").removeClass("show-dialogue");
+  dBoxOpen = false;
 }
 
 function showHint() {
   hint = $("#hint").addClass("show-hint");
-  console.log("hint")
 }
 
 function hideHint() {
@@ -159,44 +168,33 @@ function keyPressed() {
       currentSceneIndex = 1; // Switch to Scene 1 when '2' is pressed
     } 
 
-    // if(key ==='e') {
-    //   let obj_pos = [pathosArray[0].x, pathosArray[0].y, pathosArray[0].z]
-
-    //   print("Camera Position:" + cam.centerX + ", " + cam.centerY);
-    //   print("Object Position:" + pathosArray[0].x + ", " + pathosArray[0].y);
-
-    //   // raycast();
-    //   if (getDist(pathosArray[0]) < 200) {
-    //     console.log("pick up");
-    //     pathosArray[0].inspecting = !pathosArray[0].inspecting;
-    //   } else {
-    //     console.log("too far");
-    //   }
-    //   // if (hit) {
-    //   //   console.log("hit")
-    //   // } else {
-    //   //   console.log("nothing");
-    //   // }
-      
-    //   // console.log("inspecting?"+ pathosArray[0].inspecting)
-    // }
-
     if(key === 'Escape' || key === 'Tab') {
       pauseGame();
     }
 
     if(key === 'e') {
-      for (let obj of pathosArray) {
-        if(obj.checkIfLookingAt(cam) & obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
-          if (obj.activateOnLoop <= player.currentLoop) { 
-            obj.interact(cam, player.currentLoop);
-            
-          } else {
-            print("Incorrect loop. Unable to Interact.");  
+      if (!isInteracting && !dBoxOpen) {
+        for (let obj of pathosArray) {
+          if(obj.checkIfLookingAt(cam) & obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
+            if (obj.activateOnLoop <= player.currentLoop) { 
+              obj.interact(cam, player.currentLoop);
+              loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
+              showDialogue();
+              hideHint();
+              isInteracting = true;
+            } else {
+              print("Incorrect loop. Unable to Interact.");  
+            }
+          } else if (obj.checkIfLookingAt(cam)) {
+            loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
+            showDialogue();
+            hideHint();
           }
         }
+      } else if (dBoxOpen) { //this is for when you want to turn off the 
+        hideDialogue();
+        isInteracting = false;
       }
-
     }
 
     //Debug: Go to the Next Loop!
