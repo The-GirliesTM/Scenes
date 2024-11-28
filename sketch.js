@@ -67,7 +67,9 @@ function setup(){
 function draw() {
     //background(0)
     
-    
+    ambientLight(255);
+    let c = color(255, 0, 0);
+  directionalLight(c, 0, 1, 0);
 
     if (paused) {
       pause();
