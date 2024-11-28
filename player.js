@@ -11,7 +11,28 @@
 class Player{
     constructor(loop){
         this.currentLoop = loop
-        this.num_loops = 3
+        this.maxLoops = 3
+    }
+
+    //Resets the player
+    resetPlayer() {
+        //Maybe some sort of Black Screen?
+
+        //Return Camera to 0/0/0
+        resetCamera();
+
+        //Reset anything else that's changed. (Color Changes. Etc)
+    }
+
+    //Updates player variables, resets player, and increases the loop count.
+    newLoop(){
+        if(this.currentLoop < this.maxLoops) {
+            this.currentLoop++;
+            this.resetPlayer();
+            print("Loop Completed! Going to Loop: " + player.currentLoop);
+        } else {
+            print("Error! Too many loops: " + this.currentLoop);
+        }
     }
 
 }

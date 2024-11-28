@@ -1,3 +1,5 @@
+let interactableRotationKeys, interctableRotation; //Tracking Rotation of Selected Object
+
 class Pathos {
     constructor(model, name, ox, oy, oz) {
         //Default Variables 

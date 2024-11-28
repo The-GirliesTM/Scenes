@@ -1,10 +1,6 @@
-
+//Game Variables
 let game;
 let player;
-
-//Pathos Variables 
-let pathosArray = [];
-let interactableRotationKeys, interctableRotation; //Tracking Rotation of Selected Object
 
 //Scene Variables 
 let sceneManager;
@@ -16,10 +12,10 @@ let currentSceneIndex = 0;
 let cam;
 
 //Interactables 
-let interactables = []; // Array to store interactable objects
-let testModel;
-let testModel2;
-let testModel3;
+let pathosArray = []; // Array to store interactable objects
+let pathos1Model;
+let pathos2Model;
+let pathos3Model;
 
 //Pathos Dialogue Arrays 
 let pathos1Dialgoue = []; 
@@ -35,17 +31,13 @@ function preload(){
     skybox1 = loadImage('assets/sky-citiscape.png')
     skybox2 = loadImage('assets/desert.jpg')
 
-
-    //Creating the pathosArray 
-    //pathosArray.push(new Pathos(loadModel("assets/testModels/hi.obj", true), "test object", 0, -200, 500));
-
     //Loading Textures
     texture1 = loadImage("assets/pathos/textures/interactable1_Texture.png");
 
     //Loading Models
-    testModel = loadModel("assets/pathos/interactable1.obj");
-    testModel2 = loadModel("assets/pathos/interactable2.obj");
-    testModel3 = loadModel("assets/pathos/interactable3.obj");
+    pathos1Model = loadModel("assets/pathos/interactable1.obj");
+    pathos2Model = loadModel("assets/pathos/interactable2.obj");
+    pathos3Model = loadModel("assets/pathos/interactable3.obj");
 }
 
 function setup(){
@@ -76,16 +68,11 @@ function setup(){
                     ]; 
 
     //Interctable Objects
-    interactables.push(new Interactable( 500, -30, -100, 'red', testModel, texture1, 1, pathos1Dialgoue));
-    interactables.push(new Interactable( 500, -30, 100, 'red', testModel2, texture1, 2, pathos2Dialgoue));
-    interactables.push(new Interactable( 500, -30, 300, 'red', testModel3, texture1, 3, pathos3Dialgoue));
-
-    //Removes Strokes from 3D Models
-    noStroke();   // Disable filling the geometry
-
-    //Deprecated: Will be Removed
-    interactableRotationKeys = 0;
-    interctableRotation = 0;
+    pathosArray.push(new Interactable( 500, -30, -100, 'red', pathos1Model, texture1, 1, pathos1Dialgoue));
+    pathosArray.push(new Interactable( 500, -30, 100, 'red', pathos2Model, texture1, 2, pathos2Dialgoue));
+    pathosArray.push(new Interactable( 500, -30, 300, 'red', pathos3Model, texture1, 3, pathos3Dialgoue));
+    
+    noStroke(); //Removes Strokes from 3D Models
 
     //Create Player Object 
     player = new Player(1);
@@ -103,7 +90,8 @@ function draw() {
       cameraUpdate(cam);
     }
 
-    for (let obj of interactables) {
+    //Checking if Player is Looking at a Pathos
+    for (let obj of pathosArray) {
       obj.draw(cam);
       if(obj.checkIfLookingAt(cam)) {
         if(obj.activateOnLoop <= player.currentLoop) {
@@ -126,15 +114,13 @@ function draw() {
 // TODO: Scene Manager
 // Scene manager to handle scene switching
 
-// Key pressed function to switch scenes
+//Debug: Key pressed function to switch scenes
 function keyPressed() {
     if (key === '1') {
       currentSceneIndex = 0; // Switch to Scene 0 when '1' is pressed
     } else if (key === '2') {
       currentSceneIndex = 1; // Switch to Scene 1 when '2' is pressed
-    } else if (key === '3') {
-      currentSceneIndex = 2; // Switch to Scene 2 when '3' is pressed
-    }
+    } 
 
     //Pausing the Game: Use Tab. Escape is a Backup
     if(key === 'Tab' || key === 'Escape') {
@@ -143,10 +129,11 @@ function keyPressed() {
 
     //Interacting with Objects
     if(key === 'e') {
-      for (let obj of interactables) {
+      for (let obj of pathosArray) {
         if(obj.checkIfLookingAt(cam) & obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
           if (obj.activateOnLoop <= player.currentLoop) { 
             obj.interact(cam, player.currentLoop);
+            
           } else {
             print("Incorrect loop. Unable to Interact.");  
           }
@@ -156,8 +143,7 @@ function keyPressed() {
 
     //Debug: Go to the Next Loop!
     if(key === 'l') {
-      player.currentLoop++;
-      print("Loop Completed! Going to Loop: " + player.currentLoop);
+      player.newLoop();
     }
   }
 

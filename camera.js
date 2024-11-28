@@ -1,18 +1,16 @@
 
 //Starting Variables - Change During Usage
 let x = 0;
-let y = -70;
 let z = 0;
 let angleX = 0;
 let angleY = 0;
-let raycastDistance = 50;
 let isMouseLocked = false; // Flag to check if the mouse is locked. Used for camera behavior
 let lookX, lookY, lookZ;
 
-
 //Constants. Do not change during runtime.
-const speed = 3;
+const speed = 3; //WASD movement speed.
 const rotationSpeed = 0.0025;
+const y = -70; //Player height stays constant. No Jumping.
 
 
 //update location of the camera
@@ -33,14 +31,20 @@ function cameraUpdate(cam){
   //eyeXYZ is the camera position
   //centerXYZ is the object position looked at
 
-  //camera(camX, camY, camZ, lookX, lookY, lookZ, 0, 1, 0); //Old Camera renderer
-
   // Move and rotate the camera
   cameraMove();
   cameraRotate();
 }
 
-// move camera along the x-z axis
+function resetCamera() {
+  //Return Camera Variables to Zero
+  x = 0;
+  z = 0;
+  angleX = 0;
+  angleY = 0;
+}
+
+//Moves camera along the x-z axis
 function cameraMove() {
 
   // WASD controls for movement
@@ -63,10 +67,11 @@ function cameraMove() {
     z += sin(angleY + HALF_PI) * speed;
   }
 
-  //Looking where the player is
+  //Debug: Print where the player is
   //print("Camera Position:" + x + ", " + y);
 }
   
+//Camera Rotation based on Mouse Movement
 function cameraRotate() {
   //X and Y changes based on mouse movement (not location)
   let deltaX = movedX * rotationSpeed;
@@ -85,14 +90,6 @@ function cameraRotate() {
     camY = sin(angleX)
     camZ = sin(angleY) * cos(angleX)
     // console.log("look: "+ lookX + " : "+lookY+" : "+ lookZ)
-}
-
-function getDist(pathos) {
-  let cam_pos = createVector(cam.centerX, cam.centerY, cam.centerZ);
-  let pat_pos = createVector(pathos.x, pathos.y, pathos.z);
-  let d = cam_pos.dist(pat_pos);
-  console.log("distance: "+d);
-  return d;
 }
 
 // Automatically request pointer lock the first time mouse moves

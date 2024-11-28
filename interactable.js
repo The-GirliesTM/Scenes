@@ -7,10 +7,10 @@ class Interactable {
         this.model = model; // 3D Model
         this.texture = texture;
         
-        this.activateOnLoop = activateOnLoop;
+        this.activateOnLoop = activateOnLoop; //Tracks what loop intertacble activates on
         this.activeColor = "green";
         this.inactiveColor = this.color;
-        this.dialogueArray = dialogueArray;
+        this.dialogueArray = dialogueArray; //Stores dialgloue options for each loop
 
         this.isInteracting = false; // Interaction state
         this.isSeen = false; // If the object is being looked at
@@ -54,7 +54,6 @@ class Interactable {
 
     //TODO: Function for Interactions
     interact(cam, loopNumber) {
-        //TODO: Add Text Feature
         switch (loopNumber) {
             case 1: //Response when in Loop 1 
                 print(this.dialogueArray[0]);
@@ -88,7 +87,7 @@ class Interactable {
     }
 
 
-    //Draw the object int he scenes
+    //Draw the object in the scene
     draw(cam) {
         push();
         
@@ -105,9 +104,7 @@ class Interactable {
 
         //Object Specific Shading
         pointLight(255, 255, 255, movedX - width / 2, movedY - height / 2, 200); // Point light at mouse position
-        ambientLight(100); // Low ambient light (dim)
-    
-        // Set material properties for all interactable objects
+        ambientLight(100);           // Low ambient light (dim)
         specularMaterial(255);       // Specular (shiny) material for highlights
         shininess(50);               // Shiny appearance
 
