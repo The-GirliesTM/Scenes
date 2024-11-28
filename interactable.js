@@ -10,13 +10,13 @@ class Interactable {
         this.activeColor = "green";
         this.inactiveColor = this.color;
 
-        print("Constructed Interactable!");
-
         this.isInteracting = false; // Interaction state
         this.isSeen = false; // If the object is being looked at
         this.rotationY = 0; // Y-axis rotation for interaction
         this.interactionDistance = 150; // Maximum distance to interact
         this.interactionAngleThreshold = radians(20); // Angle threshold for interaction
+
+        this.textArray; //TODO: Make this import and array of text that changes based on loop.
     }   
 
     //Checks to see if the Camera is looking at this object
@@ -51,8 +51,26 @@ class Interactable {
     }
 
     //TODO: Function for Interactions
-    interact(cam) {
-        //TBD
+    interact(cam, loopNumber) {
+        //TODO: Add Text Feature
+        switch (loopNumber) {
+            case 1: //Response when in Loop 1 
+                print("Loop 1 Reponse!");
+                break;
+            case 2: //Response when in Loop 2
+                print("Loop 2 Reponse!");
+                break;
+
+            case 3: //Response when in Loop 3
+                print("Loop 3 Reponse!");
+                break;
+
+            default:
+              print("There's been an error! Inputted Loop: " + loopNumber); 
+              break;
+          }
+
+        //TODO: Add Ability to Rotate Object (May be a future task)
     }
 
     //Visually Activates the object. 

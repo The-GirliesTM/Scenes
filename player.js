@@ -9,8 +9,8 @@
  */
 
 class Player{
-    constructor(loop ){
-        this.current_loop = loop
+    constructor(loop){
+        this.currentLoop = loop
         this.num_loops = 3
     }
 

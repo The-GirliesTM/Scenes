@@ -1,5 +1,6 @@
 
 let game;
+let player;
 
 //Pathos Variables 
 let pathosArray = [];
@@ -49,21 +50,24 @@ function setup(){
     scenes.push(new Scene(skybox2, color(200, 200, 220), 2000, 50, 1));
     scenes.push(new Scene(skybox2, color(100, 200, 220), 2000, 50, 1));
 
-     //Camera Setup
-     cam = createCamera();
-     setCamera(cam);
+    //Camera Setup
+    cam = createCamera();
+    setCamera(cam);
 
-     //Interctable Objects
-     interactables.push(new Interactable( 500, -30, -100, 'red', testModel, texture1));
-     interactables.push(new Interactable( 500, -30, 100, 'red', testModel2, texture1));
-     interactables.push(new Interactable( 500, -30, 300, 'red', testModel3, texture1));
+    //Interctable Objects
+    interactables.push(new Interactable( 500, -30, -100, 'red', testModel, texture1));
+    interactables.push(new Interactable( 500, -30, 100, 'red', testModel2, texture1));
+    interactables.push(new Interactable( 500, -30, 300, 'red', testModel3, texture1));
 
-     //Removes Strokes from 3D Models
-     noStroke();   // Disable filling the geometry
+    //Removes Strokes from 3D Models
+    noStroke();   // Disable filling the geometry
 
-     //Deprecated: Will be Removed
-     interactableRotationKeys = 0;
-     interctableRotation = 0;
+    //Deprecated: Will be Removed
+    interactableRotationKeys = 0;
+    interctableRotation = 0;
+
+    //Create Player Object 
+    player = new Player(1);
 
     //TODO: Initialize the SceneManagersssssssdw
     //sceneManager = new SceneManager();
@@ -116,8 +120,15 @@ function keyPressed() {
       for (let obj of interactables) {
         if(obj.checkIfLookingAt(cam)) { //Detect if the Player is looking at intertacbles Objects
           print("Interacting with Object!");  
+          obj.interact(cam, player.currentLoop);
         }
       }
+    }
+
+    //Debug: Go to the Next Loop!
+    if(key === 'l') {
+      player.currentLoop++;
+      print("Loop Completed! Going to Loop: " + player.currentLoop);
     }
   }
 
