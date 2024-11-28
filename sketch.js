@@ -21,6 +21,13 @@ let testModel;
 let testModel2;
 let testModel3;
 
+//Pathos Dialogue Arrays 
+let pathos1Dialgoue = []; 
+let pathos2Dialgoue = []; 
+let pathos3Dialgoue = []; 
+
+
+//TODO: Textures? May be Deprecated
 let texture1;
 
 function preload(){
@@ -54,10 +61,24 @@ function setup(){
     cam = createCamera();
     setCamera(cam);
 
+    //Filling Interactable Dialgoue Arrays
+    pathos1Dialgoue = ["Pathos 1 - Loop 1",
+                      "Pathos 1 - Loop 2",
+                      "Pathos 1 - Loop 3"
+                      ];
+    pathos2Dialgoue = ["Huh... the pathos isn't working. (Error Message)",
+                      "Pathos 2 - Loop 2",
+                      "Pathos 2 - Loop 3"
+                    ]; 
+    pathos3Dialgoue = ["Looking like this one isn't installed yet. (Error Message)",
+                      "I wonder if she'll ever install this one? (Error Message)",
+                      "Pathos 3 - Loop 3"
+                    ]; 
+
     //Interctable Objects
-    interactables.push(new Interactable( 500, -30, -100, 'red', testModel, texture1));
-    interactables.push(new Interactable( 500, -30, 100, 'red', testModel2, texture1));
-    interactables.push(new Interactable( 500, -30, 300, 'red', testModel3, texture1));
+    interactables.push(new Interactable( 500, -30, -100, 'red', testModel, texture1, 1, pathos1Dialgoue));
+    interactables.push(new Interactable( 500, -30, 100, 'red', testModel2, texture1, 2, pathos2Dialgoue));
+    interactables.push(new Interactable( 500, -30, 300, 'red', testModel3, texture1, 3, pathos3Dialgoue));
 
     //Removes Strokes from 3D Models
     noStroke();   // Disable filling the geometry
@@ -85,9 +106,14 @@ function draw() {
     for (let obj of interactables) {
       obj.draw(cam);
       if(obj.checkIfLookingAt(cam)) {
-        print("Looking at object!");  
-        obj.activate();
-      } else {
+        if(obj.activateOnLoop <= player.currentLoop) {
+          print("Loop Match: Currently Interactable");  
+          obj.activate();
+        } else {
+          print("Looking at Pathos! Cannot Interact.")
+          obj.deactivate();
+        }
+      } else {;  
         obj.deactivate();
       }
   }
@@ -118,9 +144,12 @@ function keyPressed() {
     //Interacting with Objects
     if(key === 'e') {
       for (let obj of interactables) {
-        if(obj.checkIfLookingAt(cam)) { //Detect if the Player is looking at intertacbles Objects
-          print("Interacting with Object!");  
-          obj.interact(cam, player.currentLoop);
+        if(obj.checkIfLookingAt(cam) & obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
+          if (obj.activateOnLoop <= player.currentLoop) { 
+            obj.interact(cam, player.currentLoop);
+          } else {
+            print("Incorrect loop. Unable to Interact.");  
+          }
         }
       }
     }

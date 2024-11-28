@@ -1,5 +1,5 @@
 class Interactable {
-    constructor(x, y, z, color, model, texture) {
+    constructor(x, y, z, color, model, texture, activateOnLoop , dialogueArray) {
         this.x = x; // Position
         this.y = y;
         this.z = z;
@@ -7,8 +7,10 @@ class Interactable {
         this.model = model; // 3D Model
         this.texture = texture;
         
+        this.activateOnLoop = activateOnLoop;
         this.activeColor = "green";
         this.inactiveColor = this.color;
+        this.dialogueArray = dialogueArray;
 
         this.isInteracting = false; // Interaction state
         this.isSeen = false; // If the object is being looked at
@@ -55,14 +57,14 @@ class Interactable {
         //TODO: Add Text Feature
         switch (loopNumber) {
             case 1: //Response when in Loop 1 
-                print("Loop 1 Reponse!");
+                print(this.dialogueArray[0]);
                 break;
             case 2: //Response when in Loop 2
-                print("Loop 2 Reponse!");
+                print(this.dialogueArray[1]);
                 break;
 
             case 3: //Response when in Loop 3
-                print("Loop 3 Reponse!");
+                print(this.dialogueArray[2]);
                 break;
 
             default:
@@ -110,10 +112,10 @@ class Interactable {
         shininess(50);               // Shiny appearance
 
         //Color: This is the original Color Variable! 
-        //fill(this.color);
+        fill(this.color);
 
         //Texture: Applies Texture  (Bug: Object doesn't change color when you look at it once textures are applied)
-        texture(this.texture); 
+        //texture(this.texture); 
 
         //Default Setup of Model
         rotateX(PI); //Flips model upright because everything is upside down.
