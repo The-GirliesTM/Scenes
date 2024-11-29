@@ -45,26 +45,30 @@ function resetCamera() {
 }
 
 //Moves camera along the x-z axis
-function cameraMove() {
+function cameraMove(playerInteracting) {
 
-  // WASD controls for movement
-  if (keyIsDown(87) || keyIsDown(UP_ARROW)) { // W key for forward
-    x += cos(angleY) * cos(angleX) * speed;
-    z += sin(angleY) * cos(angleX) * speed;
-  }
-  if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { // S key for backward
-    x -= cos(angleY) * cos(angleX) * speed;
-    z -= sin(angleY) * cos(angleX) * speed;
-  }
+  if (!isInteracting) { //Restricts Player Movement when Interacting with Object
+    // WASD controls for movement
+    if (keyIsDown(87) || keyIsDown(UP_ARROW)) { // W key for forward
+      x += cos(angleY) * cos(angleX) * speed;
+      z += sin(angleY) * cos(angleX) * speed;
+    }
+    if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { // S key for backward
+      x -= cos(angleY) * cos(angleX) * speed;
+      z -= sin(angleY) * cos(angleX) * speed;
+    }
 
-  if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { // A key for left
-    x -= cos(angleY + HALF_PI) * speed;
-    z -= sin(angleY + HALF_PI) * speed;
+    if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { // A key for left
+      x -= cos(angleY + HALF_PI) * speed;
+      z -= sin(angleY + HALF_PI) * speed;
 
-  }
-  if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { // D key for right
-    x += cos(angleY + HALF_PI) * speed;
-    z += sin(angleY + HALF_PI) * speed;
+    }
+    if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { // D key for right
+      x += cos(angleY + HALF_PI) * speed;
+      z += sin(angleY + HALF_PI) * speed;
+    }
+  } else { //When Interacting you Can't move.
+    //print("Interacting! Can't move.");
   }
 
   //Debug: Print where the player is
@@ -73,23 +77,28 @@ function cameraMove() {
   
 //Camera Rotation based on Mouse Movement
 function cameraRotate() {
-  //X and Y changes based on mouse movement (not location)
-  let deltaX = movedX * rotationSpeed;
-  let deltaY = movedY * rotationSpeed;
+  if (!isInteracting) { //Restricts Player Movement when Interacting with Object
+    //X and Y changes based on mouse movement (not location)
+    let deltaX = movedX * rotationSpeed;
+    let deltaY = movedY * rotationSpeed;
 
-  // Update rotation angles based on mouse movement
-  angleY += deltaX;
-  angleX += deltaY;
+    // Update rotation angles based on mouse movement
+    angleY += deltaX;
+    angleX += deltaY;
 
-  // Clamp the vertical rotation to prevent weird camera flipping
-  angleX = constrain(angleX, -HALF_PI, HALF_PI);
-  
+    // Clamp the vertical rotation to prevent weird camera flipping
+    angleX = constrain(angleX, -HALF_PI, HALF_PI);
+    
 
-    // Apply camera rotation to variables
-    camX = cos(angleY) * cos(angleX)
-    camY = sin(angleX)
-    camZ = sin(angleY) * cos(angleX)
-    // console.log("look: "+ lookX + " : "+lookY+" : "+ lookZ)
+      // Apply camera rotation to variables
+      camX = cos(angleY) * cos(angleX)
+      camY = sin(angleX)
+      camZ = sin(angleY) * cos(angleX)
+      // console.log("look: "+ lookX + " : "+lookY+" : "+ lookZ)
+      
+  } else { //When Interacting you Can't Rotate Camera.
+    //print("Interacting! Can't Rotate");
+  }
 }
 
 // Automatically request pointer lock the first time mouse moves
