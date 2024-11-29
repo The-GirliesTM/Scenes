@@ -73,7 +73,7 @@ function setup(){
     //Create Player Object 
     player = new Player(1);
 
-    //TODO: Initialize the SceneManagersssssssdw
+    //TODO: Initialize the SceneManager
     //sceneManager = new SceneManager();
 }
 
@@ -83,6 +83,9 @@ function draw() {
     let lightingColor = color(150, 100, 0);
     let lightDir = createVector(2, 3, 1);
     directionalLight(lightingColor,lightDir);
+
+  //Loop Functionality: If the time has been activated it starts running
+  updateTimer(); 
 
   //Pausing / Unpausing the Camera
     if (paused) {
@@ -101,6 +104,8 @@ function draw() {
     //Checking if Player is Looking at a Pathos
     for (let obj of pathosArray) {
       if(obj.checkIfLookingAt(cam)) {
+
+        //Checks to see if Pathos is Intertable
         if(obj.activateOnLoop <= player.currentLoop) {
           print("Loop Match: Currently Interactable");  
           obj.activate(); //Viusually activates Object when looking at it
@@ -112,13 +117,13 @@ function draw() {
           } else {
             obj.rotateObject(); //Allows player to rotate object when interacting
           }
-
         } else {
           //Objects don't activate unless the player matches or exceeds its activate loop.
           //This causes them to not work in certain loops
           print("Looking at Pathos! Cannot Interact.")
           obj.deactivate();
         }
+
         isLooking = true;
         break; //This break needs to be here so the "E to Interact" hint fades when you're not looking
 
@@ -170,8 +175,6 @@ function keyPressed() {
               obj.interact(player.currentLoop);
               obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
 
-              //TODO: Restrict Player Movement if Interacting 
-
             } else {
               print("Incorrect loop. Unable to Interact.");  
             }
@@ -184,11 +187,12 @@ function keyPressed() {
       } else if (dBoxOpen) { //this is for when you want to turn off the 
         hideDialogue();
         isInteracting = false;
-        obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
 
-        //TODO: Allow Player Movement when not Interacting 
-
-
+        //Checks to see if loop conditions have been met. Starts timer if so.
+        let canLoop = checkIfLoopPossible();
+        if (canLoop) {
+          startTimer();
+        }
       }
     }
 

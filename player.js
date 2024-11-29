@@ -16,20 +16,28 @@ class Player{
 
     //Resets the player
     resetPlayer() {
-        //Maybe some sort of Black Screen?
-
         //Return Camera to 0/0/0
         resetCamera();
 
-        //Reset anything else that's changed. (Color Changes. Etc)
+        //Reset Objects
+        for (let obj of pathosArray) {
+            obj.resetInteraction();
+        }
     }
 
     //Updates player variables, resets player, and increases the loop count.
     newLoop(){
         if(this.currentLoop < this.maxLoops) {
-            this.currentLoop++;
-            this.resetPlayer();
             print("Loop Completed! Going to Loop: " + player.currentLoop);
+            this.currentLoop++;
+
+            //TODO: Add a black screen/transition screen before resetPlayer();
+
+            this.resetPlayer();
+        } else if (this.currentLoop == 3){
+            print("Completed Final Loop! Please Proceed to the Backroom!.");
+            //TODO: Make backroom door appear. Player can use this to move to the backroom
+            
         } else {
             print("Error! Too many loops: " + this.currentLoop);
         }

@@ -7,19 +7,19 @@ class Interactable {
         this.color = color; // Color
         this.model = model; // 3D Model
         
-        this.activateOnLoop = activateOnLoop; //Tracks what loop intertacble activates on
+        this.activateOnLoop = activateOnLoop;           //Tracks what loop intertacble activates on
         this.activeColor = "green";
         this.inactiveColor = this.color;
-        this.dialogueArray = dialogueArray; //Stores dialgloue options for each loop
+        this.dialogueArray = dialogueArray;             //Stores dialgloue options for each loop
 
-        this.isInteracting = false; // Interaction state
-        this.isSeen = false; // If the object is being looked at
-        this.interactionDistance = 150; // Maximum distance to interact
-        this.interactionAngleThreshold = radians(20); // Angle threshold for interaction
+        this.isInteracting = false;                     // Interaction state
+        this.isSeen = false;                            // If the object is being looked at
+        this.interactionDistance = 150;                 // Maximum distance to interact
+        this.interactionAngleThreshold = radians(20);   // Angle threshold for interaction
+        this.hasInteracted = false;                     // Tracks if this object has been interacted with
 
-        this.rotationY = rotation; // Y-axis rotation for interaction
-        this.originalRotationY = this.rotationY;
-        this.textArray; //TODO: Make this import and array of text that changes based on loop.
+        this.rotationY = rotation;                      // Y-axis rotation for interaction
+        this.originalRotationY = this.rotationY;        //Stores original rotation data for resets
     }  
     
     //Draw the object in the scene
@@ -82,6 +82,8 @@ class Interactable {
 
     //Hanldes Object Response to Interactions (Excluding Rotations)
     interact(loopNumber) {
+        this.hasInteracted = true;
+
         switch (loopNumber) {
             case 1: //Response when in Loop 1 
                 this.loadDialogue(this.dialogueArray[0]);
@@ -121,6 +123,13 @@ class Interactable {
     //Resets Object to starting State. Currently just resets rotation.
     resetObject() {
         this.rotationY = this.originalRotationY;
+        
+    }
+
+    //Resets Tracking for if Object has been interacted with this loop
+    resetInteraction(){
+        print("Resetting Interactions!")
+        this.hasInteracted = false;
     }
 
     //Loads Object's Dialogue 
