@@ -337,13 +337,13 @@ input[type=submit] {
 .dialogue {
   background-image: url(assets/UI/dialogue.svg);
   background-repeat: no-repeat;
-  width: 632px;
+  width: 407px;
   height: 125px;
   bottom: 30px;
   left: 50%;
   transform: translate(-50%, 0);
   background-color: #65ccff71;
-  border-radius: 27px;
+  border-radius: 15px;
   padding: 50px;
   opacity: 0;
   transition: all 0.2s ease;
