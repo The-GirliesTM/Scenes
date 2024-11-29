@@ -194,6 +194,8 @@ function keyPressed() {
           startTimer();
         }
       }
+      controls = $("#controls").addClass('hide-control');
+        print("hide control")
     }
 
     //Debug: Go to the Next Loop!
