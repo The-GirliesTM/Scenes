@@ -16,6 +16,7 @@ class Player{
 
     //Resets the player
     resetPlayer() {
+
         //Return Camera to 0/0/0
         resetCamera();
 
@@ -32,6 +33,12 @@ class Player{
             this.currentLoop++;
 
             //TODO: Add a black screen/transition screen before resetPlayer();
+            overlay = $("#overlay").addClass("overlay-transition");
+
+            setTimeout(() => {
+                overlay = $("#overlay").removeClass("overlay-transition");
+                this.resetPlayer();
+              }, 3000);
 
             this.resetPlayer();
         } else if (this.currentLoop == 3){
