@@ -1,11 +1,11 @@
 class Interactable {
-    constructor(x, y, z, color, model, texture, activateOnLoop , dialogueArray) {
+    constructor(x, y, z, rotation, color, model, activateOnLoop , dialogueArray) {
         this.x = x; // Position
         this.y = y;
         this.z = z;
+        
         this.color = color; // Color
         this.model = model; // 3D Model
-        this.texture = texture;
         
         this.activateOnLoop = activateOnLoop; //Tracks what loop intertacble activates on
         this.activeColor = "green";
@@ -14,12 +14,40 @@ class Interactable {
 
         this.isInteracting = false; // Interaction state
         this.isSeen = false; // If the object is being looked at
-        this.rotationY = 0; // Y-axis rotation for interaction
         this.interactionDistance = 150; // Maximum distance to interact
         this.interactionAngleThreshold = radians(20); // Angle threshold for interaction
 
+        this.rotationY = rotation; // Y-axis rotation for interaction
+        this.originalRotationY = this.rotationY;
         this.textArray; //TODO: Make this import and array of text that changes based on loop.
-    }   
+    }  
+    
+    //Draw the object in the scene
+    draw(cam) {
+        push();
+        
+        if (this.isInteracting) {
+            // Update to the object's rotation dyanmically during interaction
+            translate(this.x, this.y, this.z);      //Places Object
+            rotateY(this.rotationY);                // Apply rotation
+
+        } else {
+            // Normal rendering - Return to Original Position
+            translate(this.x, this.y, this.z);      //Places Object
+            rotateY(this.originalRotationY);        //Default Rotation
+        }
+
+        //Object Specific Shadiwng and Material Properties
+        pointLight(120, 120, 120, movedX - width / 2, movedY - height / 2, 200); // Point light at mouse position
+        specularMaterial(255);       // Specular (shiny) material for highlights
+        shininess(30);               // Shiny appearance
+
+        //Color: This is the original Color Variable! 
+        fill(this.color);
+        rotateX(PI); //Flips model upright because everything is upside down.
+        model(this.model); // Render the 3D model
+        pop();
+    }
 
     //Checks to see if the Camera is looking at this object
     checkIfLookingAt(cam) {
@@ -52,27 +80,61 @@ class Interactable {
         return angle < this.interactionAngleThreshold && distance < this.interactionDistance;
     }
 
-    //TODO: Function for Interactions
-    interact(cam, loopNumber) {
+    //Hanldes Object Response to Interactions (Excluding Rotations)
+    interact(loopNumber) {
         switch (loopNumber) {
             case 1: //Response when in Loop 1 
+                this.loadDialogue(this.dialogueArray[0]);
+                this.showDialogue();
                 print(this.dialogueArray[0]);
+                
                 break;
             case 2: //Response when in Loop 2
+                this.loadDialogue(this.dialogueArray[1]);
+                this.showDialogue();
                 print(this.dialogueArray[1]);
                 break;
 
             case 3: //Response when in Loop 3
+                this.loadDialogue(this.dialogueArray[2]);
+                this.showDialogue();
                 print(this.dialogueArray[2]);
                 break;
 
             default:
               print("There's been an error! Inputted Loop: " + loopNumber); 
               break;
-          }
-
-        //TODO: Add Ability to Rotate Object (May be a future task)
+          }       
     }
+
+    //Rotates object based on key presses.
+    rotateObject() {
+        // Rotation logic for arrow keys (Z-axis rotation only)
+        if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { // A key for left
+            this.rotationY -= radians(1); // Rotate counterclockwise
+        }
+        if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { // D key for rightaw
+            this.rotationY += radians(1); // Rotate clockwise
+        } 
+    }
+
+    //Resets Object to starting State. Currently just resets rotation.
+    resetObject() {
+        this.rotationY = this.originalRotationY;
+    }
+
+    //Loads Object's Dialogue 
+    loadDialogue(d) {
+        let dialog = $("#dialog").text();
+        $("#dialog").text(d);
+      }
+    
+    //Displays Object's Dialogue 
+    showDialogue() {
+        let dialog = $("#dialog").addClass("show-dialogue");
+        dBoxOpen = true;
+      }
+      
 
     //Visually Activates the object. 
     activate(){
@@ -86,40 +148,5 @@ class Interactable {
     deactivate(){
         this.color = this.inactiveColor;
         this.isSeen = false;
-    }
-
-
-    //Draw the object in the scene
-    draw(cam) {
-        push();
-        
-        if (this.isInteracting) {
-            // Translate to the object's position during interaction
-            print("drawn interacting!");
-            translate(this.x, this.y, this.z);
-            rotateY(this.rotationY); // Apply rotation
-
-        } else {
-            // Normal rendering
-            translate(this.x, this.y, this.z);
-        }
-
-        //Object Specific Shading
-        pointLight(120, 120, 120, movedX - width / 2, movedY - height / 2, 200); // Point light at mouse position
-        // ambientLight(100); // Low ambient light (dim)
-    
-        // Set material properties for all interactable objects
-        specularMaterial(255);       // Specular (shiny) material for highlights
-        shininess(30);               // Shiny appearance
-        //Color: This is the original Color Variable! 
-        fill(this.color);
-
-        //Texture: Applies Texture  (Bug: Object doesn't change color when you look at it once textures are applied)
-        //texture(this.texture); 
-
-        //Default Setup of Model
-        rotateX(PI); //Flips model upright because everything is upside down.
-        model(this.model); // Render the 3D model
-        pop();
     }
 }
