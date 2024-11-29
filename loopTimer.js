@@ -1,5 +1,5 @@
 let timerStarted = false;       // Flag to check if the timer has started
-let timerDuration = 10000;      // Duration of the timer in milliseconds (5 seconds for example)
+let timerDuration = 8000;      // Duration of the timer in milliseconds (1000 = 1 Second)
 let timerStartTime = 0;         // To store the time when the timer started
 let startCallCount = 0;
 
@@ -60,3 +60,5 @@ function resetTimer() {
     timerStarted = false;
     startCallCount = 0;
 }
+
+//TODO: Add ability to pause timer when the game is paused.
