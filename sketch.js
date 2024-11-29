@@ -25,17 +25,10 @@ let pathos1Dialgoue = [];
 let pathos2Dialgoue = []; 
 let pathos3Dialgoue = []; 
 
-
-//TODO: Textures? May be Deprecated
-let texture1;
-
 function preload(){
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/sky-citiscape.png')
     skybox2 = loadImage('assets/desert.jpg')
-
-    //Loading Textures
-    texture1 = loadImage("assets/pathos/textures/interactable1_Texture.png");
 
     //Loading Models
     pathos1Model = loadModel("assets/pathos/interactable1.obj");
@@ -71,9 +64,9 @@ function setup(){
                     ]; 
 
     //Interctable Objects
-    pathosArray.push(new Interactable( 500, -30, -100, 'red', pathos1Model, texture1, 1, pathos1Dialgoue));
-    pathosArray.push(new Interactable( 500, -30, 100, 'red', pathos2Model, texture1, 2, pathos2Dialgoue));
-    pathosArray.push(new Interactable( 500, -30, 300, 'red', pathos3Model, texture1, 3, pathos3Dialgoue));
+    pathosArray.push(new Interactable( 500, -30, -100, -PI/2, 'red', pathos1Model, 1, pathos1Dialgoue));
+    pathosArray.push(new Interactable( 500, -30, 100, 0, 'red', pathos2Model, 2, pathos2Dialgoue));
+    pathosArray.push(new Interactable( 500, -30, 300, -PI/2, 'red', pathos3Model, 3, pathos3Dialgoue));
     
     noStroke(); //Removes Strokes from 3D Models
 
@@ -85,12 +78,11 @@ function setup(){
 }
 
 function draw() {
-    //background(0)
-    
+  //Room Lighting
     ambientLight(170);
-    let c = color(150, 100, 0);
+    let lightingColor = color(150, 100, 0);
     let lightDir = createVector(2, 3, 1);
-    directionalLight(c,lightDir);
+    directionalLight(lightingColor,lightDir);
 
   //Pausing / Unpausing the Camera
     if (paused) {
@@ -100,62 +92,52 @@ function draw() {
       cameraUpdate(cam);
     }
 
-    //Checking if Player is Looking at a Pathos
+    //Array that draws the pathos.
+    //This was originally in the loop below but there were issues with break; that made me move it
     for (let obj of pathosArray) {
       obj.draw(cam);
+    }
+
+    //Checking if Player is Looking at a Pathos
+    for (let obj of pathosArray) {
       if(obj.checkIfLookingAt(cam)) {
         if(obj.activateOnLoop <= player.currentLoop) {
           print("Loop Match: Currently Interactable");  
-          obj.activate();
+          obj.activate(); //Viusually activates Object when looking at it
+
+        //Determines Behaviors when player is or isnt interacting.
           if (!isInteracting) {
             showHint();
+            obj.resetObject(); //Rests Object when not interacting
+          } else {
+            obj.rotateObject(); //Allows player to rotate object when interacting
           }
+
         } else {
-          //on the vase, the obj activates at loop = 2 and player is on loop 1;
-          //this causes them to not work in certain loops
+          //Objects don't activate unless the player matches or exceeds its activate loop.
+          //This causes them to not work in certain loops
           print("Looking at Pathos! Cannot Interact.")
           obj.deactivate();
         }
         isLooking = true;
+        break; //This break needs to be here so the "E to Interact" hint fades when you're not looking
+
       } else {  
         obj.deactivate();
-        // isLooking = false;
+        isLooking = false;
       }
-  }
+    }
 
-  if(!isLooking) {
-    hideHint()
-  }
+    //Hides Hint if Player isn't looking at Active Pathos
+    if(!isLooking) {
+      hideHint();
+      hideDialogue(); //Hides Dialgoue when player isn't looking (Mostly for none-active objects.)
+    }
 
   //Display Scene using Scene Array
   scenes[currentSceneIndex].display();
     
 }
-
-function loadDialogue(d) {
-  dialog = $("#dialog").text();
-  console.log(dialog);
-  $("#dialog").text(d);
-}
-
-function showDialogue() {
-  dialog = $("#dialog").addClass("show-dialogue");
-  dBoxOpen = true;
-}
-
-function hideDialogue() {
-  dialog = $("#dialog").removeClass("show-dialogue");
-  dBoxOpen = false;
-}
-
-function showHint() {
-  hint = $("#hint").addClass("show-hint");
-}
-
-function hideHint() {
-  hint = $("#hint").removeClass("show-hint");
-}
-
 
 // TODO: Scene Manager
 // Scene manager to handle scene switching
@@ -172,28 +154,41 @@ function keyPressed() {
       pauseGame();
     }
 
+    //Pathos Interactions 
     if(key === 'e') {
       if (!isInteracting && !dBoxOpen) {
+
         for (let obj of pathosArray) {
           if(obj.checkIfLookingAt(cam) & obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
             if (obj.activateOnLoop <= player.currentLoop) { 
-              obj.interact(cam, player.currentLoop);
-              loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
-              showDialogue();
+
+              //Handling Hint Hiding
               hideHint();
               isInteracting = true;
+
+              //This Function handles all reactions from the Object when Interacted.
+              obj.interact(player.currentLoop);
+              obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
+
+              //TODO: Restrict Player Movement if Interacting 
+
             } else {
               print("Incorrect loop. Unable to Interact.");  
             }
-          } else if (obj.checkIfLookingAt(cam)) {
-            loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
-            showDialogue();
+          } else if (obj.checkIfLookingAt(cam)) { //Displays Text Box for inactivate object.
+            obj.loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
+            obj.showDialogue();
             hideHint();
           }
         }
       } else if (dBoxOpen) { //this is for when you want to turn off the 
         hideDialogue();
         isInteracting = false;
+        obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
+
+        //TODO: Allow Player Movement when not Interacting 
+
+
       }
     }
 
@@ -218,3 +213,18 @@ function keyPressed() {
       overlay = $("#overlay").addClass("overlay")
     }
   }
+
+  //Hides any dialog boxes that are being displayed
+function hideDialogue() {
+  dialog = $("#dialog").removeClass("show-dialogue");
+  dBoxOpen = false;
+}
+//Shows a Key-Input hint
+function showHint() {
+  hint = $("#hint").addClass("show-hint");
+}
+
+//Hides Key-Input Hint
+function hideHint() {
+  hint = $("#hint").removeClass("show-hint");
+}
