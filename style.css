@@ -353,3 +353,29 @@ input[type=submit] {
   opacity: 1;
   transition: all 0.2s ease;
 }
+
+.controls {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 80%;
+  padding: 50px;
+  background-color: #3b7ccb5f;
+  font-size: 28px;
+  border-radius: 10px;
+}
+
+.hide-control {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.key {
+  padding: 5px 10px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  font-size: 20px;
+  width: fit-content;
+}
