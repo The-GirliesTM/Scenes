@@ -131,6 +131,7 @@ function draw() {
     //Hides Hint if Player isn't looking at Active Pathos
     if(!isLooking) {
       hideHint();
+      hideDialogue(); //Hides Dialgoue when player isn't looking (Mostly for none-active objects.)
     }
 
   //Display Scene using Scene Array
@@ -156,6 +157,7 @@ function keyPressed() {
     //Pathos Interactions 
     if(key === 'e') {
       if (!isInteracting && !dBoxOpen) {
+
         for (let obj of pathosArray) {
           if(obj.checkIfLookingAt(cam) & obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
             if (obj.activateOnLoop <= player.currentLoop) { 

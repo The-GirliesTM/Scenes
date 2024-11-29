@@ -27,7 +27,7 @@ class Interactable {
         push();
         
         if (this.isInteracting) {
-            // Translate to the object's position during interaction
+            // Update to the object's rotation dyanmically during interaction
             translate(this.x, this.y, this.z);      //Places Object
             rotateY(this.rotationY);                // Apply rotation
 
