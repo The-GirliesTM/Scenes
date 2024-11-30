@@ -38,10 +38,10 @@ class Player{
             setTimeout(() => {
                 overlay = $("#overlay").removeClass("overlay-transition");
                 print("transition")
-                this.resetPlayer();
+                // this.resetPlayer();
               }, 3000);
 
-            // this.resetPlayer();
+            this.resetPlayer();
         } else if (this.currentLoop == 3){
             print("Completed Final Loop! Please Proceed to the Backroom!.");
             //TODO: Make backroom door appear. Player can use this to move to the backroom

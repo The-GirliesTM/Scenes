@@ -50,20 +50,20 @@ function setup(){
     setCamera(cam);
 
     //Filling Interactable Dialgoue Arrays
-    pathos1Dialgoue = ["Wow! I bet they have steady hands to make such detail.\ Yeah, I don’t think I would’ve been able to make that.",
-                      "This doesn’t really look like it took much effort.\Yeah, it just looks bland to be honest.",
-                      "I don’t know how this made it into the exhibition. Sculpt a few curves into a stone and call it art? Please.\Never understood how pieces like this get any attention.",
+    pathos1Dialgoue = ["Wow! I bet they have steady hands to make such detail.\nYeah, I don’t think I would’ve been able to make that.",
+                      "This doesn’t really look like it took much effort.\nYeah, it just looks bland to be honest.",
+                      "I don’t know how this made it into the exhibition. Sculpt a few curves into a stone and call it art? Please.\nNever understood how pieces like this get any attention.",
                       "That’s the pose grandpa always made when he’d see me run back home from school... it doesn’t have much detail because I never paid attention back then. When we are young sometimes things just look and seem so simple. Sorry gramps, looks like I did the opposite of honoring you."
                       ];
-    pathos2Dialgoue = ["Can you believe this took 3 months to make?\That’s crazy, all that time definitely paid off!",
-                      "You seriously think this took months to make? I could’ve done this at a pottery shop. \Yeah, I bet they exaggerated it.",
-                      "Wanna bet that they went to a pottery class and made it there?\HA! I’ll bet my savings on that one.",
+    pathos2Dialgoue = ["Can you believe this took 3 months to make?\nThat’s crazy, all that time definitely paid off!",
+                      "You seriously think this took months to make? I could’ve done this at a pottery shop. \nYeah, I bet they exaggerated it.",
+                      "Wanna bet that they went to a pottery class and made it there?\nHA! I’ll bet my savings on that one.",
                       "Huh, I made this after I had my mini stroke, I was lucky. That slight tremor in my hands didn’t stop me from doing what I love. So yes, it took months for me to make that simple piece. But I guess you needed the whole story? The “I overcame a physical obstacle to make this...” wasn’t good enough of a description for you?"
                     ]; 
-    pathos3Dialgoue = ["What a cute little dragon!\Seems like the little guy is having a nice dream based off his little smile.",
-                      "I wonder if she'll ever install this one? (Error Message)",
-                      "Now this looks like it came out of a cartoon. My five-year-old can make this out of clay easy!I bet! Maybe with more detail too.",
-                      "Luca, my childhood stuffed animal. Anytime I had a hard time I would lay in my bed and hold you tight till all the bad thoughts slowly faded away. That smile wasn’t just yours... when I hugged you it became mine…\I wish they understood that."
+    pathos3Dialgoue = ["What a cute little dragon!\nSeems like the little guy is having a nice dream based off his little smile.",
+                      "Doesn’t this specific dragon look familiar?\nIt does ‘cause it looks the same as every other sleeping dragon piece you see on the internet.",
+                      "Now this looks like it came out of a cartoon. My five-year-old can make this out of clay easy!\nI bet! Maybe with more detail too.",
+                      "Luca, my childhood stuffed animal. Anytime I had a hard time I would lay in my bed and hold you tight till all the bad thoughts slowly faded away. That smile wasn’t just yours... when I hugged you it became mine…\nI wish they understood that."
                     ]; 
     //Interctable Objects
     pathosArray.push(new Interactable( 500, -30, -100, -PI/2, 'red', pathos1Model, 1, pathos1Dialgoue));
