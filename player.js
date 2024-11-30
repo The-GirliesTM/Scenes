@@ -37,7 +37,7 @@ class Player{
 
             setTimeout(() => {
                 overlay = $("#overlay").removeClass("overlay-transition");
-                print("transition")
+                print($("#overlay").hasClass("overlay-transition"));
                 // this.resetPlayer();
               }, 3000);
 
