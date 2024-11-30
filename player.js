@@ -33,15 +33,15 @@ class Player{
             this.currentLoop++;
 
             //TODO: Add a black screen/transition screen before resetPlayer();
-            overlay = $("#overlay").addClass("overlay-transition");
+            let overlay = $("#overlay").addClass("overlay-transition");
 
             setTimeout(() => {
                 overlay = $("#overlay").removeClass("overlay-transition");
-                print($("#overlay").hasClass("overlay-transition"));
-                // this.resetPlayer();
-              }, 3000);
+                //print($("#overlay").hasClass("overlay-transition")); //Debug?
+                 
+                this.resetPlayer(); //Reset the player during transition
+              }, 2000);
 
-            this.resetPlayer();
         } else if (this.currentLoop == 3){
             print("Completed Final Loop! Please Proceed to the Backroom!.");
             //TODO: Make backroom door appear. Player can use this to move to the backroom
