@@ -363,14 +363,13 @@ input[type=submit] {
 }
 
 .controls {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: 80%;
-  padding: 50px;
-  background-color: #3b7ccb5f;
-  font-size: 28px;
+  top: 5%;
+  right: 5%;
+  width: 250px;
+  height: fit-content;
+  padding: 10px;
+  background-color: #3bbdcb85;
+  font-size: 15px;
   border-radius: 10px;
 }
 
@@ -384,6 +383,6 @@ input[type=submit] {
   background-color: black;
   color: white;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 12px;
   width: fit-content;
 }
