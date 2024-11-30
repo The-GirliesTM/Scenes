@@ -50,15 +50,15 @@ function setup(){
     setCamera(cam);
 
     //Filling Interactable Dialgoue Arrays
-    pathos1Dialgoue = ["Pathos 1 - Loop 1",
-                      "Pathos 1 - Loop 2",
+    pathos1Dialgoue = ["Wow! I bet they have steady hands to make such detail.\ Yeah, I don’t think I would’ve been able to make that.",
+                      "This doesn’t really look like it took much effort.\Yeah, it just looks bland to be honest.",
                       "Pathos 1 - Loop 3"
                       ];
-    pathos2Dialgoue = ["Huh... the pathos isn't working. (Error Message)",
-                      "Pathos 2 - Loop 2",
+    pathos2Dialgoue = ["Can you believe this took 3 months to make?\That’s crazy, all that time definitely paid off!",
+                      "You seriously think this took months to make? I could’ve done this at a pottery shop. \Yeah, I bet they exaggerated it.",
                       "Pathos 2 - Loop 3"
                     ]; 
-    pathos3Dialgoue = ["Looking like this one isn't installed yet. (Error Message)",
+    pathos3Dialgoue = ["What a cute little dragon!\Seems like the little guy is having a nice dream based off his little smile.",
                       "I wonder if she'll ever install this one? (Error Message)",
                       "Pathos 3 - Loop 3"
                     ]; 
