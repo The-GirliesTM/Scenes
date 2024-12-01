@@ -30,18 +30,18 @@ class Player{
     //Updates player variables, resets player, and increases the loop count.
     newLoop(){
         if(this.currentLoop < this.maxLoops) {
-            this.currentLoop++;
-            print("Loop Completed! Going to Loop: " + player.currentLoop);
 
-            //TODO: Add a black screen/transition screen before resetPlayer();
+            //Adds a Black Screen Transition when player goes into new loop
             let overlay = $("#overlay").addClass("overlay-transition");
 
             setTimeout(() => {
                 overlay = $("#overlay").removeClass("overlay-transition");
-                //print($("#overlay").hasClass("overlay-transition")); //Debug?
                  
                 this.resetPlayer(); //Reset the player during transition
+                this.currentLoop++; //Inside this timeout to keep player from interacting until after loop is finished
               }, 2000);
+
+              print("Loop Completed! Going to Loop: " + player.currentLoop);
 
         } else if (this.currentLoop == 3){
             print("Completed Final Loop! Please Proceed to the Backroom!.");
