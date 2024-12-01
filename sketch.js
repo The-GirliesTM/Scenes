@@ -106,11 +106,19 @@ function setup(){
       "Luca, my childhood stuffed animal. Anytime I had a hard time I would lay in my bed and hold you tight till all the bad thoughts slowly faded away. That smile wasn’t just yours... when I hugged you it became mine…\nI wish they understood that."
     ]; 
 
+    
+    pathos4Dialgoue = [
+      "I'm a Door",
+      "I'm a sad Door. Please Open me :(",
+      "A door?",
+      "I should leave..."
+    ]; 
+
     //Interctable Objects
     pathosArray.push(new Interactable( -62, -52, -224, 0, 'red', pathos1Model, 20, 1, pathos1Dialgoue));
     pathosArray.push(new Interactable( -352.5, -52, -18, 0, 'red', pathos2Model, 20,  2, pathos2Dialgoue));
     pathosArray.push(new Interactable( -408, -50, -395, 0, 'red', pathos3Model, 20, 3, pathos3Dialgoue));
-    pathosArray.push(new Interactable(-508, 10 ,-50 , 0,'red', doorModel, 80, 4, "Open..?"));
+    pathosArray.push(new Interactable(-508, 10 ,-50 , 0,'red', doorModel, 70, 4, pathos4Dialgoue));
     
     noStroke(); //Removes Strokes from 3D Models
 
@@ -148,13 +156,10 @@ function draw() {
         if (doorTime) { //Influenced by door variable (Door is only drawn if it's door time)
           obj.draw(cam); 
         } 
-
-      } else { //If we're looking at literally anything else 
+      } else { //Literally everything else. Draw it.
         obj.draw(cam);
       }
     }
-
-    print(pathosArray[3].checkIfLookingAt(cam));
 
     //Checking if Player is Looking at a Pathos
     for (let obj of pathosArray) {

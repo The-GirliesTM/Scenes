@@ -29,7 +29,7 @@ class Interactable {
     draw(cam) {
         push();
         
-        if (this.isInteracting) {
+        if (this.isInteracting && this.activateOnLoop != 4) {
             // Update to the object's rotation dyanmically during interaction
             translate(this.x, this.y, this.z);      //Places Object
             rotateY(this.rotationY);                // Apply rotation
@@ -104,9 +104,23 @@ class Interactable {
                 break;
 
             case 3: //Response when in Loop 3
+            
                 this.loadDialogue(this.dialogueArray[2]);
                 this.showDialogue();
                 //print(this.dialogueArray[2]);
+
+                break;
+            case 4: //Response when in Loop 3
+            
+                if (this.activateOnLoop == 4) {
+                    this.loadDialogue(this.dialogueArray[2]);
+                    this.showDialogue();
+
+                } else { 
+                    this.loadDialogue("*Silence*");
+                    this.showDialogue();
+                    //print(this.dialogueArray[2]);
+                }   
 
                 break;
 

@@ -25,6 +25,7 @@ class Player{
         for (let obj of pathosArray) {
             obj.resetInteraction();
         }
+
     }
 
     //Updates player variables, resets player, and increases the loop count.
@@ -39,12 +40,11 @@ class Player{
                  
                 this.resetPlayer(); //Reset the player during transition
                 this.currentLoop++; //Inside this timeout to keep player from interacting until after loop is finished
-              }, 2000);
+                print("Loop Completed! Going to Loop: " + player.currentLoop);
+            }, 2000);
 
-              print("Loop Completed! Going to Loop: " + player.currentLoop);
-
-        } else if (this.currentLoop == 3){
-            print("Completed Final Loop! Please Proceed to the Backroom!.");
+        } else if (this.currentLoop == 4){
+            print("Final Loop: Please Proceed to the Backroom.");
             //TODO: Make backroom door appear. Player can use this to move to the backroom
             
         } else {

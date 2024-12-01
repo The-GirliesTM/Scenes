@@ -27,33 +27,39 @@ function checkIfLoopPossible() {
 
           //TODO: Door Appearing Sound Here
           doorTime = true;
+          player.currentLoop = 4;
 
           return true;
         }
         break;
+      case 4:
+        print("Moving to backroom");
+        
+      break;
     }
   }
 
 //Starts timer when called
 function startTimer(sound) {
     // Only start the timer if the conditions for the loop are met & it's the first time
-    if (startCallCount == 0) {
+    if (startCallCount == 0 && player.currentLoop < 4) {
         print("Timer Started");
         //TODO: Add Sound when Timer Starts
-
-        
 
         timerStarted = true;
         timerStartTime = millis(); // Get the current time in milliseconds
         startCallCount++;
 
-        if (player.currentLoop == 3) {
+        if (player.currentLoop <= 3) {
 
           artGallerySong.stop();
           doorSound.amp(0.3);
           doorSound.play();
           
         }
+    } else if (player.currentLoop == 4) {
+        print("Loops Completed. Proceed to Backroom.");
+
     } else {
         print("Timer Has already started.");
     }
