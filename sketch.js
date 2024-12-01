@@ -23,7 +23,6 @@ let pathos3Model;
 let isInteracting = false;
 let isLooking = false;
 let dBoxOpen = false;
-
 let door;
 
 //Pathos Dialogue Arrays 
@@ -32,19 +31,22 @@ let pathos2Dialgoue = [];
 let pathos3Dialgoue = []; 
 
 //Audio files
-let murmur;
-let song;
+let murmurSound;
+let artGallerySong;
+let doorSound;
 
 function preload(){
-    mainroom = loadModel("assets/main_room/MainroomWalls.obj");
+    mainroom = loadModel("assets/main_room/MainroomWalls.obj")
     backroom =  loadModel("assets/backroom/Backroom.obj");
+
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/main_room/starry_skybox.jpg')
     skybox2 = loadImage('assets/desert.jpg')
 
     //load sounds
-    murmur = loadSound('assets/audio/murmur.mp3');
-    song = loadSound('assets/audio/eternalHope.mp3');
+    murmurSound = loadSound('assets/audio/murmur.mp3');
+    artGallerySong = loadSound('assets/audio/eternalHope.mp3');
+    doorSound = loadSound('assets/audio/door.mp3');
 
     //Loading Models
     pathos1Model = loadModel("assets/pathos/interactable1.obj");
@@ -59,15 +61,19 @@ function setup(){
     game = createCanvas(windowWidth, windowHeight, WEBGL)
     game.parent("#game");
 
-    song.amp(0.3);
-    song.loop();
-    song.play();
+
+    // Create scene objects with skybox images, scene model, object functions, and ground properties
+
+    artGallerySong.amp(0.3);
+    artGallerySong.loop();
+    artGallerySong.play();
+    doorSound.amp(0.3);
 
     // Create scene objects with skybox images, object functions, and ground properties
+
     scenes.push(new Scene(skybox1, mainroom, color(255), 2000, 26, 0, -87000,20000, 130000 ));
    
     scenes.push(new Scene(skybox2, backroom, color(200, 200, 220), 2000, 50, 1,0,0,0));
-    // scenes.push(new Scene(skybox2, color(100, 200, 220), 2000, 50, 1));
 
     //Camera Setup
     setCamInitialPos()
@@ -145,8 +151,10 @@ function draw() {
 
         //Checks to see if Pathos is Intertable
         if(obj.activateOnLoop <= player.currentLoop) {
+
           // print("Loop Match: Currently Interactable");  
-          obj.activate(murmur); //Viusually activates Object when looking at it
+          obj.activate(murmurSound); //Viusually activates Object when looking at it
+
         //Determines Behaviors when player is or isnt interacting.
           if (!isInteracting) {
             showHint();
@@ -246,7 +254,7 @@ function keyPressed() {
         //Checks to see if loop conditions have been met. Starts timer if so.
         let canLoop = checkIfLoopPossible();
         if (canLoop) {
-          startTimer();
+          startTimer(door);
         }
       }
       controls = $("#controls").addClass('hide-control');

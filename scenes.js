@@ -7,7 +7,7 @@ class Scene {
         this.groundSize = groundSize;
         this.groundPosY = groundY;
         this.type = t;
-
+      
         this.x = x_pos;
         this.y = y_pos;
         this.z = z_pos;
@@ -16,6 +16,7 @@ class Scene {
         // this.x = -87000;
         // this.y = 20000;
         // this.z = 130000;
+
 
         // Position of the model
         this.modelPosition = createVector(0, -2000, 0); // Initial position
