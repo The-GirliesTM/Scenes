@@ -9,5 +9,7 @@ function pause() {
         pauseDiv.removeClass("show-pause")
         overlay = $("#overlay").removeClass("overlay")
         paused = false;
+        timerStartTime += timerPauseTime;
+        timerPauseTime = 0;
     })
 }
