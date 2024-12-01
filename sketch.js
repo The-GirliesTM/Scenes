@@ -165,7 +165,6 @@ function draw() {
         } else {
           //Objects don't activate unless the player matches or exceeds its activate loop.
           //This causes them to not work in certain loops
-          print("Looking at Pathos! Cannot Interact.")
           obj.deactivate();
         }
 
