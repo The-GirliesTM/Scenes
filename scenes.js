@@ -8,6 +8,10 @@ class Scene {
         this.groundPosY = groundY;
         this.type = t;
 
+        this.x = -87000;
+        this.y = 20000;
+        this.z = 130000;
+
         // Position of the model
         this.modelPosition = createVector(0, -2000, 0); // Initial position
         
@@ -43,10 +47,10 @@ class Scene {
 
     drawModel(){
         push();
-        scale(.005);
+        scale(.006);
         rotateX(-PI);
-        rotateY(0);
-        translate(-80000, 0, 100000); // Use model position
+        rotateY(PI);
+        translate(this.x, this.y, this.z); // Use model position
         //translate(this.modelPosition)
         ambientMaterial(255,255,255)
         model(this.model); // Render the 3D model
