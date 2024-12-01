@@ -20,26 +20,23 @@ let isInteracting = false;
 let isLooking = false;
 let dBoxOpen = false;
 
-let door;
-
 //Pathos Dialogue Arrays 
 let pathos1Dialgoue = []; 
 let pathos2Dialgoue = []; 
 let pathos3Dialgoue = []; 
 
 function preload(){
-    mainroom = loadModel("assets/main_room/mainroom.obj");
+
+    mainroom = loadModel("assets/mainroom-walls.obj");
+
     //load skybox image --> will be used later as a texture
-    skybox1 = loadImage('assets/main_room/starry_skybox.jpg')
+    skybox1 = loadImage('assets/sky-citiscape.png')
     skybox2 = loadImage('assets/desert.jpg')
 
     //Loading Models
     pathos1Model = loadModel("assets/pathos/interactable1.obj");
     pathos2Model = loadModel("assets/pathos/interactable2.obj");
     pathos3Model = loadModel("assets/pathos/interactable3.obj");
-
-    // Load Miscellaneous models
-    doorModel = loadModel("assets/main_room/door.obj");
 }
 
 function setup(){
@@ -47,7 +44,7 @@ function setup(){
     game.parent("#game");
 
     // Create scene objects with skybox images, object functions, and ground properties
-    scenes.push(new Scene(skybox1, mainroom, color(255), 2000, 26, 0));
+    scenes.push(new Scene(skybox1,mainroom, color(120, 180, 120), 2000, 26, 0));
     // scenes.push(new Scene(skybox2, color(200, 200, 220), 2000, 50, 1));
     // scenes.push(new Scene(skybox2, color(100, 200, 220), 2000, 50, 1));
 
@@ -72,11 +69,9 @@ function setup(){
                       "Luca, my childhood stuffed animal. Anytime I had a hard time I would lay in my bed and hold you tight till all the bad thoughts slowly faded away. That smile wasn’t just yours... when I hugged you it became mine…\nI wish they understood that."
                     ]; 
     //Interctable Objects
-    pathosArray.push(new Interactable( -62, -52, -224, 0, 'red', pathos1Model, 1, pathos1Dialgoue));
-    pathosArray.push(new Interactable( -352.5, -52, -18, 0, 'red', pathos2Model, 2, pathos2Dialgoue));
-    pathosArray.push(new Interactable( -408, -50, -395, 0, 'red', pathos3Model, 3, pathos3Dialgoue));
-
-    door = new Interactable(0,0,0,'gray', doorModel,3,"Open..?")
+    pathosArray.push(new Interactable( 500, -30, -100, -PI/2, 'red', pathos1Model, 1, pathos1Dialgoue));
+    pathosArray.push(new Interactable( 500, -30, 100, 0, 'red', pathos2Model, 2, pathos2Dialgoue));
+    pathosArray.push(new Interactable( 500, -30, 300, -PI/2, 'red', pathos3Model, 3, pathos3Dialgoue));
     
     noStroke(); //Removes Strokes from 3D Models
 
@@ -85,8 +80,6 @@ function setup(){
 
     //TODO: Initialize the SceneManager
     //sceneManager = new SceneManager();
-
-    
 }
 
 function draw() {
@@ -119,7 +112,7 @@ function draw() {
 
         //Checks to see if Pathos is Intertable
         if(obj.activateOnLoop <= player.currentLoop) {
-          // print("Loop Match: Currently Interactable");  
+          print("Loop Match: Currently Interactable");  
           obj.activate(); //Viusually activates Object when looking at it
 
         //Determines Behaviors when player is or isnt interacting.
@@ -153,16 +146,7 @@ function draw() {
 
   //Display Scene using Scene Array
   scenes[currentSceneIndex].display();
-
-//----------- DEBUGGING AREA
-
-
-  // Display model position
-  // noStroke();
-  // fill(0);
-  // textSize(50);
-  // text(scenes[currentSceneIndex].getModelPositionString(), -width / 2 + 20, height / 2 - 40);
-  
+    
 }
 
 // TODO: Scene Manager
@@ -216,52 +200,12 @@ function keyPressed() {
         }
       }
       controls = $("#controls").addClass('hide-control');
+        print("hide control")
     }
 
     //Debug: Go to the Next Loop!
     if(key === 'l') {
       player.newLoop();
-    }
-
-
-
-    //----------- DEBUGGING AREA
-
-    // Scene movement controls
-    let moveAmount = 10; // Adjust this for finer or larger steps
-    let current_pathos = 2;
-
-    if (key === 't') {
-      pathosArray[current_pathos].z += moveAmount; // Move up
-        console.log("z:", pathosArray[current_pathos].z);
-        // scenes[currentSceneIndex].moveModel(0, -moveAmount, 0); // Move up
-        // console.log(scenes[currentSceneIndex].getModelPositionString())
-    } else if (key === 'g') {
-      pathosArray[current_pathos].z -= moveAmount; // Move up
-      console.log("z:", pathosArray[current_pathos].z);
-        // scenes[currentSceneIndex].moveModel(0, moveAmount, 0); // Move down
-        // console.log(scenes[currentSceneIndex].getModelPositionString())
-    } else if (key === 'f') {
-      pathosArray[current_pathos].x -= moveAmount; // Move up
-        console.log("x:", pathosArray[current_pathos].x);
-
-        // scenes[currentSceneIndex].moveModel(-moveAmount, 0, 0); // Move left
-        // console.log(scenes[currentSceneIndex].getModelPositionString())
-    } else if (key === 'h') {
-      pathosArray[current_pathos].x += moveAmount; // Move up
-        console.log("x:", pathosArray[current_pathos].x);
-      
-        // scenes[currentSceneIndex].moveModel(moveAmount, 0, 0); // Move right
-        // console.log(scenes[currentSceneIndex].getModelPositionString())
-    } else if (key === 'j') {
-        // scenes[currentSceneIndex].moveModel(0, 0, -moveAmount); // Move closer
-        pathosArray[current_pathos].y += moveAmount; // Move up
-        console.log("y:", pathosArray[current_pathos].y);
-    } else if (key === 'u') {
-       //scenes[currentSceneIndex].moveModel(0, -moveAmount, 0); // Move closer
-       pathosArray[current_pathos].y-= moveAmount; // Move up
-      console.log("y:", pathosArray[current_pathos].y);
-        // scenes[currentSceneIndex].moveModel(0, 0, moveAmount); // Move farther
     }
   }
 
