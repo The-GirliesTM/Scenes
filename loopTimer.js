@@ -34,7 +34,7 @@ function checkIfLoopPossible() {
         break;
       case 4:
         print("Moving to backroom");
-        
+
       break;
     }
   }
@@ -50,15 +50,11 @@ function startTimer(sound) {
         timerStartTime = millis(); // Get the current time in milliseconds
         startCallCount++;
 
-        if (player.currentLoop <= 3) {
-
-          artGallerySong.stop();
-          doorSound.amp(0.3);
-          doorSound.play();
-          
-        }
     } else if (player.currentLoop == 4) {
-        print("Loops Completed. Proceed to Backroom.");
+        print("All loops Completed. Proceed to Backroom.");
+        artGallerySong.stop();
+        doorSound.amp(0.3);
+        doorSound.play();
 
     } else {
         print("Timer Has already started.");
