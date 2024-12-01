@@ -257,8 +257,9 @@ function keyPressed() {
           startTimer(door);
         }
       }
-      controls = $("#controls").addClass('hide-control');
-        print("hide control")
+
+      //Hides Instructions when E is pressed
+      controls = $("#controls").addClass('hide-control'); 
     }
 
     //Debug: Go to the Next Loop!
@@ -322,7 +323,7 @@ function keyPressed() {
     }
 
     else if (key === 'c') {
-      print_position()
+      printCamPosition()
     }
   }
 

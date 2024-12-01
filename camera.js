@@ -77,9 +77,6 @@ function cameraMove(playerInteracting) {
   } else { //When Interacting you Can't move.
     //print("Interacting! Can't move.");
   }
-
-  //Debug: Print where the player is
-  //print("Camera Position:" + x + ", " + y);
 }
   
 //Camera Rotation based on Mouse Movement
@@ -116,7 +113,8 @@ function mouseMoved() {
   }
 }
 
-function print_position(){
+//Prints the Current Location of the Camera
+function printCamPosition(){
   print("Pos x:", x," Pos z:", z)
 }
 

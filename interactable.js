@@ -93,19 +93,21 @@ class Interactable {
             case 1: //Response when in Loop 1 
                 this.loadDialogue(this.dialogueArray[0]);
                 this.showDialogue();
-                print(this.dialogueArray[0]);
+               //print(this.dialogueArray[0]);
                 
                 break;
             case 2: //Response when in Loop 2
                 this.loadDialogue(this.dialogueArray[1]);
                 this.showDialogue();
-                print(this.dialogueArray[1]);
+               //print(this.dialogueArray[1]);
+
                 break;
 
             case 3: //Response when in Loop 3
                 this.loadDialogue(this.dialogueArray[2]);
                 this.showDialogue();
-                print(this.dialogueArray[2]);
+                //print(this.dialogueArray[2]);
+
                 break;
 
             default:
@@ -168,11 +170,9 @@ class Interactable {
         if (this.isSeen) {
             this.color = this.inactiveColor;
             this.isSeen = false;
-            print("siote")
             murmurSound.stop();
         }
     }
-
 
 
     // ----- SOLELY FOR POSITIONING
