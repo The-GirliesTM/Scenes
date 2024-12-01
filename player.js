@@ -19,6 +19,7 @@ class Player{
 
         //Return Camera to 0/0/0
         resetCamera();
+        isInteracting = false;
 
         //Reset Objects
         for (let obj of pathosArray) {

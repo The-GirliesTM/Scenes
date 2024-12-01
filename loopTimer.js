@@ -9,7 +9,7 @@ function checkIfLoopPossible() {
     switch (player.currentLoop) {
       case 1: //Response when in Loop 1 
         if(pathosArray[0].hasInteracted) {
-            return true;
+          return true;
         }
   
         break;
@@ -23,6 +23,7 @@ function checkIfLoopPossible() {
         if(pathosArray[0].hasInteracted && pathosArray[1].hasInteracted && pathosArray[2].hasInteracted ) {
 
           //TODO: Door Appearing Sound Here
+
           return true;
         }
         break;
@@ -30,18 +31,24 @@ function checkIfLoopPossible() {
   }
 
 //Starts timer when called
-function startTimer() {
+function startTimer(sound) {
     // Only start the timer if the conditions for the loop are met & it's the first time
     if (startCallCount == 0) {
         print("Timer Started");
         //TODO: Add Sound when Timer Starts
-        // var sound = new Audio("/assets/vibe.mp3");
-        // sound.volume = 0.3;
-        // sound.play();
+
+        
 
         timerStarted = true;
         timerStartTime = millis(); // Get the current time in milliseconds
         startCallCount++;
+
+        if (player.currentLoop == 3) {
+
+          artGallerySong.stop();
+          doorSound.play();
+          
+        }
     } else {
         print("Timer Has already started.");
     }
@@ -65,7 +72,6 @@ function updateTimer() {
             resetTimer(); // Reset timer for next loop
         }
     }
-    print(elapsedTime);
 }
 
 //Resets timer to original state.
