@@ -34,6 +34,8 @@ class Player{
 
             //TODO: Add a black screen/transition screen before resetPlayer();
             let overlay = $("#overlay").addClass("overlay-transition");
+            song.stop();
+            song.play();
 
             setTimeout(() => {
                 overlay = $("#overlay").removeClass("overlay-transition");

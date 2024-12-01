@@ -54,6 +54,10 @@ function setup(){
     game = createCanvas(windowWidth, windowHeight, WEBGL)
     game.parent("#game");
 
+    song.amp(0.5);
+    song.loop();
+    song.play();
+
     // Create scene objects with skybox images, object functions, and ground properties
     scenes.push(new Scene(skybox1, mainroom, color(255), 2000, 26, 0));
     // scenes.push(new Scene(skybox2, color(200, 200, 220), 2000, 50, 1));
