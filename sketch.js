@@ -144,7 +144,14 @@ function draw() {
     //Array that draws the pathos.
     //This was originally in the loop below but there were issues with break; that made me move it
     for (let obj of pathosArray) {
-      obj.draw(cam);
+      if (obj.activateOnLoop == 4) { //If we're looking at the door 
+        if (doorTime) { //Influenced by door variable (Door is only drawn if it's door time)
+          obj.draw(cam); 
+        } 
+
+      } else { //If we're looking at literally anything else 
+        obj.draw(cam);
+      }
     }
 
     print(pathosArray[3].checkIfLookingAt(cam));

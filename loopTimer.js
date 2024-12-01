@@ -4,6 +4,9 @@ let timerStartTime = 0;         // To store the time when the timer started
 let startCallCount = 0;
 let lastUnpaused = 0;
 let timerPauseTime = 0;
+
+let doorTime = false;  //Influences whether the player can interact with the backrooms door
+
 //When called checks to see if the right pathos have been interacted with for the loop to be completed
 function checkIfLoopPossible() {
     switch (player.currentLoop) {
@@ -23,6 +26,7 @@ function checkIfLoopPossible() {
         if(pathosArray[0].hasInteracted && pathosArray[1].hasInteracted && pathosArray[2].hasInteracted ) {
 
           //TODO: Door Appearing Sound Here
+          doorTime = true;
 
           return true;
         }
