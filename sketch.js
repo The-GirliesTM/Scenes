@@ -205,6 +205,9 @@ function keyPressed() {
               //Handling Hint Hiding
               hideHint();
               isInteracting = true;
+              song.amp(0.1);
+              murmur.loop();
+              murmur.play();
 
               //This Function handles all reactions from the Object when Interacted.
               obj.interact(player.currentLoop);

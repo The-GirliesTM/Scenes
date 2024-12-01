@@ -40,6 +40,10 @@ function startTimer() {
         timerStarted = true;
         timerStartTime = millis(); // Get the current time in milliseconds
         startCallCount++;
+        if(murmur.isPlaying()) {
+          murmur.stop();
+          song.amp(0.3)
+        }
         if (player.currentLoop == 3) {
           song.stop();
           song.rate(0.2);  

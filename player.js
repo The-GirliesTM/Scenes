@@ -19,6 +19,9 @@ class Player{
 
         //Return Camera to 0/0/0
         resetCamera();
+        isInteracting = false;
+        murmur.stop()
+        song.amp(0.3)
 
         //Reset Objects
         for (let obj of pathosArray) {
