@@ -27,11 +27,19 @@ let pathos1Dialgoue = [];
 let pathos2Dialgoue = []; 
 let pathos3Dialgoue = []; 
 
+//Audio files
+let murmur;
+let song;
+
 function preload(){
     mainroom = loadModel("assets/main_room/mainroom.obj");
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/main_room/starry_skybox.jpg')
     skybox2 = loadImage('assets/desert.jpg')
+
+    //load sounds
+    murmur = loadSound('assets/audio/murmur.mp3');
+    song = loadSound('assets/audio/eternalHope.mp3');
 
     //Loading Models
     pathos1Model = loadModel("assets/pathos/interactable1.obj");
@@ -46,6 +54,10 @@ function setup(){
     game = createCanvas(windowWidth, windowHeight, WEBGL)
     game.parent("#game");
 
+    song.amp(0.3);
+    song.loop();
+    song.play();
+
     // Create scene objects with skybox images, object functions, and ground properties
     scenes.push(new Scene(skybox1, mainroom, color(255), 2000, 26, 0));
     // scenes.push(new Scene(skybox2, color(200, 200, 220), 2000, 50, 1));
@@ -56,21 +68,28 @@ function setup(){
     setCamera(cam);
 
     //Filling Interactable Dialgoue Arrays
-    pathos1Dialgoue = ["Wow! I bet they have steady hands to make such detail.\nYeah, I don’t think I would’ve been able to make that.",
-                      "This doesn’t really look like it took much effort.\nYeah, it just looks bland to be honest.",
-                      "I don’t know how this made it into the exhibition. Sculpt a few curves into a stone and call it art? Please.\nNever understood how pieces like this get any attention.",
-                      "That’s the pose grandpa always made when he’d see me run back home from school... it doesn’t have much detail because I never paid attention back then. When we are young sometimes things just look and seem so simple. Sorry gramps, looks like I did the opposite of honoring you."
-                      ];
-    pathos2Dialgoue = ["Can you believe this took 3 months to make?\nThat’s crazy, all that time definitely paid off!",
-                      "You seriously think this took months to make? I could’ve done this at a pottery shop. \nYeah, I bet they exaggerated it.",
-                      "Wanna bet that they went to a pottery class and made it there?\nHA! I’ll bet my savings on that one.",
-                      "Huh, I made this after I had my mini stroke, I was lucky. That slight tremor in my hands didn’t stop me from doing what I love. So yes, it took months for me to make that simple piece. But I guess you needed the whole story? The “I overcame a physical obstacle to make this...” wasn’t good enough of a description for you?"
-                    ]; 
-    pathos3Dialgoue = ["What a cute little dragon!\nSeems like the little guy is having a nice dream based off his little smile.",
-                      "Doesn’t this specific dragon look familiar?\nIt does ‘cause it looks the same as every other sleeping dragon piece you see on the internet.",
-                      "Now this looks like it came out of a cartoon. My five-year-old can make this out of clay easy!\nI bet! Maybe with more detail too.",
-                      "Luca, my childhood stuffed animal. Anytime I had a hard time I would lay in my bed and hold you tight till all the bad thoughts slowly faded away. That smile wasn’t just yours... when I hugged you it became mine…\nI wish they understood that."
-                    ]; 
+    // [0] = Loop 1, [1] = Loop 2, [2] =Loop 3, [3] = Backrooms 
+    pathos1Dialgoue = [
+      "Wow! I bet they have steady hands to make such detail.\nYeah, I don’t think I would’ve been able to make that.",
+      "Usually they're much better with the quality of their works. They're really loosing their touch.",
+      "I don’t know how this made it into the exhibition. Sculpt a few curves into a stone and call it art? Please.\nNever understood how pieces like this get any attention.",
+      "That’s the pose grandpa always made when he’d see me run back home from school... it doesn’t have much detail because I never paid attention back then. When we are young sometimes things just look and seem so simple. Sorry gramps, looks like I did the opposite of honoring you."
+    ];
+    
+    pathos2Dialgoue = [
+      "This pathos doesn't seem to be installed yet...",
+      "This seems kinda simple doesn't it? \nYeah, it looks kinda bland.",
+      "Wanna bet that they went to a pottery class and made it there?\nHA! I’ll bet my savings on that one.",
+      "Huh, I made this after I had my mini stroke, I was lucky. That slight tremor in my hands didn’t stop me from doing what I love. So yes, it took months for me to make that simple piece. But I guess you needed the whole story? The “I overcame a physical obstacle to make this...” wasn’t good enough of a description for you?"
+    ];
+
+    pathos3Dialgoue = [
+      "This pathos doesn't seem to be installed yet...",
+      "Why is this pathos still incomplete?",
+      "Now this looks like it came out of a cartoon. My five-year-old can this easy!\nI bet he could! Maybe with more detail too.",
+      "Luca, my childhood stuffed animal. Anytime I had a hard time I would lay in my bed and hold you tight till all the bad thoughts slowly faded away. That smile wasn’t just yours... when I hugged you it became mine…\nI wish they understood that."
+    ]; 
+
     //Interctable Objects
     pathosArray.push(new Interactable( -62, -52, -224, 0, 'red', pathos1Model, 1, pathos1Dialgoue));
     pathosArray.push(new Interactable( -352.5, -52, -18, 0, 'red', pathos2Model, 2, pathos2Dialgoue));
@@ -119,11 +138,8 @@ function draw() {
 
         //Checks to see if Pathos is Intertable
         if(obj.activateOnLoop <= player.currentLoop) {
-          // print("Loop Match: Currently Interactable"); 
-          
-          //TODO: Add Whisper Audio when looking right here
-          obj.activate(); //Viusually activates Object when looking at it
-
+          // print("Loop Match: Currently Interactable");  
+          obj.activate(murmur); //Viusually activates Object when looking at it
         //Determines Behaviors when player is or isnt interacting.
           if (!isInteracting) {
             showHint();

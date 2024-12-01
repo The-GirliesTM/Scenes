@@ -151,17 +151,26 @@ class Interactable {
       
 
     //Visually Activates the object. 
-    activate(){
+    activate(testSound){
         let from = color(0, 255, 0);
         let to = color(255, 0, 0);
         this.color = lerpColor(from, to, 0.5);
         this.isSeen = true;
+
+        if (!testSound.isPlaying()) {
+            testSound.loop()
+            testSound.play()
+        }
     }
 
     //Visually Deactivaites the Object
     deactivate(){
-        this.color = this.inactiveColor;
-        this.isSeen = false;
+        if (this.isSeen) {
+            this.color = this.inactiveColor;
+            this.isSeen = false;
+            print("siote")
+            murmur.stop();
+        }
     }
 
 
