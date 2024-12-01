@@ -37,7 +37,7 @@ let song;
 
 function preload(){
     mainroom = loadModel("assets/main_room/MainroomWalls.obj");
-    //backroom =  loadModel("");
+    backroom =  loadModel("assets/backroom/Backroom.obj");
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/main_room/starry_skybox.jpg')
     skybox2 = loadImage('assets/desert.jpg')
@@ -64,8 +64,9 @@ function setup(){
     song.play();
 
     // Create scene objects with skybox images, object functions, and ground properties
-    scenes.push(new Scene(skybox1, mainroom, color(255), 2000, 26, 0));
-    //scenes.push(new Scene(skybox2, backroom, color(200, 200, 220), 2000, 50, 1));
+    scenes.push(new Scene(skybox1, mainroom, color(255), 2000, 26, 0, -87000,20000, 130000 ));
+   
+    scenes.push(new Scene(skybox2, backroom, color(200, 200, 220), 2000, 50, 1,0,0,0));
     // scenes.push(new Scene(skybox2, color(100, 200, 220), 2000, 50, 1));
 
     //Camera Setup
