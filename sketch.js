@@ -119,7 +119,9 @@ function draw() {
 
         //Checks to see if Pathos is Intertable
         if(obj.activateOnLoop <= player.currentLoop) {
-          // print("Loop Match: Currently Interactable");  
+          // print("Loop Match: Currently Interactable"); 
+          
+          //TODO: Add Whisper Audio when looking right here
           obj.activate(); //Viusually activates Object when looking at it
 
         //Determines Behaviors when player is or isnt interacting.
