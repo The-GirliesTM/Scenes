@@ -1,16 +1,22 @@
 class Scene {
     
-    constructor(sky, model , groundCol, groundSize, groundY, t){
+    constructor(sky, model , groundCol, groundSize, groundY, t, x_pos, y_pos, z_pos){
         this.skybox = sky;
         this.model = model
         this.groundColor = groundCol;
         this.groundSize = groundSize;
         this.groundPosY = groundY;
         this.type = t;
+      
+        this.x = x_pos;
+        this.y = y_pos;
+        this.z = z_pos;
 
-        this.x = -87000;
-        this.y = 20000;
-        this.z = 130000;
+        //main room model 
+        // this.x = -87000;
+        // this.y = 20000;
+        // this.z = 130000;
+
 
         // Position of the model
         this.modelPosition = createVector(0, -2000, 0); // Initial position
