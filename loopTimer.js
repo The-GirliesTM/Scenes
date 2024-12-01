@@ -23,6 +23,7 @@ function checkIfLoopPossible() {
         if(pathosArray[0].hasInteracted && pathosArray[1].hasInteracted && pathosArray[2].hasInteracted ) {
 
           //TODO: Door Appearing Sound Here
+
           return true;
         }
         break;
@@ -44,8 +45,6 @@ function startTimer() {
 
         if (player.currentLoop == 3) {
           song.stop();
-          song.rate(0.2);  
-          song.play();
         }
     } else {
         print("Timer Has already started.");
