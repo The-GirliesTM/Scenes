@@ -38,7 +38,7 @@ function preload(){
     skybox2 = loadImage('assets/desert.jpg')
 
     //load sounds
-    murmurSound = loadSound('assets/audio/murmurSound.mp3');
+    murmurSound = loadSound('assets/audio/murmur.mp3');
     artGallerySong = loadSound('assets/audio/eternalHope.mp3');
     doorSound = loadSound('assets/audio/door.mp3');
 
