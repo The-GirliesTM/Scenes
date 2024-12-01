@@ -27,11 +27,19 @@ let pathos1Dialgoue = [];
 let pathos2Dialgoue = []; 
 let pathos3Dialgoue = []; 
 
+//Audio files
+let murmur;
+let song;
+
 function preload(){
     mainroom = loadModel("assets/main_room/mainroom.obj");
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/main_room/starry_skybox.jpg')
     skybox2 = loadImage('assets/desert.jpg')
+
+    //load sounds
+    murmur = loadSound('assets/audio/murmur.mp3');
+    song = loadSound('assets/audio/eternalHope.mp3');
 
     //Loading Models
     pathos1Model = loadModel("assets/pathos/interactable1.obj");
@@ -121,7 +129,9 @@ function draw() {
         if(obj.activateOnLoop <= player.currentLoop) {
           // print("Loop Match: Currently Interactable");  
           obj.activate(); //Viusually activates Object when looking at it
-
+          // murmur.volume(0.5);
+          // murmur.loop();
+          // murmur.play();
         //Determines Behaviors when player is or isnt interacting.
           if (!isInteracting) {
             showHint();
@@ -208,6 +218,7 @@ function keyPressed() {
       } else if (dBoxOpen) { //this is for when you want to turn off the 
         hideDialogue();
         isInteracting = false;
+        murmur.stop();
 
         //Checks to see if loop conditions have been met. Starts timer if so.
         let canLoop = checkIfLoopPossible();
