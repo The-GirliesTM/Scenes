@@ -1,17 +1,24 @@
 
 //Starting Variables - Change During Usage
-let x = 0;
-let z = 0;
+let x = 615;
+let z = 656;
 let angleX = 0;
 let angleY = 0;
 let isMouseLocked = false; // Flag to check if the mouse is locked. Used for camera behavior
 let lookX, lookY, lookZ;
-
 //Constants. Do not change during runtime.
 const speed = 3; //WASD movement speed.
 const rotationSpeed = 0.0025;
 const y = -70; //Player height stays constant. No Jumping.
 
+function setCamInitialPos(){
+  //Starting Variables for Camera
+  // mainly done because -HALF PI is not declared outside functions
+  x = 615;
+  z = 656;
+  angleX = 0;
+  angleY = -HALF_PI;
+}
 
 //update location of the camera
 function cameraUpdate(cam){
@@ -38,10 +45,10 @@ function cameraUpdate(cam){
 
 function resetCamera() {
   //Return Camera Variables to Zero
-  x = 0;
-  z = 0;
+  x = 615;
+  z = 656;
   angleX = 0;
-  angleY = 0;
+  angleY = -HALF_PI;
 }
 
 //Moves camera along the x-z axis
