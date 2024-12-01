@@ -20,6 +20,9 @@ class Interactable {
 
         this.rotationY = rotation;                      // Y-axis rotation for interaction
         this.originalRotationY = this.rotationY;        //Stores original rotation data for resets
+
+        // Position of the model
+        this.modelPosition = createVector(this.x, this.y, this.z); // Initial position
     }  
     
     //Draw the object in the scene
@@ -45,6 +48,8 @@ class Interactable {
         //Color: This is the original Color Variable! 
         fill(this.color);
         rotateX(PI); //Flips model upright because everything is upside down.
+        //translate(this.x, this);
+        //translate(this.modelPosition);
         model(this.model); // Render the 3D model
         pop();
     }
@@ -157,5 +162,19 @@ class Interactable {
     deactivate(){
         this.color = this.inactiveColor;
         this.isSeen = false;
+    }
+
+
+
+    // ----- SOLELY FOR POSITIONING
+    // Method to move the model based on inputs
+    moveModel(dx, dy, dz) {
+        this.modelPosition.add(createVector(dx, dy, dz));
+    }
+
+    // Get position as a formatted string
+    getModelPositionString() {
+        
+        return `Model Position: x=${this.modelPosition.x.toFixed(2)}, y=${this.modelPosition.y.toFixed(2)}, z=${this.modelPosition.z.toFixed(2)}`;
     }
 }
