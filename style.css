@@ -363,15 +363,15 @@ input[type=submit] {
 }
 
 .controls {
-  top: 5%;
-  right: 5%;
-  width: 250px;
-  height: fit-content;
-  padding: 10px;
-  background-color: #00a3b8c7;
-  font-size: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 80%;
+  padding: 50px;
+  background-color: #3b7ccb5f;
+  font-size: 28px;
   border-radius: 10px;
-  border: solid 2px rgba(65, 65, 140, 0.537);
 }
 
 .hide-control {
@@ -384,6 +384,6 @@ input[type=submit] {
   background-color: black;
   color: white;
   border-radius: 10px;
-  font-size: 12px;
+  font-size: 20px;
   width: fit-content;
 }
