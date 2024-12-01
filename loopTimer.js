@@ -31,7 +31,7 @@ function checkIfLoopPossible() {
   }
 
 //Starts timer when called
-function startTimer() {
+function startTimer(sound) {
     // Only start the timer if the conditions for the loop are met & it's the first time
     if (startCallCount == 0) {
         print("Timer Started");
@@ -44,7 +44,10 @@ function startTimer() {
         startCallCount++;
 
         if (player.currentLoop == 3) {
-          song.stop();
+
+          artGallerySong.stop();
+          doorSound.play();
+          
         }
     } else {
         print("Timer Has already started.");
