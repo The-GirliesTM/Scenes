@@ -109,6 +109,10 @@ function mouseMoved() {
   }
 }
 
+function print_position(){
+  print("Pos x:", x," Pos z:", z)
+}
+
 // Listen for pointer lock changes to track the lock status
 document.addEventListener('pointerlockchange', () => {
   isMouseLocked = document.pointerLockElement === canvas.elt; 
