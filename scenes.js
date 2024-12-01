@@ -19,6 +19,7 @@ class Scene {
         // this.y = 20000;
         // this.z = 130000;
 
+
         // Position of the model
         //this.modelPosition = createVector(0, -2000, 0); // Initial position
         
