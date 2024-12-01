@@ -169,7 +169,7 @@ class Interactable {
             this.color = this.inactiveColor;
             this.isSeen = false;
             print("siote")
-            murmur.stop();
+            murmurSound.stop();
         }
     }
 
