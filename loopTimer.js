@@ -2,7 +2,8 @@ let timerStarted = false;       // Flag to check if the timer has started
 let timerDuration = 8000;      // Duration of the timer in milliseconds (1000 = 1 Second)
 let timerStartTime = 0;         // To store the time when the timer started
 let startCallCount = 0;
-
+let lastUnpaused = 0;
+let timerPauseTime = 0;
 //When called checks to see if the right pathos have been interacted with for the loop to be completed
 function checkIfLoopPossible() {
     switch (player.currentLoop) {
@@ -32,6 +33,9 @@ function startTimer() {
     if (startCallCount == 0) {
         print("Timer Started");
         //TODO: Add Sound when Timer Starts
+        // var sound = new Audio("/assets/vibe.mp3");
+        // sound.volume = 0.3;
+        // sound.play();
 
         timerStarted = true;
         timerStartTime = millis(); // Get the current time in milliseconds
@@ -43,9 +47,15 @@ function startTimer() {
 
 //Updates Timer. Only starts counting if the timer has been started 
 function updateTimer() {
+  let elapsedTime;
     if (timerStarted) {
-        let elapsedTime = millis() - timerStartTime; // Calculate elapsed time
-        //print(elapsedTime);
+      if (!paused) {
+        elapsedTime = millis() - timerStartTime;
+        lastUnpaused = millis();
+      } else {
+        timerPauseTime = millis() - lastUnpaused;
+      }
+        // elapsedTime = millis() - timerStartTime; // Calculate elapsed time
 
         if (elapsedTime >= timerDuration) {
             // Timer has finished, call the newLoop() function
@@ -53,6 +63,7 @@ function updateTimer() {
             resetTimer(); // Reset timer for next loop
         }
     }
+    print(elapsedTime);
 }
 
 //Resets timer to original state.
@@ -62,3 +73,6 @@ function resetTimer() {
 }
 
 //TODO: Add ability to pause timer when the game is paused.
+function pauseTimer() {
+  lastUnpaused = millis();
+}
