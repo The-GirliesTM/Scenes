@@ -1,5 +1,5 @@
 class Interactable {
-    constructor(x, y, z, rotation, color, model, activateOnLoop , dialogueArray) {
+    constructor(x, y, z, rotation, color, model, activeRadius, activateOnLoop , dialogueArray) {
         this.x = x; // Position
         this.y = y;
         this.z = z;
@@ -15,7 +15,7 @@ class Interactable {
         this.isInteracting = false;                     // Interaction state
         this.isSeen = false;                            // If the object is being looked at
         this.interactionDistance = 150;                 // Maximum distance to interact
-        this.interactionAngleThreshold = radians(20);   // Angle threshold for interaction
+        this.interactionAngleThreshold = radians(activeRadius);   // Angle threshold for interaction
         this.hasInteracted = false;                     // Tracks if this object has been interacted with
 
         this.rotationY = rotation;                      // Y-axis rotation for interaction

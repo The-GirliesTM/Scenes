@@ -46,6 +46,7 @@ function startTimer(sound) {
         if (player.currentLoop == 3) {
 
           artGallerySong.stop();
+          doorSound.amp(0.3);
           doorSound.play();
           
         }
