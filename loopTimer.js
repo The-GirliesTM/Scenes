@@ -9,7 +9,7 @@ function checkIfLoopPossible() {
     switch (player.currentLoop) {
       case 1: //Response when in Loop 1 
         if(pathosArray[0].hasInteracted) {
-            return true;
+          return true;
         }
   
         break;
@@ -21,6 +21,7 @@ function checkIfLoopPossible() {
         break;
       case 3: //Response when in Loop 3 
         if(pathosArray[0].hasInteracted && pathosArray[1].hasInteracted && pathosArray[2].hasInteracted ) {
+          
           return true;
         }
         break;
@@ -33,13 +34,17 @@ function startTimer() {
     if (startCallCount == 0) {
         print("Timer Started");
         //TODO: Add Sound when Timer Starts
-        // var sound = new Audio("/assets/vibe.mp3");
-        // sound.volume = 0.3;
-        // sound.play();
+
+        
 
         timerStarted = true;
         timerStartTime = millis(); // Get the current time in milliseconds
         startCallCount++;
+        if (player.currentLoop == 3) {
+          song.stop();
+          song.rate(0.2);  
+          song.play();
+        }
     } else {
         print("Timer Has already started.");
     }

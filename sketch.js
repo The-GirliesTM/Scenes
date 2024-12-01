@@ -54,7 +54,7 @@ function setup(){
     game = createCanvas(windowWidth, windowHeight, WEBGL)
     game.parent("#game");
 
-    song.amp(0.5);
+    song.amp(0.3);
     song.loop();
     song.play();
 
