@@ -21,7 +21,8 @@ function checkIfLoopPossible() {
         break;
       case 3: //Response when in Loop 3 
         if(pathosArray[0].hasInteracted && pathosArray[1].hasInteracted && pathosArray[2].hasInteracted ) {
-          
+
+          //TODO: Door Appearing Sound Here
           return true;
         }
         break;
