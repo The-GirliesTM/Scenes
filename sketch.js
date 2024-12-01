@@ -132,10 +132,7 @@ function draw() {
         //Checks to see if Pathos is Intertable
         if(obj.activateOnLoop <= player.currentLoop) {
           // print("Loop Match: Currently Interactable");  
-          obj.activate(); //Viusually activates Object when looking at it
-          // murmur.volume(0.5);
-          // murmur.loop();
-          // murmur.play();
+          obj.activate(murmur); //Viusually activates Object when looking at it
         //Determines Behaviors when player is or isnt interacting.
           if (!isInteracting) {
             showHint();
@@ -205,9 +202,6 @@ function keyPressed() {
               //Handling Hint Hiding
               hideHint();
               isInteracting = true;
-              song.amp(0.1);
-              murmur.loop();
-              murmur.play();
 
               //This Function handles all reactions from the Object when Interacted.
               obj.interact(player.currentLoop);
@@ -225,7 +219,6 @@ function keyPressed() {
       } else if (dBoxOpen) { //this is for when you want to turn off the 
         hideDialogue();
         isInteracting = false;
-        murmur.stop();
 
         //Checks to see if loop conditions have been met. Starts timer if so.
         let canLoop = checkIfLoopPossible();
