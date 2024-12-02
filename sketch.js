@@ -37,6 +37,7 @@ function preload(){
     mainroom = loadModel("assets/main_room/MainroomWalls.obj");
     mainroomPedestals = loadModel("assets/main_room/Pedestals.obj");
     mainroomPortraits = loadModel("assets/main_room/Portraits.obj");
+    mainroomStatues = loadModel("assets/main_room/MainroomStatues.obj");
   
     backroom =  loadModel("assets/backroom/Backroom.obj");
 
@@ -84,6 +85,8 @@ function setup(){
     scenes[0].addModel(mainroom, -87000,20000, 130000, 0.006, -PI, PI, 0);
     scenes[0].addModel(mainroomPedestals, -48000,-2000, 28000, 0.006, -PI, PI, 0, pedestalColor);
     scenes[0].addModel(mainroomPortraits,-86700,-2000, 129800, 0.006, -PI, PI, 0, portraitColor);
+    scenes[0].addModel(mainroomStatues,-86700,-2000, 129800, 0.006, -PI, PI, 0, portraitColor);
+  
     // X: -86700 z: 129800
     // print("Scene models", scenes[0].models);
 
