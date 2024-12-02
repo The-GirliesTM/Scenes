@@ -38,11 +38,13 @@ function preload(){
     mainroomPedestals = loadModel("assets/main_room/Pedestals.obj");
     mainroomPortraits = loadModel("assets/main_room/Portraits.obj");
     mainroomStatues = loadModel("assets/main_room/MainroomStatues.obj");
+    mainroomHumanStatue = loadModel("assets/main_room/HumanStatue.obj");
   
     backroom =  loadModel("assets/backroom/Backroom.obj");
 
     //load skybox image --> will be used later as a texture
-    skybox1 = loadImage('assets/main_room/starry_skybox.jpg')
+    skybox1 = loadImage('assets/main_room/gallerySkybox.jpg')
+    // loadImage('assets/main_room/starry_skybox.jpg')
     skybox2 = loadImage('assets/desert.jpg')
 
     //load sounds
@@ -76,16 +78,36 @@ function setup(){
     // NEW SCENE VERSION ------------------------
     
     // SCENES constructor(sky, groundCol, groundSize, groundY)
-    scenes.push(new Scene(skybox1, color(255), 2000, 0));
+    let offWhiteColor = color(251, 230, 224)
+    scenes.push(new Scene(skybox1, offWhiteColor, 2000, 0));
     // print("Scene array",scenes);
 
-    let pedestalColor = color(188,143,143);
-    let portraitColor = color(188,143,143);
+    /**
+     * colors:
+     * 
+     * light purple: rgb(162, 177, 228)
+     * light magenta: rgb(230, 208, 225)
+     * green-blue: rgb(68, 162, 193)
+     * purple: rgb(158, 117, 187)
+     * lilac: rgb(216, 170, 204)
+     * blue: rgb(47, 116, 210)
+     * off white: rgb(251, 230, 224)
+     */
 
-    scenes[0].addModel(mainroom, -87000,20000, 130000, 0.006, -PI, PI, 0);
+
+
+    let pedestalColor = color(104, 117, 205);
+    let portraitColor = color(230, 208, 225);
+    let statuesColor = color(162, 177, 228);
+    let humanStatueColor = color(162, 177, 228); //color(231, 251, 190)
+
+    scenes[0].addModel(mainroom, -87000,20000, 130000, 0.006, -PI, PI, 0,offWhiteColor);
     scenes[0].addModel(mainroomPedestals, -48000,-2000, 28000, 0.006, -PI, PI, 0, pedestalColor);
     scenes[0].addModel(mainroomPortraits,-86700,-2000, 129800, 0.006, -PI, PI, 0, portraitColor);
-    scenes[0].addModel(mainroomStatues,-86700,-2000, 129800, 0.006, -PI, PI, 0, portraitColor);
+    scenes[0].addModel(mainroomStatues,-86700,-2000, 129800, 0.006, -PI, PI, 0, statuesColor);
+    scenes[0].addModel(mainroomHumanStatue,-22500,22500, -8500, 0.006, -PI, PI, 0, humanStatueColor);
+    scenes[0].addModel(mainroomHumanStatue,117000,22500, -8500, 0.006, -PI, PI, 0, humanStatueColor);
+    //middle position x : 43000
   
     // X: -86700 z: 129800
     // print("Scene models", scenes[0].models);
@@ -217,10 +239,10 @@ function keyPressed() {
 
 
     // Scene movement controls
-    let moveAmount = 100; // Adjust this for finer or larger steps
+    let moveAmount = 500; // Adjust this for finer or larger steps
     let current_pathos = 1; // Adjust to change pathos
     let current_scene = 0; // Adjust to change to other scene
-    let current_model = 2; // Adjust change model 
+    let current_model = 5; // Adjust change model 
 
     if (key === 't') {
       // --- PATHOS
