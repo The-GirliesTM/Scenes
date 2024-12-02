@@ -4,6 +4,9 @@ let timerStartTime = 0;         // To store the time when the timer started
 let startCallCount = 0;
 let lastUnpaused = 0;
 let timerPauseTime = 0;
+
+let doorTime = false;  //Influences whether the player can interact with the backrooms door
+
 //When called checks to see if the right pathos have been interacted with for the loop to be completed
 function checkIfLoopPossible() {
     switch (player.currentLoop) {
@@ -23,32 +26,36 @@ function checkIfLoopPossible() {
         if(pathosArray[0].hasInteracted && pathosArray[1].hasInteracted && pathosArray[2].hasInteracted ) {
 
           //TODO: Door Appearing Sound Here
+          doorTime = true;
+          player.currentLoop = 4;
 
           return true;
         }
         break;
+      case 4:
+        print("Moving to backroom");
+
+      break;
     }
   }
 
 //Starts timer when called
 function startTimer(sound) {
     // Only start the timer if the conditions for the loop are met & it's the first time
-    if (startCallCount == 0) {
+    if (startCallCount == 0 && player.currentLoop < 4) {
         print("Timer Started");
         //TODO: Add Sound when Timer Starts
-
-        
 
         timerStarted = true;
         timerStartTime = millis(); // Get the current time in milliseconds
         startCallCount++;
 
-        if (player.currentLoop == 3) {
+    } else if (player.currentLoop == 4) {
+        print("All loops Completed. Proceed to Backroom.");
+        artGallerySong.stop();
+        doorSound.amp(0.3);
+        doorSound.play();
 
-          artGallerySong.stop();
-          doorSound.play();
-          
-        }
     } else {
         print("Timer Has already started.");
     }

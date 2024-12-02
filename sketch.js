@@ -16,15 +16,22 @@ let backroom;
 let cam;
 
 //Interactables 
-let pathosArray = []; // Array to store interactable objects
+let pathosArray = []; // Array of Pathos in the Gallery
 let pathos1Model;
 let pathos2Model;
 let pathos3Model;
+let doorModel;
+
+let backroomPathos = []; //Array of Bathos in the Backroom (Uses the same models as above)
+let doorInteractable;
+
+//Intertactables Behavior
 let isInteracting = false;
 let isLooking = false;
 let dBoxOpen = false;
 
 let doorModel;
+
 
 //Pathos Dialogue Arrays 
 let pathos1Dialgoue = []; 
@@ -37,9 +44,10 @@ let artGallerySong;
 let doorSound;
 
 function preload(){
+
     mainroom = loadModel("assets/main_room/MainroomWalls.obj");
     mainroomPedestals = loadModel("assets/main_room/MainroomPedestals.obj");
-
+  
     backroom =  loadModel("assets/backroom/Backroom.obj");
 
     //load skybox image --> will be used later as a texture
@@ -55,22 +63,19 @@ function preload(){
     pathos1Model = loadModel("assets/pathos/interactable1.obj");
     pathos2Model = loadModel("assets/pathos/interactable2.obj");
     pathos3Model = loadModel("assets/pathos/interactable3.obj");
-
-    // Load Miscellaneous models
     doorModel = loadModel("assets/main_room/door.obj");
 }
 
 function setup(){
+  //Game Variables (Mostly Scene Setting)
     game = createCanvas(windowWidth, windowHeight, WEBGL)
     game.parent("#game");
 
 
-    // Create scene objects with skybox images, scene model, object functions, and ground properties
-
+    //Start Playing Backgroumd Music and 
     artGallerySong.amp(0.3);
     artGallerySong.loop();
     artGallerySong.play();
-    doorSound.amp(0.3);
 
     // Create scene objects with skybox images, object functions, and ground properties
     // scenes.push(new Scene(skybox1, mainroom, color(255), 2000, 26, 0, -87000,20000, 130000 ));
@@ -86,6 +91,7 @@ function setup(){
     scenes[0].addModel(mainroom, -87000,20000, 130000, 0.006, -PI, PI, 0);
     scenes[0].addModel(mainroomPedestals, -48000,-2000, 28000, 0.006, -PI, PI, 0, pedestalColor);
     // print("Scene models", scenes[0].models);
+
 
     //Camera Setup
     setCamInitialPos()
@@ -114,13 +120,19 @@ function setup(){
       "Now this looks like it came out of a cartoon. My five-year-old can this easy!\nI bet he could! Maybe with more detail too.",
       "Luca, my childhood stuffed animal. Anytime I had a hard time I would lay in my bed and hold you tight till all the bad thoughts slowly faded away. That smile wasn’t just yours... when I hugged you it became mine…\nI wish they understood that."
     ]; 
+    
+    pathos4Dialgoue = [
+      "I'm a Door",
+      "I'm a sad Door. Please Open me :(",
+      "A door?",
+      "I should leave..."
+    ]; 
 
     //Interctable Objects
-    pathosArray.push(new Interactable( 512.5, -50, -366.5, 0, 'red', pathos1Model, 1, pathos1Dialgoue));
-    pathosArray.push(new Interactable( -540, -47, -72, 0, 'red', pathos2Model, 2, pathos2Dialgoue));
-    pathosArray.push(new Interactable( -517, -49, -810, 0, 'red', pathos3Model, 3, pathos3Dialgoue));
-
-    door = new Interactable(0,0,0,'gray', doorModel,3,"Open..?")
+    pathosArray.push(new Interactable( 512.5, -50, -366.5, 0, 'red', pathos1Model, 20, 1, pathos1Dialgoue));
+    pathosArray.push(new Interactable( -540, -47, -72, 0, 'red', pathos2Model, 20,  2, pathos2Dialgoue));
+    pathosArray.push(new Interactable( -517, -49, -810, 0, 'red', pathos3Model, 20, 3, pathos3Dialgoue));
+    pathosArray.push(new Interactable(-508, 10 ,-50 , 0,'red', doorModel, 70, 4, pathos4Dialgoue));
     
     noStroke(); //Removes Strokes from 3D Models
 
@@ -154,7 +166,13 @@ function draw()
     //Array that draws the pathos.
     //This was originally in the loop below but there were issues with break; that made me move it
     for (let obj of pathosArray) {
-      obj.draw(cam);
+      if (obj.activateOnLoop == 4) { //If we're looking at the door 
+        if (doorTime) { //Influenced by door variable (Door is only drawn if it's door time)
+          obj.draw(cam); 
+        } 
+      } else { //Literally everything else. Draw it.
+        obj.draw(cam);
+      }
     }
 
     //Checking if Player is Looking at a Pathos
@@ -162,7 +180,7 @@ function draw()
       if(obj.checkIfLookingAt(cam)) {
 
         //Checks to see if Pathos is Intertable
-        if(obj.activateOnLoop <= player.currentLoop) {
+        if(obj.activateOnLoop <= player.currentLoop || obj.activateOnLoop == 4) {
 
           // print("Loop Match: Currently Interactable");  
           obj.activate(murmurSound); //Viusually activates Object when looking at it
@@ -177,7 +195,6 @@ function draw()
         } else {
           //Objects don't activate unless the player matches or exceeds its activate loop.
           //This causes them to not work in certain loops
-          print("Looking at Pathos! Cannot Interact.")
           obj.deactivate();
         }
 
@@ -187,6 +204,7 @@ function draw()
       } else {  
         obj.deactivate();
         isLooking = false;
+        
       }
     }
 
@@ -261,11 +279,12 @@ function keyPressed() {
         //Checks to see if loop conditions have been met. Starts timer if so.
         let canLoop = checkIfLoopPossible();
         if (canLoop) {
-          startTimer(door);
+          startTimer(doorModel);
         }
       }
-      controls = $("#controls").addClass('hide-control');
-        print("hide control")
+
+      //Hides Instructions when E is pressed
+      controls = $("#controls").addClass('hide-control'); 
     }
 
     //Debug: Go to the Next Loop!
@@ -350,7 +369,7 @@ function keyPressed() {
     }
 
     else if (key === 'c') {
-      print_position()
+      printCamPosition()
     }
   }
 

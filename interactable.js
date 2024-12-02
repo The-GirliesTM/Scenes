@@ -1,5 +1,5 @@
 class Interactable {
-    constructor(x, y, z, rotation, color, model, activateOnLoop , dialogueArray) {
+    constructor(x, y, z, rotation, color, model, activeRadius, activateOnLoop , dialogueArray) {
         this.x = x; // Position
         this.y = y;
         this.z = z;
@@ -15,7 +15,7 @@ class Interactable {
         this.isInteracting = false;                     // Interaction state
         this.isSeen = false;                            // If the object is being looked at
         this.interactionDistance = 150;                 // Maximum distance to interact
-        this.interactionAngleThreshold = radians(20);   // Angle threshold for interaction
+        this.interactionAngleThreshold = radians(activeRadius);   // Angle threshold for interaction
         this.hasInteracted = false;                     // Tracks if this object has been interacted with
 
         this.rotationY = rotation;                      // Y-axis rotation for interaction
@@ -29,7 +29,7 @@ class Interactable {
     draw(cam) {
         push();
         
-        if (this.isInteracting) {
+        if (this.isInteracting && this.activateOnLoop != 4) {
             // Update to the object's rotation dyanmically during interaction
             translate(this.x, this.y, this.z);      //Places Object
             rotateY(this.rotationY);                // Apply rotation
@@ -93,19 +93,35 @@ class Interactable {
             case 1: //Response when in Loop 1 
                 this.loadDialogue(this.dialogueArray[0]);
                 this.showDialogue();
-                print(this.dialogueArray[0]);
+               //print(this.dialogueArray[0]);
                 
                 break;
             case 2: //Response when in Loop 2
                 this.loadDialogue(this.dialogueArray[1]);
                 this.showDialogue();
-                print(this.dialogueArray[1]);
+               //print(this.dialogueArray[1]);
+
                 break;
 
             case 3: //Response when in Loop 3
+            
                 this.loadDialogue(this.dialogueArray[2]);
                 this.showDialogue();
-                print(this.dialogueArray[2]);
+                //print(this.dialogueArray[2]);
+
+                break;
+            case 4: //Response when in Loop 3
+            
+                if (this.activateOnLoop == 4) {
+                    this.loadDialogue(this.dialogueArray[2]);
+                    this.showDialogue();
+
+                } else { 
+                    this.loadDialogue("*Silence*");
+                    this.showDialogue();
+                    //print(this.dialogueArray[2]);
+                }   
+
                 break;
 
             default:
@@ -168,11 +184,9 @@ class Interactable {
         if (this.isSeen) {
             this.color = this.inactiveColor;
             this.isSeen = false;
-            print("siote")
             murmurSound.stop();
         }
     }
-
 
 
     // ----- SOLELY FOR POSITIONING

@@ -25,26 +25,26 @@ class Player{
         for (let obj of pathosArray) {
             obj.resetInteraction();
         }
+
     }
 
     //Updates player variables, resets player, and increases the loop count.
     newLoop(){
         if(this.currentLoop < this.maxLoops) {
-            print("Loop Completed! Going to Loop: " + player.currentLoop);
-            this.currentLoop++;
 
-            //TODO: Add a black screen/transition screen before resetPlayer();
+            //Adds a Black Screen Transition when player goes into new loop
             let overlay = $("#overlay").addClass("overlay-transition");
 
             setTimeout(() => {
                 overlay = $("#overlay").removeClass("overlay-transition");
-                //print($("#overlay").hasClass("overlay-transition")); //Debug?
                  
                 this.resetPlayer(); //Reset the player during transition
-              }, 2000);
+                this.currentLoop++; //Inside this timeout to keep player from interacting until after loop is finished
+                print("Loop Completed! Going to Loop: " + player.currentLoop);
+            }, 2000);
 
-        } else if (this.currentLoop == 3){
-            print("Completed Final Loop! Please Proceed to the Backroom!.");
+        } else if (this.currentLoop == 4){
+            print("Final Loop: Please Proceed to the Backroom.");
             //TODO: Make backroom door appear. Player can use this to move to the backroom
             
         } else {
