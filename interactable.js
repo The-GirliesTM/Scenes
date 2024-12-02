@@ -173,7 +173,7 @@ class Interactable {
         this.color = lerpColor(from, to, 0.5);
         this.isSeen = true;
 
-        if (!testSound.isPlaying()) {
+        if (!testSound.isPlaying() && !player.isInBackroom) {
             testSound.loop()
             testSound.play()
         }

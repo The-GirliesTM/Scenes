@@ -1,6 +1,7 @@
 //Game Variables
 let game;
 let player;
+let endGame;
 
 //Camera Varibles
 let cam;
@@ -86,7 +87,7 @@ function setup(){
     let backroomColor = color(50,10,50)
     scenes.push(new Scene(skybox2,  color(200, 200, 220), 2000, 0));
     scenes[1].addModel(backroom, -0,-2000, 0, 0.008, -PI, PI, 0,backroomColor);
-    print("Scene models", scenes[1].models[0]);
+    //print("Scene models", scenes[1].models[0]);
 
 
     //Seting Up Interactables in Each Scene
@@ -159,7 +160,6 @@ function keyPressed() {
 
     //Pathos Interactions 
     if(key === 'e') {
-
       //Logic for when the player is in the Art Gallery
       if (!player.isInBackroom) {
         if (!isInteracting && !dBoxOpen) {
@@ -202,7 +202,6 @@ function keyPressed() {
           
           for (let obj of baathosArray) {
             if(obj.checkIfLookingAt(cam)) { //Detect if the Player is looking at intertacbles Objects for this loop
-              print(obj.x);
               //Handling Hint Hiding
               hideHint();
               isInteracting = true;
@@ -211,12 +210,31 @@ function keyPressed() {
                 obj.loadDialogue(obj.dialogueArray[0]);
                 obj.showDialogue();
                 obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
+
+                if(obj.activateOnLoop == 5) {
+                  endGame = true;
+                }
             } 
           }
 
       } else if (dBoxOpen) { //this is for when you want to turn off the 
+          //End the Game Here 
           hideDialogue();
+          hideHint();
           isInteracting = false;
+
+          if(endGame) {
+            print("Ending Game! Thanks for playing");
+            
+            //Adds a Black Screen Transition when player goes into new loop
+            let overlay = $("#overlay").addClass("overlay-transition");
+
+            setTimeout(() => {
+
+              window.location.href = "end-screen.html"; // Replace with your target HTML file
+              
+          }, 2500);
+          }
       }
     }
 
