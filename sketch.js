@@ -30,10 +30,7 @@ let dBoxOpen = false;
 let murmurSound;
 let artGallerySong;
 let doorSound;
-
-//TODO: Audrey please add this file in the backroomSetup() method.
 let backroomSong;
-
 function preload(){
 
     mainroom = loadModel("assets/main_room/MainroomWalls.obj");
@@ -74,8 +71,9 @@ function setup(){
 
 
     // NEW SCENE VERSION ------------------------
+    
+    // SCENES constructor(sky, groundCol, groundSize, groundY)
     scenes.push(new Scene(skybox1, color(255), 2000, 0));
-    scenes.push(new Scene(skybox2, backroom, color(200, 200, 220), 2000, 50, 1,0,0,0));
     // print("Scene array",scenes);
 
     let pedestalColor = color(188,143,143);
@@ -83,6 +81,11 @@ function setup(){
     scenes[0].addModel(mainroom, -87000,20000, 130000, 0.006, -PI, PI, 0);
     scenes[0].addModel(mainroomPedestals, -48000,-2000, 28000, 0.006, -PI, PI, 0, pedestalColor);
     // print("Scene models", scenes[0].models);
+
+
+    // scenes.push(new Scene(skybox2,  color(200, 200, 220), 2000, 0));
+    // scenes[1].addModel(backroom, 0,-2000,0,1,0,0,0);
+    // print("Scene models", scenes[1].models);
 
 
     //Seting Up Interactables in Each Scene
