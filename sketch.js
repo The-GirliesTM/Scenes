@@ -10,7 +10,7 @@ let cam;
 let sceneManager;
 let skybox1, skybox2;
 let scenes = [];
-let currentSceneIndex = 1;
+let currentSceneIndex = 0;
 
 // scene models
 let mainroom;
@@ -116,15 +116,23 @@ function setup(){
     /**
      * Backroom colors:
      * 
-     * light purple: rgb(162, 177, 228)
+     * beige: #C3B5AE && rgb(195, 181, 174)
+     * dark purple: #3C2654 && rgb(60, 38, 84)
+     * gray blue: #3B4259 && rgb(59, 66, 89)
+     * light gray blue: #9ABCD5 && rgb(154, 188, 213)
+     * 
+     * another dark purple #302540 && rgb(48, 37, 64)
+     * 
+     * dark blue: #031B5B && rgb(3, 27, 91)
+     * very dark : #0A0D29 && rgba(10, 13, 41)
      * 
      */
 
     // Back room colors
 
-    let backroomColor = color(50,10,50)
-    let backroomFloor = color(50,10,50)
-    let backroomPedestalColor = color(50,10,50)
+    let backroomColor = color(10, 13, 41)
+    let backroomFloor = color(10, 13, 41)
+    let backroomPedestalColor = color(47, 90, 130)
 
     scenes.push(new Scene(skybox2, backroomFloor, 2000, 0));
 
@@ -157,10 +165,11 @@ function setup(){
 function draw() 
 {
   //Room Lighting
-  ambientLight(170);
   let lightingColor = color(150, 100, 0);
   let lightDir = createVector(2, 3, 1);
+  ambientLight(170);
   directionalLight(lightingColor,lightDir);
+
 
   //Loop Functionality: If the time has been activated it starts running
   updateTimer(); 

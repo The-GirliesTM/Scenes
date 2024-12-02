@@ -27,10 +27,10 @@ function backroomSetup(){
       backDoor_Dialgoue = ["I should leave..."]; 
   
       //Interctable Objects
-      baathosArray.push(new Interactable( 121, -58, 3, PI, 'blue', pathos1Model, 20, 4, backPathos1_Dialgoue));
-      baathosArray.push(new Interactable( 0,   -57, 120, 0, 'blue', pathos2Model, 20,  4, backPathos2_Dialgoue));
-      baathosArray.push(new Interactable(-118, -58, 4, PI, 'blue', pathos3Model, 20, 4, backPathos3_Dialgoue));
-      baathosArray.push(new Interactable(  0,  0, -389, 0,'blue', doorModel, 70, 5, backDoor_Dialgoue));
+      baathosArray.push(new Interactable( 121, -58, 3, PI, '#C3B5AE', pathos1Model, 20, 4, backPathos1_Dialgoue));
+      baathosArray.push(new Interactable( 0,   -57, 120, 0, '#C3B5AE', pathos2Model, 20,  4, backPathos2_Dialgoue));
+      baathosArray.push(new Interactable(-118, -58, 4, PI, '#C3B5AE', pathos3Model, 20, 4, backPathos3_Dialgoue));
+      baathosArray.push(new Interactable(  0,  0, -389, 0,'#061740', doorModel, 70, 5, backDoor_Dialgoue));
   }
   
   function drawBackroom() {
