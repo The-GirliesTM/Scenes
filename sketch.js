@@ -10,7 +10,7 @@ let cam;
 let sceneManager;
 let skybox1, skybox2;
 let scenes = [];
-let currentSceneIndex = 0;
+let currentSceneIndex = 1;
 
 // scene models
 let mainroom;
@@ -43,11 +43,13 @@ function preload(){
     mainroomHumanStatue = loadModel("assets/main_room/HumanStatue.obj");
   
     backroom =  loadModel("assets/backroom/Backroom.obj");
+    backroomModel =  loadModel("assets/backroom/BackroomModel.obj");
+    backroomPedestals = loadModel("assets/backroom/BackroomPedestals.obj");
 
     //load skybox image --> will be used later as a texture
     skybox1 = loadImage('assets/main_room/gallerySkybox.jpg')
     // loadImage('assets/main_room/starry_skybox.jpg')
-    skybox2 = loadImage('assets/desert.jpg')
+    skybox2 = loadImage('assets/backroom/starry_skybox.jpg')
 
     //load sounds
     murmurSound = loadSound('assets/audio/murmur.mp3');
@@ -73,12 +75,7 @@ function setup(){
     artGallerySong.loop();
     artGallerySong.play();
 
-    // Create scene objects with skybox images, object functions, and ground properties
-    // scenes.push(new Scene(skybox1, mainroom, color(255), 2000, 26, 0, -87000,20000, 130000 ));
-    // scenes.push(new Scene(skybox2, backroom, color(200, 200, 220), 2000, 50, 1,0,0,0));
-
-
-    // NEW SCENE VERSION ------------------------
+    // ----------- MAINROOM GALLERY -----------
     
     // SCENES constructor(sky, groundCol, groundSize, groundY)
     let offWhiteColor = color(251, 230, 224)
@@ -86,7 +83,7 @@ function setup(){
     // print("Scene array",scenes);
 
     /**
-     * colors:
+     * Main room colors:
      * 
      * light purple: rgb(162, 177, 228)
      * light magenta: rgb(230, 208, 225)
@@ -97,8 +94,7 @@ function setup(){
      * off white: rgb(251, 230, 224)
      */
 
-
-
+    // Main room colors
     let pedestalColor = color(104, 117, 205);
     let portraitColor = color(230, 208, 225);
     let statuesColor = color(162, 177, 228);
@@ -115,12 +111,30 @@ function setup(){
     // X: -86700 z: 129800
     // print("Scene models", scenes[0].models);
 
+    // ----------- BACKROOM -----------
+
+    /**
+     * Backroom colors:
+     * 
+     * light purple: rgb(162, 177, 228)
+     * 
+     */
+
+    // Back room colors
+
     let backroomColor = color(50,10,50)
-    scenes.push(new Scene(skybox2,  color(200, 200, 220), 2000, 0));
-    scenes[1].addModel(backroom, 0,-2000, 0, 0.006, -PI, PI, 0,backroomColor);
+    let backroomFloor = color(50,10,50)
+    let backroomPedestalColor = color(50,10,50)
+
+    scenes.push(new Scene(skybox2, backroomFloor, 2000, 0));
+
+    // Add backroom models
+    //scenes[1].addModel(backroom, 0,-2000, 0, 0.007, -PI, PI, 0,backroomColor);
+    scenes[1].addModel(backroomModel, 0,-2000, 0, 0.01, -PI, PI, 0,backroomColor);
+    scenes[1].addModel(backroomPedestals, 0,-2000, 0, 0.007, -PI, PI, 0,backroomPedestalColor);
     print("Scene models", scenes[1].models[0]);
 
-
+    // ----------- INTERACTABLES -----------
     //Seting Up Interactables in Each Scene
     gallerySetUp();
     backroomSetup();
@@ -286,15 +300,15 @@ function keyPressed() {
 
 
     // Scene movement controls
-    let moveAmount = 500; // Adjust this for finer or larger steps
-    let current_pathos = 1; // Adjust to change pathos
+    let moveAmount = 1; // Adjust this for finer or larger steps
+    let current_pathos = 3; // Adjust to change pathos
     let current_scene = 0; // Adjust to change to other scene
     let current_model = 5; // Adjust change model 
 
     if (key === 't') {
       // --- PATHOS
       baathosArray[current_pathos].z += moveAmount; // Move up
-      console.log("z:", pathosArray[current_pathos].z);
+      console.log("z:", baathosArray[current_pathos].z);
 
       // --- SCENE
 
@@ -305,7 +319,7 @@ function keyPressed() {
     } else if (key === 'g') {
       // --- PATHOS
       baathosArray[current_pathos].z -= moveAmount; // Move up
-      console.log("z:", pathosArray[current_pathos].z);
+      console.log("z:", baathosArray[current_pathos].z);
 
 
       // --- SCENE
@@ -317,7 +331,7 @@ function keyPressed() {
 
       // --- PATHOS
       baathosArray[current_pathos].x -= moveAmount; // Move up
-      console.log("x:", pathosArray[current_pathos].x);
+      console.log("x:", baathosArray[current_pathos].x);
 
       // --- SCENE
       // scene 1 walls
@@ -327,7 +341,7 @@ function keyPressed() {
     } else if (key === 'h') {
       // --- PATHOS
       baathosArray[current_pathos].x += moveAmount; // Move up
-      console.log("x:", pathosArray[current_pathos].x);
+      console.log("x:", baathosArray[current_pathos].x);
 
       // --- SCENE
       // scene 1 walls
@@ -339,10 +353,12 @@ function keyPressed() {
         //scenes[currentSceneIndex].y += moveAmount; // Move closer
         // pathosArray[current_pathos].y += moveAmount; // Move up
         // console.log("y:", pathosArray[current_pathos].y);
+        baathosArray[current_pathos].y += moveAmount; // Move up
+        console.log("y:", baathosArray[current_pathos].y);
 
         // scene 1 walls
-        scenes[current_scene].models[current_model].position.y += moveAmount; // Move right
-        print("y: ",scenes[current_scene].models[current_model].position.y)
+        // scenes[current_scene].models[current_model].position.y += moveAmount; // Move right
+        // print("y: ",scenes[current_scene].models[current_model].position.y)
     } else if (key === 'u') {
       print("move up")
        //scenes[currentSceneIndex].moveModel(0, -moveAmount, 0); // Move closer
@@ -350,8 +366,12 @@ function keyPressed() {
       // console.log("y:", pathosArray[current_pathos].y);
      
       // scene 1 walls
-      scenes[current_scene].models[current_model].position.y -= moveAmount; // Move right
-      print("y: ",scenes[current_scene].models[current_model].position.y)
+      // scenes[current_scene].models[current_model].position.y -= moveAmount; // Move right
+      // print("y: ",scenes[current_scene].models[current_model].position.y)
+
+      baathosArray[current_pathos].y -= moveAmount; // Move up
+      console.log("y:", baathosArray[current_pathos].y);
+
     }
 
     else if (key === 'c') {
