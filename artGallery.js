@@ -39,6 +39,12 @@ function gallerySetUp(){
         "I'm a sad Door. Please Open me :(",
         "A door?"
       ]; 
+
+      welcomeDialogue = [
+        "Hello everyone! This is my first art gallery. Thank you to the love and support of all my friends for helping me get these Pathos put together! :)",
+        "Hi! Welcome to my gallery. Please take your time looking around the Scene.",
+        "It's been a while... sorry for the delay in updating my gallery recently."
+      ];
   
       //Interctable Objects
       pathosArray.push(new Interactable( 512.5, -50, -366.5, 0, 'red', pathos1Model, 20, 1, pathos1Dialgoue));

@@ -42,6 +42,9 @@ class Player{
                 this.resetPlayer(); //Reset the player during transition
                 this.currentLoop++; //Inside this timeout to keep player from interacting until after loop is finished
                 print("Loop Completed! Going to Loop: " + player.currentLoop);
+                loadWelcome(welcomeDialogue[this.currentLoop - 1]);
+                welcomeBox = true;
+                showWelcome();
             }, 2000);
 
         } else if (this.currentLoop == 4){

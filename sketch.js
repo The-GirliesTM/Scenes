@@ -26,6 +26,7 @@ let doorModel;
 let isInteracting = false;
 let isLooking = false;
 let dBoxOpen = false;
+let welcomeBox = true;
 
 //Audio files
 let murmurSound;
@@ -105,6 +106,9 @@ function setup(){
 
     //TODO: Initialize the SceneManager
     //sceneManager = new SceneManager();
+    //set up initial dialogue
+    loadWelcome(welcomeDialogue[0]);
+    showWelcome();
 }
 
 function draw() 
@@ -344,8 +348,26 @@ function keyPressed() {
 
   //Hides any dialog boxes that are being displayed
 function hideDialogue() {
-  dialog = $("#dialog").removeClass("show-dialogue");
+  if (!welcomeBox) {
+    dialog = $("#dialog").removeClass("show-dialogue");
+  }
   dBoxOpen = false;
+}
+
+//Loads Welcome Dialogue 
+function loadWelcome(d) {
+  let dialog = $("#dialog").text();
+  $("#dialog").text(d);
+}
+
+function showWelcome() {
+  dialog = $("#dialog").addClass("show-dialogue");
+  setTimeout(() => {
+    dialog = $("#dialog").removeClass("show-dialogue");
+    print("hide");
+    welcomeBox = false;
+  }, 10000);
+  
 }
 //Shows a Key-Input hint
 function showHint() {
