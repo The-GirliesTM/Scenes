@@ -85,7 +85,7 @@ function setup(){
 
     let backroomColor = color(50,10,50)
     scenes.push(new Scene(skybox2,  color(200, 200, 220), 2000, 0));
-    scenes[1].addModel(backroom, -98000,-2000, 67700, 0.006, -PI, PI, 0,backroomColor);
+    scenes[1].addModel(backroom, -0,-2000, 0, 0.006, -PI, PI, 0,backroomColor);
     print("Scene models", scenes[1].models[0]);
 
 
@@ -159,6 +159,8 @@ function keyPressed() {
 
     //Pathos Interactions 
     if(key === 'e') {
+
+      //Logic for when the player is in the Art Gallery
       if (!player.isInBackroom) {
         if (!isInteracting && !dBoxOpen) {
           //Looking through the pathosArray
@@ -183,24 +185,20 @@ function keyPressed() {
               hideHint();
             }
           }
+        } else if (dBoxOpen) { //this is for when you want to turn off the 
+          hideDialogue();
+          isInteracting = false;
 
-      } else if (dBoxOpen) { //this is for when you want to turn off the 
-        hideDialogue();
-        isInteracting = false;
-
-        //Checks to see if loop conditions have been met. Starts timer if so.
-        let canLoop = checkIfLoopPossible();
-        if (canLoop) {
-          startTimer(doorModel);
+          //Checks to see if loop conditions have been met. Starts timer if so.
+          let canLoop = checkIfLoopPossible();
+          if (canLoop) {
+            startTimer(doorModel);
+          }
         }
-      }
 
-
-
-      } else {
-        
+      //Logic for When the player is in the backroom  
+      } else if (player.isInBackroom) {
         if (!isInteracting && !dBoxOpen) {
-          //Looking through the pathosArray
           
           for (let obj of baathosArray) {
             if(obj.checkIfLookingAt(cam)) { //Detect if the Player is looking at intertacbles Objects for this loop
@@ -209,11 +207,10 @@ function keyPressed() {
               hideHint();
               isInteracting = true;
 
-            //     //This Function handles all reactions from the Object when Interacted.
+                //This Function handles all reactions from the Object when Interacted.
                 obj.loadDialogue(obj.dialogueArray[0]);
                 obj.showDialogue();
                 obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
-
             } 
           }
 
@@ -222,8 +219,6 @@ function keyPressed() {
           isInteracting = false;
       }
     }
-
-
 
       //Hides Instructions when E is pressed
       controls = $("#controls").addClass('hide-control'); 
