@@ -30,8 +30,6 @@ let isInteracting = false;
 let isLooking = false;
 let dBoxOpen = false;
 
-let doorModel;
-
 
 //Pathos Dialogue Arrays 
 let pathos1Dialgoue = []; 
