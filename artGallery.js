@@ -77,7 +77,7 @@ function gallerySetUp(){
         if(obj.checkIfLookingAt(cam)) {
   
           //Checks to see if Pathos is Intertable
-          if(obj.activateOnLoop <= player.currentLoop || obj.activateOnLoop == 4) {
+          if(obj.activateOnLoop <= player.currentLoop) {
   
             // print("Loop Match: Currently Interactable");  
             obj.activate(murmurSound); //Viusually activates Object when looking at it

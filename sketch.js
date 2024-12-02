@@ -166,7 +166,7 @@ function keyPressed() {
             } else {
               print("Incorrect loop. Unable to Interact.");  
             }
-          } else if (obj.checkIfLookingAt(cam)) { //Displays Text Box for inactivate object.
+          } else if (obj.checkIfLookingAt(cam) && obj.activateOnLoop != 4) { //Displays Text Box for inactivate object.
             obj.loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
             obj.showDialogue();
             hideHint();
