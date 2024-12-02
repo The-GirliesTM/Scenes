@@ -53,7 +53,7 @@ function gallerySetUp(){
   
       //Interctable Objects
       pathosArray.push(new Interactable( 512.5, -50, -366.5, 0, 'red', pathos1Model, 20, 1, pathos1Dialgoue));
-      pathosArray.push(new Interactable( -540, -47, -72, 0, 'red', pathos2Model, 20,  2, pathos2Dialgoue));
+      pathosArray.push(new Interactable( -31.5, -47, -74, 0, 'red', pathos2Model, 20,  2, pathos2Dialgoue));
       pathosArray.push(new Interactable( -517, -49, -810, 0, 'red', pathos3Model, 20, 3, pathos3Dialgoue));
       pathosArray.push(new Interactable(-508, 10 ,-50 , 0,'red', doorModel, 70, 4, pathos4Dialgoue));
   }
