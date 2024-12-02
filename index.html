@@ -22,16 +22,20 @@
               
               The person you followed has uploaded a new scene!
             </div>
-          </a>
            </div>
          </div>
-         <a href="gamescreen.html">For debugging to game</a>
          <div class="sticky-note">
           <h2>Reminder</h2>
           <p>Username: ala_rasi</p>
           <p>Password: loqueyonose</p>
          </div>
+
          <script>
+          document.addEventListener('keydown', function (event) {
+            if (event.keyCode ==82) {
+              document.location = "gamescreen.html";
+            }
+          })
           // Add a CSS class to the div after a 2-second delay
           setTimeout(() => {
             document.getElementById('pop-up').classList.add('fade-in');

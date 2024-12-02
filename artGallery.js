@@ -20,21 +20,21 @@ function gallerySetUp(){
       //Filling Interactable Dialgoue Arrays
       // [0] = Loop 1, [1] = Loop 2, [2] =Loop 3, [3] = Backrooms 
       pathos1Dialgoue = [
-        "Wow! I bet they have steady hands to make such detail.\nYeah, I don’t think I would’ve been able to make that.",
-        "Usually they're much better with the quality of their works. They're really loosing their touch.",
-        "I don’t know how this made it into the exhibition. Sculpt a few curves into a stone and call it art? Please.\nNever understood how pieces like this get any attention.",
+        "Wow! I bet they have steady hands to make such detail.\n\nYeah, I don’t think I would’ve been able to make that.",
+        "Usually they're much better with the quality of their works.\n\n They're really loosing their touch.",
+        "I don’t know how this made it into the exhibition. Sculpt a few curves into a stone and call it art? Please.\n\nNever understood how pieces like this get any attention.",
       ];
       
       pathos2Dialgoue = [
         "This pathos doesn't seem to be installed yet...",
-        "This seems kinda simple doesn't it? \nYeah, it looks kinda bland.",
-        "Wanna bet that they went to a pottery class and made it there?\nHA! I’ll bet my savings on that one.",
+        "This seems kinda simple doesn't it? \n\nYeah, it looks kinda bland.",
+        "Wanna bet that they went to a pottery class and made it there?\n\nHA! I’ll bet my savings on that one.",
       ];
   
       pathos3Dialgoue = [
         "This pathos doesn't seem to be installed yet...",
         "Why is this pathos still incomplete?",
-        "Now this looks like it came out of a cartoon. My five-year-old can this easy!\nI bet he could! Maybe with more detail too.",
+        "Now this looks like it came out of a cartoon.\n\n My five-year-old can this easy!\n\nI bet he could! Maybe with more detail too.",
        ]; 
       
       pathos4Dialgoue = [

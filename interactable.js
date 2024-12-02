@@ -171,7 +171,7 @@ class Interactable {
         this.color = this.activeColor;
         this.isSeen = true;
 
-        if (!testSound.isPlaying()) {
+        if (!testSound.isPlaying() && !player.isInBackroom) {
             testSound.loop()
             testSound.play()
         }

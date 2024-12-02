@@ -12,6 +12,7 @@ class Player{
     constructor(loop){
         this.currentLoop = loop
         this.maxLoops = 3
+        this.isInBackroom = false;
     }
 
     //Resets the player
@@ -55,17 +56,33 @@ class Player{
     //Function that moves player to the backroom
     moveToBackroom() {
         print("Moving to backroom");
-        currentSceneIndex = 1; //Setting Scene array to Backroom Scene
+        //Adds a Black Screen Transition when player goes into new loop
+        let overlay = $("#overlay").addClass("overlay-transition");
 
+        setTimeout(() => {
+            
+            currentSceneIndex = 1; //Setting Scene array to Backroom Scene
+            backRoomCamera();
+            overlay = $("#overlay").removeClass("overlay-transition");
+            
+        }, 2000);
+
+       
         //Reset Sound Variables 
         doorSound.stop();
         murmurSound.stop();
         artGallerySong.stop();
 
-        //Make sure player is in backroom state 
-        player.currentLoop = 4;
+        //start backroom music
+        backroomSong.amp(0.3);
+        backroomSong.play();
 
-        backRoomCamera();
+        //Make sure player is in backroom state 
+        this.currentLoop = 4;
+        this.isInBackroom = true;
+
+
+       
 
     }
 

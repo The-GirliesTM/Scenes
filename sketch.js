@@ -1,6 +1,7 @@
 //Game Variables
 let game;
 let player;
+let endGame;
 
 //Camera Varibles
 let cam;
@@ -50,6 +51,7 @@ function preload(){
     //load sounds
     murmurSound = loadSound('assets/audio/murmur.mp3');
     artGallerySong = loadSound('assets/audio/eternalHope.mp3');
+    backroomSong = loadSound('assets/audio/backroom.mp3');
     doorSound = loadSound('assets/audio/door.mp3');
 
     //Loading Models
@@ -158,7 +160,7 @@ function draw()
       drawGallery();
 
     } else if (currentSceneIndex == 1) { //When we're in the backroom scene. Draw details
-      print("Draw Backroom!");
+      //print("Draw Backroom!");
       drawBackroom();
     }
 
@@ -188,39 +190,80 @@ function keyPressed() {
 
     //Pathos Interactions 
     if(key === 'e') {
-      if (!isInteracting && !dBoxOpen) {
+      //Logic for when the player is in the Art Gallery
+      if (!player.isInBackroom) {
+        if (!isInteracting && !dBoxOpen) {
+          //Looking through the pathosArray
+          for (let obj of pathosArray) {
+            if(obj.checkIfLookingAt(cam) && obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
+              if (obj.activateOnLoop <= player.currentLoop) { 
 
-        for (let obj of pathosArray) {
-          if(obj.checkIfLookingAt(cam) && obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
-            if (obj.activateOnLoop <= player.currentLoop) { 
+                //Handling Hint Hiding
+                hideHint();
+                isInteracting = true;
 
+                //This Function handles all reactions from the Object when Interacted.
+                obj.interact(player.currentLoop);
+                obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
+
+              } else {
+                print("Incorrect loop. Unable to Interact.");  
+              }
+            } else if (obj.checkIfLookingAt(cam) && obj.activateOnLoop != 4) { //Displays Text Box for inactivate object.
+              obj.loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
+              obj.showDialogue();
+              hideHint();
+            }
+          }
+        } else if (dBoxOpen) { //this is for when you want to turn off the 
+          hideDialogue();
+          isInteracting = false;
+
+          //Checks to see if loop conditions have been met. Starts timer if so.
+          let canLoop = checkIfLoopPossible();
+          if (canLoop) {
+            startTimer(doorModel);
+          }
+        }
+
+      //Logic for When the player is in the backroom  
+      } else if (player.isInBackroom) {
+        if (!isInteracting && !dBoxOpen) {
+          
+          for (let obj of baathosArray) {
+            if(obj.checkIfLookingAt(cam)) { //Detect if the Player is looking at intertacbles Objects for this loop
               //Handling Hint Hiding
               hideHint();
               isInteracting = true;
 
-              //This Function handles all reactions from the Object when Interacted.
-              obj.interact(player.currentLoop);
-              obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
+                //This Function handles all reactions from the Object when Interacted.
+                obj.loadDialogue(obj.dialogueArray[0]);
+                obj.showDialogue();
+                obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
 
-            } else {
-              print("Incorrect loop. Unable to Interact.");  
-            }
-          } else if (obj.checkIfLookingAt(cam) && obj.activateOnLoop != 4) { //Displays Text Box for inactivate object.
-            obj.loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
-            obj.showDialogue();
-            hideHint();
+                if(obj.activateOnLoop == 5) {
+                  endGame = true;
+                }
+            } 
           }
-        }
-      } else if (dBoxOpen) { //this is for when you want to turn off the 
-        hideDialogue();
-        isInteracting = false;
 
-        //Checks to see if loop conditions have been met. Starts timer if so.
-        let canLoop = checkIfLoopPossible();
-        if (canLoop) {
-          startTimer(doorModel);
-        }
+      } else if (dBoxOpen) { //this is for when you want to turn off the 
+          //End the Game Here 
+          hideDialogue();
+          hideHint();
+          isInteracting = false;
+
+          if(endGame) {
+            print("Ending Game! Thanks for playing");
+            //Adds a Black Screen Transition when player goes into new loop
+            let overlay = $("#overlay").addClass("overlay-transition");
+
+            setTimeout(() => {
+              window.location.href = "end-screen.html"; // Replace with your target HTML file
+          }, 2500);
+          }
       }
+    }
 
       //Hides Instructions when E is pressed
       controls = $("#controls").addClass('hide-control'); 
@@ -246,46 +289,46 @@ function keyPressed() {
 
     if (key === 't') {
       // --- PATHOS
-      // pathosArray[current_pathos].z += moveAmount; // Move up
-      // console.log("z:", pathosArray[current_pathos].z);
+      baathosArray[current_pathos].z += moveAmount; // Move up
+      console.log("z:", pathosArray[current_pathos].z);
 
       // --- SCENE
 
       // scene 1 walls
-      scenes[current_scene].models[current_model].position.z += moveAmount; // Move right
-      print("z: ",scenes[current_scene].models[current_model].position.z)
+      // scenes[current_scene].models[current_model].position.z += moveAmount; // Move right
+      // print("z: ",scenes[current_scene].models[current_model].position.z)
 
     } else if (key === 'g') {
       // --- PATHOS
-      // pathosArray[current_pathos].z -= moveAmount; // Move up
-      // console.log("z:", pathosArray[current_pathos].z);
+      baathosArray[current_pathos].z -= moveAmount; // Move up
+      console.log("z:", pathosArray[current_pathos].z);
 
 
       // --- SCENE
       // scene 1 walls
-      scenes[current_scene].models[current_model].position.z -= moveAmount; // Move right
-      print("z: ",scenes[current_scene].models[current_model].position.z)
+      // scenes[current_scene].models[current_model].position.z -= moveAmount; // Move right
+      // print("z: ",scenes[current_scene].models[current_model].position.z)
 
     } else if (key === 'f') {
 
       // --- PATHOS
-      // pathosArray[current_pathos].x -= moveAmount; // Move up
-      // console.log("x:", pathosArray[current_pathos].x);
+      baathosArray[current_pathos].x -= moveAmount; // Move up
+      console.log("x:", pathosArray[current_pathos].x);
 
       // --- SCENE
       // scene 1 walls
-      scenes[current_scene].models[current_model].position.x -= moveAmount; // Move right
-      print("x: ",scenes[current_scene].models[current_model].position.x)
+      // scenes[current_scene].models[current_model].position.x -= moveAmount; // Move right
+      // print("x: ",scenes[current_scene].models[current_model].position.x)
       
     } else if (key === 'h') {
       // --- PATHOS
-      // pathosArray[current_pathos].x += moveAmount; // Move up
-      // console.log("x:", pathosArray[current_pathos].x);
+      baathosArray[current_pathos].x += moveAmount; // Move up
+      console.log("x:", pathosArray[current_pathos].x);
 
       // --- SCENE
       // scene 1 walls
-      scenes[current_scene].models[current_model].position.x += moveAmount; // Move right
-      print("x: ",scenes[current_scene].models[current_model].position.x)
+      // scenes[current_scene].models[current_model].position.x += moveAmount; // Move right
+      // print("x: ",scenes[current_scene].models[current_model].position.x)
     } 
     else if (key === 'j') {
       print("move down")
