@@ -424,7 +424,7 @@ function showWelcome() {
     dialog = $("#dialog").removeClass("show-dialogue");
     print("hide");
     welcomeBox = false;
-  }, 10000);
+  }, 8000);
   
 }
 //Shows a Key-Input hint

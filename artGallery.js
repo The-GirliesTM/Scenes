@@ -16,6 +16,7 @@ function gallerySetUp(){
       artGallerySong.amp(0.3);
       artGallerySong.loop();
       artGallerySong.play();
+      murmurSound.amp(0.3);
   
       //Filling Interactable Dialgoue Arrays
       // [0] = Loop 1, [1] = Loop 2, [2] =Loop 3, [3] = Backrooms 
@@ -27,7 +28,7 @@ function gallerySetUp(){
       
       pathos2Dialgoue = [
         "This pathos doesn't seem to be installed yet...",
-        "This seems kinda simple doesn't it? \n\nYeah, it looks kinda bland.",
+        "This seems simple doesn't it? \n\nYeah, it looks kinda bland.",
         "Wanna bet that they went to a pottery class and made it there?\n\nHA! I’ll bet my savings on that one.",
       ];
   
@@ -44,7 +45,7 @@ function gallerySetUp(){
       ]; 
 
       welcomeDialogue = [
-        "Hello everyone! This is my first art gallery. Thank you to the love and support of all my friends for helping me get these Pathos put together! :)",
+        "Hello everyone! This is my first art gallery. Thank you for the love and support of all my friends for helping me make these Pathos! :)",
         "Hi! Welcome to my gallery. Please take your time looking around the Scene.",
         "It's been a while... sorry for the delay in updating my gallery recently."
       ];
