@@ -352,7 +352,7 @@ input[type=submit] {
   transform: translate(-50%, 0);
   background-color: #65ccff71;
   border-radius: 25px;
-  padding: 50px;
+  padding: 35px;
   opacity: 0;
   transition: all 0.2s ease;
 }

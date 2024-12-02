@@ -12,6 +12,7 @@ class Player{
     constructor(loop){
         this.currentLoop = loop
         this.maxLoops = 3
+        this.isInBackroom = false;
     }
 
     //Resets the player
@@ -63,7 +64,9 @@ class Player{
         artGallerySong.stop();
 
         //Make sure player is in backroom state 
-        player.currentLoop = 4;
+        this.currentLoop = 4;
+        this.isInBackroom = true;
+
 
         backRoomCamera();
 

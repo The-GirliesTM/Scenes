@@ -27,9 +27,9 @@ function backroomSetup(){
       backDoor_Dialgoue = ["I should leave..."]; 
   
       //Interctable Objects
-      baathosArray.push(new Interactable( 0,   0, 0, 0, 'blue', pathos1Model, 20, 1, backPathos1_Dialgoue));
-      baathosArray.push(new Interactable( 100, 0, 0, 0, 'blue', pathos2Model, 20,  2, backPathos2_Dialgoue));
-      baathosArray.push(new Interactable( 200, 0, 0, 0, 'blue', pathos3Model, 20, 3, backPathos3_Dialgoue));
+      baathosArray.push(new Interactable( 0,   0, 0, 0, 'blue', pathos1Model, 20, 4, backPathos1_Dialgoue));
+      baathosArray.push(new Interactable( 100, 0, 0, 0, 'blue', pathos2Model, 20,  4, backPathos2_Dialgoue));
+      baathosArray.push(new Interactable( 200, 0, 0, 0, 'blue', pathos3Model, 20, 4, backPathos3_Dialgoue));
       baathosArray.push(new Interactable(-100, 0, 0 , 0,'blue', doorModel, 70, 4, backDoor_Dialgoue));
   }
   
@@ -53,7 +53,7 @@ function backroomSetup(){
   
           //Determines Behaviors when player is or isnt interacting.
             if (!isInteracting) {
-              showHint();
+              showHint();;
               obj.resetObject(); //Rests Object when not interacting
             } else {
               obj.rotateObject(); //Allows player to rotate object when interacting

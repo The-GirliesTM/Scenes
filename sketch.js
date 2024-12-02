@@ -125,7 +125,7 @@ function draw()
       drawGallery();
 
     } else if (currentSceneIndex == 1) { //When we're in the backroom scene. Draw details
-      print("Draw Backroom!");
+      //print("Draw Backroom!");
       drawBackroom();
     }
 
@@ -155,29 +155,31 @@ function keyPressed() {
 
     //Pathos Interactions 
     if(key === 'e') {
-      if (!isInteracting && !dBoxOpen) {
+      if (!player.isInBackroom) {
+        if (!isInteracting && !dBoxOpen) {
+          //Looking through the pathosArray
+          for (let obj of pathosArray) {
+            if(obj.checkIfLookingAt(cam) && obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
+              if (obj.activateOnLoop <= player.currentLoop) { 
 
-        for (let obj of pathosArray) {
-          if(obj.checkIfLookingAt(cam) && obj.activateOnLoop <= player.currentLoop) { //Detect if the Player is looking at intertacbles Objects for this loop
-            if (obj.activateOnLoop <= player.currentLoop) { 
+                //Handling Hint Hiding
+                hideHint();
+                isInteracting = true;
 
-              //Handling Hint Hiding
+                //This Function handles all reactions from the Object when Interacted.
+                obj.interact(player.currentLoop);
+                obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
+
+              } else {
+                print("Incorrect loop. Unable to Interact.");  
+              }
+            } else if (obj.checkIfLookingAt(cam) && obj.activateOnLoop != 4) { //Displays Text Box for inactivate object.
+              obj.loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
+              obj.showDialogue();
               hideHint();
-              isInteracting = true;
-
-              //This Function handles all reactions from the Object when Interacted.
-              obj.interact(player.currentLoop);
-              obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
-
-            } else {
-              print("Incorrect loop. Unable to Interact.");  
             }
-          } else if (obj.checkIfLookingAt(cam) && obj.activateOnLoop != 4) { //Displays Text Box for inactivate object.
-            obj.loadDialogue(obj.dialogueArray[player.currentLoop - 1]);
-            obj.showDialogue();
-            hideHint();
           }
-        }
+
       } else if (dBoxOpen) { //this is for when you want to turn off the 
         hideDialogue();
         isInteracting = false;
@@ -188,6 +190,36 @@ function keyPressed() {
           startTimer(doorModel);
         }
       }
+
+
+
+      } else {
+        
+        if (!isInteracting && !dBoxOpen) {
+          //Looking through the pathosArray
+          
+          for (let obj of baathosArray) {
+            if(obj.checkIfLookingAt(cam)) { //Detect if the Player is looking at intertacbles Objects for this loop
+              print(obj.x);
+              //Handling Hint Hiding
+              hideHint();
+              isInteracting = true;
+
+            //     //This Function handles all reactions from the Object when Interacted.
+                obj.loadDialogue(obj.dialogueArray[0]);
+                obj.showDialogue();
+                obj.isInteracting = isInteracting; //Updates Object Interacting Variable to match
+
+            } 
+          }
+
+      } else if (dBoxOpen) { //this is for when you want to turn off the 
+          hideDialogue();
+          isInteracting = false;
+      }
+    }
+
+
 
       //Hides Instructions when E is pressed
       controls = $("#controls").addClass('hide-control'); 
