@@ -36,6 +36,7 @@ function preload(){
 
     mainroom = loadModel("assets/main_room/MainroomWalls.obj");
     mainroomPedestals = loadModel("assets/main_room/Pedestals.obj");
+    mainroomPortraits = loadModel("assets/main_room/Portraits.obj");
   
     backroom =  loadModel("assets/backroom/Backroom.obj");
 
@@ -78,14 +79,17 @@ function setup(){
     // print("Scene array",scenes);
 
     let pedestalColor = color(188,143,143);
+    let portraitColor = color(188,143,143);
 
     scenes[0].addModel(mainroom, -87000,20000, 130000, 0.006, -PI, PI, 0);
     scenes[0].addModel(mainroomPedestals, -48000,-2000, 28000, 0.006, -PI, PI, 0, pedestalColor);
+    scenes[0].addModel(mainroomPortraits,-86700,-2000, 129800, 0.006, -PI, PI, 0, portraitColor);
+    // X: -86700 z: 129800
     // print("Scene models", scenes[0].models);
 
     let backroomColor = color(50,10,50)
     scenes.push(new Scene(skybox2,  color(200, 200, 220), 2000, 0));
-    scenes[1].addModel(backroom, -98000,-2000, 67700, 0.006, -PI, PI, 0,backroomColor);
+    scenes[1].addModel(backroom, 0,-2000, 0, 0.006, -PI, PI, 0,backroomColor);
     print("Scene models", scenes[1].models[0]);
 
 
@@ -212,8 +216,8 @@ function keyPressed() {
     // Scene movement controls
     let moveAmount = 100; // Adjust this for finer or larger steps
     let current_pathos = 1; // Adjust to change pathos
-    let current_scene = 1; // Adjust to change to other scene
-    let current_model = 0; // Adjust change model 
+    let current_scene = 0; // Adjust to change to other scene
+    let current_model = 2; // Adjust change model 
 
     if (key === 't') {
       // --- PATHOS
