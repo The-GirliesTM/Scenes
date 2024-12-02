@@ -47,6 +47,7 @@ function preload(){
     //load sounds
     murmurSound = loadSound('assets/audio/murmur.mp3');
     artGallerySong = loadSound('assets/audio/eternalHope.mp3');
+    backroomSong = loadSound('assets/audio/backroom.mp3');
     doorSound = loadSound('assets/audio/door.mp3');
 
     //Loading Models

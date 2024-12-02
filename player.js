@@ -73,6 +73,10 @@ class Player{
         murmurSound.stop();
         artGallerySong.stop();
 
+        //start backroom music
+        backroomSong.amp(0.3);
+        backroomSong.play();
+
         //Make sure player is in backroom state 
         this.currentLoop = 4;
         this.isInBackroom = true;
