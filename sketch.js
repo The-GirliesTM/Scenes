@@ -34,7 +34,7 @@ let doorSound;
 function preload(){
 
     mainroom = loadModel("assets/main_room/MainroomWalls.obj");
-    mainroomPedestals = loadModel("assets/main_room/MainroomPedestals.obj");
+    mainroomPedestals = loadModel("assets/main_room/Pedestals.obj");
   
     backroom =  loadModel("assets/backroom/Backroom.obj");
 
@@ -201,7 +201,7 @@ function keyPressed() {
 
     // Scene movement controls
     let moveAmount = 5; // Adjust this for finer or larger steps
-    let current_pathos = 2; // Adjust to change pathos
+    let current_pathos = 1; // Adjust to change pathos
     let current_scene = 0; // Adjust to change to other scene
     let current_model = 1; // Adjust change model 
 
