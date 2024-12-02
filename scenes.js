@@ -39,7 +39,7 @@ class Scene {
 
     display(){
         this.drawSkybox();
-        this.drawGround();
+        //this.drawGround();
         this.drawModel();
 
     }

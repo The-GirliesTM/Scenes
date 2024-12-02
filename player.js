@@ -52,4 +52,18 @@ class Player{
         }
     }
 
+    //Function that moves player to the backroom
+    moveToBackroom() {
+        print("Moving to backroom");
+        currentSceneIndex = 1; //Setting Scene array to Backroom Scene
+
+        //Reset Sound Variables 
+        doorSound.stop();
+        murmurSound.stop();
+        artGallerySong.stop();
+
+        backRoomCamera();
+
+    }
+
 }

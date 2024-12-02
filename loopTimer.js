@@ -33,7 +33,7 @@ function checkIfLoopPossible() {
         }
         break;
       case 4:
-        print("Moving to backroom");
+        player.moveToBackroom();
 
       break;
     }
@@ -42,7 +42,7 @@ function checkIfLoopPossible() {
 //Starts timer when called
 function startTimer(sound) {
     // Only start the timer if the conditions for the loop are met & it's the first time
-    if (startCallCount == 0 && player.currentLoop < 4) {
+    if (startCallCount == 0 && player.currentLoop < 4 && !isInteracting) {
         print("Timer Started");
         //TODO: Add Sound when Timer Starts
 
