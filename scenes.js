@@ -1,8 +1,7 @@
 class Scene {
     
-    constructor(sky, model , groundCol, groundSize, groundY){
+    constructor(sky, groundCol, groundSize, groundY){
         this.skybox = sky;
-        this.model = model
         this.groundColor = groundCol;
         this.groundSize = groundSize;
         this.groundPosY = groundY;
@@ -39,7 +38,7 @@ class Scene {
 
     display(){
         this.drawSkybox();
-        //this.drawGround();
+        this.drawGround();
         this.drawModel();
 
     }

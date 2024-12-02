@@ -30,8 +30,6 @@ let dBoxOpen = false;
 let murmurSound;
 let artGallerySong;
 let doorSound;
-
-//TODO: Audrey please add this file in the backroomSetup() method.
 let backroomSong;
 
 function preload(){
@@ -74,8 +72,9 @@ function setup(){
 
 
     // NEW SCENE VERSION ------------------------
+    
+    // SCENES constructor(sky, groundCol, groundSize, groundY)
     scenes.push(new Scene(skybox1, color(255), 2000, 0));
-    scenes.push(new Scene(skybox2, backroom, color(200, 200, 220), 2000, 50, 1,0,0,0));
     // print("Scene array",scenes);
 
     let pedestalColor = color(188,143,143);
@@ -83,6 +82,11 @@ function setup(){
     scenes[0].addModel(mainroom, -87000,20000, 130000, 0.006, -PI, PI, 0);
     scenes[0].addModel(mainroomPedestals, -48000,-2000, 28000, 0.006, -PI, PI, 0, pedestalColor);
     // print("Scene models", scenes[0].models);
+
+    let backroomColor = color(50,10,50)
+    scenes.push(new Scene(skybox2,  color(200, 200, 220), 2000, 0));
+    scenes[1].addModel(backroom, -98000,-2000, 67700, 0.006, -PI, PI, 0,backroomColor);
+    print("Scene models", scenes[1].models[0]);
 
 
     //Seting Up Interactables in Each Scene
@@ -238,72 +242,72 @@ function keyPressed() {
 
 
     // Scene movement controls
-    let moveAmount = 5; // Adjust this for finer or larger steps
+    let moveAmount = 100; // Adjust this for finer or larger steps
     let current_pathos = 1; // Adjust to change pathos
-    let current_scene = 0; // Adjust to change to other scene
-    let current_model = 1; // Adjust change model 
+    let current_scene = 1; // Adjust to change to other scene
+    let current_model = 0; // Adjust change model 
 
     if (key === 't') {
       // --- PATHOS
-      pathosArray[current_pathos].z += moveAmount; // Move up
-      console.log("z:", pathosArray[current_pathos].z);
+      // pathosArray[current_pathos].z += moveAmount; // Move up
+      // console.log("z:", pathosArray[current_pathos].z);
 
       // --- SCENE
 
       // scene 1 walls
-      // scenes[current_scene].models[current_model].position.z += moveAmount; // Move right
-      // print("z: ",scenes[current_scene].models[current_model].position.z)
+      scenes[current_scene].models[current_model].position.z += moveAmount; // Move right
+      print("z: ",scenes[current_scene].models[current_model].position.z)
 
     } else if (key === 'g') {
       // --- PATHOS
-      pathosArray[current_pathos].z -= moveAmount; // Move up
-      console.log("z:", pathosArray[current_pathos].z);
+      // pathosArray[current_pathos].z -= moveAmount; // Move up
+      // console.log("z:", pathosArray[current_pathos].z);
 
 
       // --- SCENE
       // scene 1 walls
-      // scenes[current_scene].models[current_model].position.z -= moveAmount; // Move right
-      // print("z: ",scenes[current_scene].models[current_model].position.z)
+      scenes[current_scene].models[current_model].position.z -= moveAmount; // Move right
+      print("z: ",scenes[current_scene].models[current_model].position.z)
 
     } else if (key === 'f') {
 
       // --- PATHOS
-      pathosArray[current_pathos].x -= moveAmount; // Move up
-      console.log("x:", pathosArray[current_pathos].x);
+      // pathosArray[current_pathos].x -= moveAmount; // Move up
+      // console.log("x:", pathosArray[current_pathos].x);
 
       // --- SCENE
       // scene 1 walls
-      // scenes[current_scene].models[current_model].position.x -= moveAmount; // Move right
-      // print("x: ",scenes[current_scene].models[current_model].position.x)
+      scenes[current_scene].models[current_model].position.x -= moveAmount; // Move right
+      print("x: ",scenes[current_scene].models[current_model].position.x)
       
     } else if (key === 'h') {
       // --- PATHOS
-      pathosArray[current_pathos].x += moveAmount; // Move up
-      console.log("x:", pathosArray[current_pathos].x);
+      // pathosArray[current_pathos].x += moveAmount; // Move up
+      // console.log("x:", pathosArray[current_pathos].x);
 
       // --- SCENE
       // scene 1 walls
-      // scenes[current_scene].models[current_model].position.x += moveAmount; // Move right
-      // print("x: ",scenes[current_scene].models[current_model].position.x)
+      scenes[current_scene].models[current_model].position.x += moveAmount; // Move right
+      print("x: ",scenes[current_scene].models[current_model].position.x)
     } 
     else if (key === 'j') {
       print("move down")
         //scenes[currentSceneIndex].y += moveAmount; // Move closer
-        pathosArray[current_pathos].y += moveAmount; // Move up
-        console.log("y:", pathosArray[current_pathos].y);
+        // pathosArray[current_pathos].y += moveAmount; // Move up
+        // console.log("y:", pathosArray[current_pathos].y);
 
         // scene 1 walls
-        // scenes[current_scene].models[current_model].position.y += moveAmount; // Move right
-        // print("y: ",scenes[current_scene].models[current_model].position.y)
+        scenes[current_scene].models[current_model].position.y += moveAmount; // Move right
+        print("y: ",scenes[current_scene].models[current_model].position.y)
     } else if (key === 'u') {
       print("move up")
        //scenes[currentSceneIndex].moveModel(0, -moveAmount, 0); // Move closer
-      pathosArray[current_pathos].y-= moveAmount; // Move up
-      console.log("y:", pathosArray[current_pathos].y);
+      // pathosArray[current_pathos].y-= moveAmount; // Move up
+      // console.log("y:", pathosArray[current_pathos].y);
      
       // scene 1 walls
-      // scenes[current_scene].models[current_model].position.y -= moveAmount; // Move right
-      // print("y: ",scenes[current_scene].models[current_model].position.y)
+      scenes[current_scene].models[current_model].position.y -= moveAmount; // Move right
+      print("y: ",scenes[current_scene].models[current_model].position.y)
     }
 
     else if (key === 'c') {
