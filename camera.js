@@ -51,8 +51,17 @@ function resetCamera() {
   angleY = -HALF_PI;
 }
 
+function backRoomCamera() {
+  //Return Camera Variables to Zero
+  x = 10;
+  z = -150;
+  angleX = 0;
+  angleY = HALF_PI;
+}
+
 //Moves camera along the x-z axis
 function cameraMove(playerInteracting) {
+  printCamPosition();
 
   if (!isInteracting) { //Restricts Player Movement when Interacting with Object
     // WASD controls for movement

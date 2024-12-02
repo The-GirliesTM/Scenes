@@ -33,7 +33,7 @@ function checkIfLoopPossible() {
         }
         break;
       case 4:
-        print("Moving to backroom");
+        player.moveToBackroom();
 
       break;
     }
