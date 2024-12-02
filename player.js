@@ -56,8 +56,18 @@ class Player{
     //Function that moves player to the backroom
     moveToBackroom() {
         print("Moving to backroom");
-        currentSceneIndex = 1; //Setting Scene array to Backroom Scene
+        //Adds a Black Screen Transition when player goes into new loop
+        let overlay = $("#overlay").addClass("overlay-transition");
 
+        setTimeout(() => {
+            
+            currentSceneIndex = 1; //Setting Scene array to Backroom Scene
+            backRoomCamera();
+            overlay = $("#overlay").removeClass("overlay-transition");
+            
+        }, 2000);
+
+       
         //Reset Sound Variables 
         doorSound.stop();
         murmurSound.stop();
@@ -68,7 +78,7 @@ class Player{
         this.isInBackroom = true;
 
 
-        backRoomCamera();
+       
 
     }
 

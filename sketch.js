@@ -225,14 +225,11 @@ function keyPressed() {
 
           if(endGame) {
             print("Ending Game! Thanks for playing");
-            
             //Adds a Black Screen Transition when player goes into new loop
             let overlay = $("#overlay").addClass("overlay-transition");
 
             setTimeout(() => {
-
               window.location.href = "end-screen.html"; // Replace with your target HTML file
-              
           }, 2500);
           }
       }
