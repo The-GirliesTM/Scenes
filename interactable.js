@@ -8,7 +8,7 @@ class Interactable {
         this.model = model; // 3D Model
         
         this.activateOnLoop = activateOnLoop;           //Tracks what loop intertacble activates on
-        this.activeColor = "green";
+        this.activeColor = "#44A2C1";
         this.inactiveColor = this.color;
         this.dialogueArray = dialogueArray;             //Stores dialgloue options for each loop
 
@@ -168,9 +168,7 @@ class Interactable {
 
     //Visually Activates the object. 
     activate(testSound){
-        let from = color(0, 255, 0);
-        let to = color(255, 0, 0);
-        this.color = lerpColor(from, to, 0.5);
+        this.color = this.activeColor;
         this.isSeen = true;
 
         if (!testSound.isPlaying() && !player.isInBackroom) {
