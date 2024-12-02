@@ -62,6 +62,9 @@ class Player{
         murmurSound.stop();
         artGallerySong.stop();
 
+        //Make sure player is in backroom state 
+        player.currentLoop = 4;
+
         backRoomCamera();
 
     }

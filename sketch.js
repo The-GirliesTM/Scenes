@@ -31,6 +31,9 @@ let murmurSound;
 let artGallerySong;
 let doorSound;
 
+//TODO: Audrey please add this file in the backroomSetup() method.
+let backroomSong;
+
 function preload(){
 
     mainroom = loadModel("assets/main_room/MainroomWalls.obj");
@@ -72,6 +75,7 @@ function setup(){
 
     // NEW SCENE VERSION ------------------------
     scenes.push(new Scene(skybox1, color(255), 2000, 0));
+    scenes.push(new Scene(skybox2, backroom, color(200, 200, 220), 2000, 50, 1,0,0,0));
     // print("Scene array",scenes);
 
     let pedestalColor = color(188,143,143);
@@ -83,6 +87,7 @@ function setup(){
 
     //Seting Up Interactables in Each Scene
     gallerySetUp();
+    backroomSetup();
 
     //Camera Setup
     setCamInitialPos()
@@ -121,6 +126,7 @@ function draw()
 
     } else if (currentSceneIndex == 1) { //When we're in the backroom scene. Draw details
       print("Draw Backroom!");
+      drawBackroom();
     }
 
   //Display Scene using Scene Array
