@@ -9,6 +9,9 @@ let pathos4Dialgoue = [];
 let pathosArray = []; // Array of Pathos in the Gallery;
 
 function gallerySetUp(){
+
+      let onLookColor = color(68, 162, 193);
+      let idleColor = color(196, 129, 182);
       //Start Playing Backgroumd Music and 
       artGallerySong.amp(0.3);
       artGallerySong.loop();
@@ -41,10 +44,10 @@ function gallerySetUp(){
       ]; 
   
       //Interctable Objects
-      pathosArray.push(new Interactable( 512.5, -50, -366.5, 0, 'red', pathos1Model, 20, 1, pathos1Dialgoue));
-      pathosArray.push(new Interactable( -31.5, -47, -74, 0, 'red', pathos2Model, 20,  2, pathos2Dialgoue));
-      pathosArray.push(new Interactable( -517, -49, -810, 0, 'red', pathos3Model, 20, 3, pathos3Dialgoue));
-      pathosArray.push(new Interactable(-508, 10 ,-50 , 0,'red', doorModel, 70, 4, pathos4Dialgoue));
+      pathosArray.push(new Interactable( 512.5, -50, -366.5, 0, '#C481B6', pathos1Model, 20, 1, pathos1Dialgoue));
+      pathosArray.push(new Interactable( -31.5, -47, -74, 0, '#C481B6', pathos2Model, 20,  2, pathos2Dialgoue));
+      pathosArray.push(new Interactable( -517, -49, -810, 0, '#C481B6', pathos3Model, 20, 3, pathos3Dialgoue));
+      pathosArray.push(new Interactable(-508, 10 ,-50 , 0,'#C481B6', doorModel, 70, 4, pathos4Dialgoue));
   }
   
   function drawGallery() {
